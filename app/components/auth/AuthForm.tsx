@@ -11,12 +11,12 @@ export default function AuthForm({ mode = "login" }: { mode?: Mode }) {
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    const router = useRouter();
     try {
       const endpoint = mode === "signup" ? "/api/auth/register" : "/api/auth/login";
       const payload: any = { email, password };
@@ -28,7 +28,7 @@ export default function AuthForm({ mode = "login" }: { mode?: Mode }) {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data?.error || "Request failed");
-      localStorage.setItem("auth_token", data.token);
+      localStorage.setItem("user_data", JSON.stringify(data));
       router.push("/profile");
       router.refresh();
     } catch (err: any) {
