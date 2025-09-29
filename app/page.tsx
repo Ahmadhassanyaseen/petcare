@@ -1,8 +1,8 @@
 "use client";
 
 import About from "./components/home/About";
-import BannerNew from "./components/home/BannerNew";
-import Pricing from "./components/home/Pricing";
+import Banner2 from "./components/home/Banner2";
+import Pricing2 from "./components/home/Pricing2";
 import Footer from "./components/layout/Footer";
 import Header from "./components/layout/Header";
 
@@ -18,18 +18,18 @@ export default function Home() {
       {/* Header */}
       <Header/>     
 
-      {/* Hero BannerNew */}
-      <BannerNew/>
+      {/* Hero Banner2 */}
+      <Banner2/>
       
       {/* Feature Section - Image left, text right */}
-      <About/>
+      {/* <About/> */}
       
       {/* Pricing Section */}
-      <Pricing/>
+      <Pricing2/>
       
 
       {/* Footer */}
-      <Footer/>
+      {/* <Footer/> */}
     
     </div>
   );

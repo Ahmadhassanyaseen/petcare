@@ -36,8 +36,8 @@ const Header = () => {
         <nav className="hidden md:flex items-center gap-6 text-sm">
           <Link href="/" className="hover:text-[#FBAA30] transition-colors">Home</Link>
           <Link href="/#about" className="hover:text-[#FBAA30] transition-colors">About</Link>
-          <Link href="/#services" className="hover:text-[#FBAA30] transition-colors">Services</Link>
-          <Link href="/#contact" className="hover:text-[#FBAA30] transition-colors">Contact</Link>
+          {/* <Link href="/#services" className="hover:text-[#FBAA30] transition-colors">Services</Link> */}
+          {/* <Link href="/#contact" className="hover:text-[#FBAA30] transition-colors">Contact</Link> */}
 
           {/* Show different links based on authentication status */}
           {!isAuthenticated ? (
@@ -53,12 +53,12 @@ const Header = () => {
               >
                 Profile
               </Link>
-              <Link
+              {/* <Link
                 href="/chat"
                 className="inline-flex items-center justify-center rounded-full px-5 py-2.5 text-white font-semibold shadow bg-gradient-to-r from-[#FBAA30] to-[#ff8a1e] hover:from-[#FBAA30] hover:to-[#FBAA30] transition-all hover:scale-105"
               >
                Chat
-              </Link>
+              </Link> */}
               
             </>
           )}

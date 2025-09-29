@@ -23,14 +23,14 @@ const Footer = () => {
         {/* Center: Logo */}
         <div className="flex justify-center">
           <Link href="#" className="flex items-center gap-2">
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-orange-600 font-bold">P</span>
-            <span className="text-2xl font-semibold">Anipat</span>
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-orange-600 font-bold">V</span>
+            <span className="text-2xl font-semibold">Vet365</span>
           </Link>
         </div>
 
         {/* Right: Contact */}
         <div className="text-white/90 text-center sm:text-right">
-          <p>Email: support@anipat.com</p>
+          <p>Email: support@vet365.com</p>
           <p>Phone: +1 (555) 123-4567</p>
         </div>
       </div>
@@ -38,7 +38,7 @@ const Footer = () => {
     {/* Copyright strip */}
     <div className="bg-[#111827] text-white/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 text-center">
-        © {new Date().getFullYear()} Anipat. All rights reserved.
+        © {new Date().getFullYear()} Vet365. All rights reserved.
       </div>
     </div>
   </footer>

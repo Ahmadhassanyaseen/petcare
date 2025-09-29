@@ -52,7 +52,7 @@ const BannerNew = () => {
                 href="#contact"
                 className="inline-flex items-center justify-center rounded-full bg-white text-[#FBAA30] font-semibold px-8 py-4 shadow-lg hover:bg-gray-50 hover:scale-105 transition-all duration-300 text-center"
               >
-                Book Appointment
+                Book a Demo
               </Link>
               <Link
                 href="#services"
