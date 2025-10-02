@@ -20,8 +20,8 @@ interface PaymentModalProps {
 
 const PLAN_DETAILS = {
   basic: { name: "Basic", price: "$9.99/month" },
-  premium: { name: "Premium", price: "$19.99/month" },
-  professional: { name: "Professional", price: "$29.99/month" },
+  premium: { name: "Premium", price: "$29.99/month" },
+  professional: { name: "Professional", price: "$49.99/month" },
 };
 
 const CardForm = ({ plan, userId, onClose, clientSecret }: { plan: string; userId: string; onClose: () => void; clientSecret: string }) => {

@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { connectToDatabase } from "@/lib/mongoose";
 import User from "@/models/User";
 import Link from "next/link";
-import { BsHouseDoor } from "react-icons/bs";
+import { BsCreditCard, BsHouseDoor } from "react-icons/bs";
 
 export const metadata = {
   title: "Your Profile - PetCare",
@@ -198,6 +198,14 @@ export default async function ProfilePage() {
                   </h3>
 
                   <div className="space-y-3">
+                    <Link
+                      href="/transactions"
+                      className="w-full flex items-center justify-center px-4 py-3 text-sm font-medium text-white bg-gradient-to-r from-[#ff6a3d] to-[#ff8a1e] rounded-lg shadow hover:from-[#ff5a2b] hover:to-[#ff7a18] transition-all duration-200 transform hover:scale-105"
+                    >
+                      <BsCreditCard className="w-4 h-4 mr-2" />
+                      View Transactions
+                    </Link>
+
                     <form
                       action="/api/auth/logout"
                       method="post"

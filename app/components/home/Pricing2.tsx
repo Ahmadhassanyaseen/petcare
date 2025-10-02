@@ -74,7 +74,7 @@ export default function Pricing2() {
           <p className="text-sm mb-4">
             Doctors, this is your ultimate HANDS FREE research assistant. This
             conversational AI agent is an expert in every aspect of veterinarian
-            medicine. can provide
+            medicine and can provide
           </p>
           <ul className="list-disc list-inside text-sm text-left space-y-1 mb-4">
             <li>24/7 access</li>
@@ -128,7 +128,6 @@ export default function Pricing2() {
           <Link
                 href="/profile"
                 className="inline-flex text-xl mt-4 items-center justify-center rounded-full px-7 py-3 text-white font-semibold shadow-lg bg-gradient-to-r from-[#ff6a3d] to-[#ff8a1e] hover:from-[#ff5a2b] hover:to-[#ff7a18] transition-all hover:scale-105 text-center cursor-pointer"
-                
               >
                 JOIN NOW
               </Link>

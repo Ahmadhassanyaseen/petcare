@@ -3,16 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
-    "start": "next start"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "@elevenlabs/client": "^0.7.1",
-    "@elevenlabs/elevenlabs-js": "^2.16.0",
+    "@11labs/client": "^0.2.0",
+    "@elevenlabs/elevenlabs-js": "^2.17.0",
     "@stripe/react-stripe-js": "^4.0.2",
     "@stripe/stripe-js": "^7.9.0",
     "bcryptjs": "^3.0.2",
+    "dotenv": "^17.2.3",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.544.0",
     "mongoose": "^8.18.3",
