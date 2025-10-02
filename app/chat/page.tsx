@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
+import VoiceChat from '../components/chat/VoiceChat'
 
 // Extend Window interface to include Speech Recognition API
 declare global {
@@ -575,7 +576,19 @@ const page = () => {
                 </p>
               </div>
 
-              {/* Recording Button */}
+              {/* Voice Chat Component */}
+              <div className="mb-8 max-w-md mx-auto">
+                <VoiceChat
+                  sessionId={sessionId}
+                  onMessage={(message) => {
+                    // Handle voice chat messages
+                    setChatHistory(prev => [...prev, message]);
+                  }}
+                  onError={(error) => {
+                    setError(error);
+                  }}
+                />
+              </div>
               <div className="relative mb-8">
                 <button
                   onClick={isRecording ? stopRecording : startRecording}

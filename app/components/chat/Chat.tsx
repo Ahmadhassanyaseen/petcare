@@ -10,7 +10,7 @@ const Chat = () => {
   const convoRef = useRef<any>(null);
 
   const AGENT_ID =
-    process.env.NEXT_PUBLIC_AGENT_ID || "agent_1601k687s56gfvwrx96k2ekwtdbg";
+    process.env.NEXT_PUBLIC_ELEVENLABS_AGENT_ID || "agent_1601k687s56gfvwrx96k2ekwtdbg";
 
   const startCall = async () => {
     if (isCalling) return;

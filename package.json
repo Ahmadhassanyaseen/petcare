@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@11labs/client": "^0.2.0",
+    "@elevenlabs/client": "^0.7.1",
     "@elevenlabs/elevenlabs-js": "^2.17.0",
+    "@elevenlabs/react": "^0.7.1",
     "@stripe/react-stripe-js": "^4.0.2",
     "@stripe/stripe-js": "^7.9.0",
     "bcryptjs": "^3.0.2",
