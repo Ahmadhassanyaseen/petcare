@@ -6,6 +6,7 @@ import Pricing2 from "./components/home/Pricing2";
 import Footer from "./components/layout/Footer";
 import Header from "./components/layout/Header";
 import Chat from "./components/chat/Chat";
+import Experts from "./components/home/Experts";
 
 
 
@@ -34,6 +35,8 @@ export default function Home() {
 
       {/* Chat Component */}
       <Chat/>
+
+      <Experts />
     
     </div>
   );
