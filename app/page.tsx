@@ -5,7 +5,7 @@ import Banner2 from "./components/home/Banner2";
 import Pricing2 from "./components/home/Pricing2";
 import Footer from "./components/layout/Footer";
 import Header from "./components/layout/Header";
-import Chat from "./components/chat/Chat";
+// import Chat from "./components/chat/Chat";
 import Experts from "./components/home/Experts";
 
 
@@ -34,7 +34,7 @@ export default function Home() {
       {/* <Footer/> */}
 
       {/* Chat Component */}
-      <Chat/>
+      {/* <Chat/> */}
 
       <Experts />
     

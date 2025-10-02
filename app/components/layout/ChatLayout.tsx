@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
-import Header from './Header'
+// import Header from './Header'
 
 interface ChatSession {
   id: string
@@ -14,9 +14,10 @@ interface ChatSession {
 
 interface ChatLayoutProps {
   children: React.ReactNode
+  onNewChat?: () => void
 }
 
-const ChatLayout: React.FC<ChatLayoutProps> = ({ children }) => {
+const ChatLayout: React.FC<ChatLayoutProps> = ({ children, onNewChat }) => {
   const router = useRouter()
   const pathname = usePathname()
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -48,7 +49,7 @@ const ChatLayout: React.FC<ChatLayoutProps> = ({ children }) => {
 
   return (
     <>
-    <Header />
+    {/* <Header /> */}
     <div className="font-sans text-gray-800 min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       <div className="flex h-screen">
         {/* Sidebar */}
@@ -126,22 +127,19 @@ const ChatLayout: React.FC<ChatLayoutProps> = ({ children }) => {
           </div>
 
           {/* Sidebar Footer */}
-          <div className="p-4 border-t border-gray-200 fixed bottom-0 w-80">
-            <button
-              onClick={() => {
-                router.push('/chat')
-                setSidebarOpen(false)
-              }}
-              className={`
-                w-full py-2 px-4 rounded-lg font-medium transition-colors cursor-pointer
-                ${isChatPage
-                  ? 'bg-gradient-to-br from-blue-600 to-purple-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }
-              `}
-            >
-              {isChatPage ? '🎤 Current: Voice Chat' : '🎤 New Voice Chat'}
-            </button>
+          <div className="p-4 border-t border-gray-200 fixed bottom-0 w-80 space-y-2">
+            {onNewChat && (
+              <button
+                onClick={() => {
+                  onNewChat()
+                  setSidebarOpen(false)
+                }}
+                className=" w-full py-2 px-4 rounded-lg font-medium transition-colors cursor-pointer bg-gradient-to-br from-blue-600 to-purple-600 text-white"
+              >
+                🎤 New Voice Chat
+              </button>
+            )}
+            
           </div>
         </div>
 
