@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from 'react';
-import { useConversation } from '@elevenlabs/react';
+import { Role, useConversation } from '@elevenlabs/react';
 import { Mic, MicOff, Volume2, VolumeX } from 'lucide-react';
 
 interface VoiceChatProps {
@@ -15,6 +15,7 @@ interface Message {
   content: string;
   timestamp: Date;
 }
+
 
 export default function VoiceChat({ sessionId, onMessage, onError }: VoiceChatProps) {
   const [hasPermission, setHasPermission] = useState(false);
@@ -32,14 +33,14 @@ export default function VoiceChat({ sessionId, onMessage, onError }: VoiceChatPr
     onDisconnect: () => {
       console.log("Disconnected from ElevenLabs voice agent");
     },
-    onMessage: (message) => {
+    onMessage: (message: string | { message: string; source: Role }) => {
       console.log("Received message from voice agent:", message);
       const assistantMessage: Message = {
         role: 'assistant',
-        content: message.message || message,
+        content: typeof message === 'string' ? message : message.message,
         timestamp: new Date()
       };
-      setAgentResponse(message.message || message);
+      setAgentResponse(typeof message === 'string' ? message : message.message);
       onMessage?.(assistantMessage);
 
       // Save assistant message to database
@@ -227,7 +228,7 @@ export default function VoiceChat({ sessionId, onMessage, onError }: VoiceChatPr
 
       {/* Control Buttons */}
       <div className="flex justify-center">
-        {status === "connected" ? (
+        {/* {status === "connected" ? (
           <button
             onClick={handleEndConversation}
             className="flex items-center gap-2 px-6 py-3 bg-red-500 hover:bg-red-600 text-white rounded-lg font-medium transition-colors"
@@ -248,7 +249,45 @@ export default function VoiceChat({ sessionId, onMessage, onError }: VoiceChatPr
             <Mic className="h-4 w-4" />
             Start Voice Chat
           </button>
-        )}
+        )} */}
+           <button
+                 onClick={ status === "connected" ? handleEndConversation : handleStartConversation}
+                //   disabled={isProcessing}
+                  className={`
+                    relative w-36 h-36 md:w-40 md:h-40 rounded-full border-4 transition-all duration-300 flex items-center justify-center mx-auto
+                    ${status === "connected"
+                      ? 'border-red-500 bg-gradient-to-br from-red-50 to-red-100 shadow-lg shadow-red-200/50 animate-pulse'
+                      : 'border-blue-400 bg-gradient-to-br from-blue-50 to-purple-50 hover:from-blue-100 hover:to-purple-100 shadow-lg hover:shadow-xl hover:scale-105'
+                    }
+                    ${status === "connected" ? 'opacity-50' : 'cursor-pointer'}
+                  `}
+                >
+                  {/* Microphone Icon */}
+                  <svg
+                    className={`w-18 h-18 md:w-20 md:h-20 transition-colors duration-300 ${
+                        status === "connected" ? 'text-red-500' : 'text-blue-500'
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
+                    />
+                  </svg>
+
+                  {/* Recording Animation Rings */}
+                  {status === "connected" && (
+                    <>
+                      <div className="absolute inset-0 rounded-full border-4 border-red-300 animate-ping"></div>
+                      <div className="absolute inset-2 rounded-full border-4 border-red-200 animate-ping animation-delay-300"></div>
+                      <div className="absolute inset-4 rounded-full border-4 border-red-100 animate-ping animation-delay-600"></div>
+                    </>
+                  )}
+                </button>
       </div>
 
       {/* Instructions */}

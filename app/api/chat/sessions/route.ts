@@ -10,7 +10,8 @@ export async function GET(request: NextRequest) {
     const chats = await Chat.find({}).sort({ updatedAt: -1 })
 
     const sessions = chats.map(chat => ({
-      id: chat.sessionId,
+      id: chat._id,
+      sessionId: chat.sessionId,
       createdAt: chat.createdAt,
       updatedAt: chat.updatedAt,
       messageCount: chat.messages?.length || 0,
