@@ -9,7 +9,7 @@ export default function Footer() {
     <footer className="w-full bg-[#f6f6fc]  pt-12 pb-6 px-6 md:px-12 lg:px-20">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* Logo + Info */}
-        <div className="items-center flex flex-col">
+        <div className="items-start flex flex-col">
           <div className="flex items-center gap-2 text-2xl font-bold text-gray-900">
             <Image
               src="/paw.png" // replace with your logo
@@ -51,7 +51,7 @@ export default function Footer() {
         {/* General Links */}
         <div className=" items-center flex flex-col">
           <h4 className="font-semibold text-gray-900 mb-4">General Links</h4>
-          <ul className="space-y-2 text-sm text-gray-700">
+          <ul className="space-y-2 text-sm text-gray-700 w-[104px]">
             <li><Link href="/">Home</Link></li>
             <li><Link href="/how-it-works">How it works</Link></li>
             <li><Link href="/about">About Us</Link></li>
@@ -60,9 +60,9 @@ export default function Footer() {
         </div>
 
         {/* Legal */}
-        <div className=" items-center flex flex-col">
-          <h4 className="font-semibold text-gray-900 mb-4">Legal</h4>
-          <ul className="space-y-2 text-sm text-gray-700">
+        <div className=" items-start flex flex-col">
+          <h4 className="font-semibold text-gray-900 mb-4 w-[104px]">Legal</h4>
+          <ul className="space-y-2 text-sm text-gray-700 w-[104px]">
             <li><Link href="/privacy-policy">Privacy Policy</Link></li>
             <li><Link href="/terms">Terms & Conditions</Link></li>
           </ul>

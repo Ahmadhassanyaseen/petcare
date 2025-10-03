@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Role, useConversation } from '@elevenlabs/react';
 import { Mic, MicOff, Volume2, VolumeX } from 'lucide-react';
+import MinutesSection from '@/app/transactions/MinutesSection';
 
 interface VoiceChatProps {
   sessionId: string;
@@ -19,19 +20,87 @@ interface Message {
 
 export default function VoiceChat({ sessionId, onMessage, onError }: VoiceChatProps) {
   const [hasPermission, setHasPermission] = useState(false);
+  const [totalTime, setTotalTime] = useState(0);
   const [isMuted, setIsMuted] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isListening, setIsListening] = useState(false);
   const [currentTranscript, setCurrentTranscript] = useState("");
   const [agentResponse, setAgentResponse] = useState("");
+  const [callStartTime, setCallStartTime] = useState<Date | null>(null);
+  const [parsedUserData, setParsedUserData] = useState<any>(null);
+
+
+  useEffect(() => {
+    // Runs only in browser
+    const userData = localStorage.getItem("user_data");
+    if (userData) {
+      try {
+        setParsedUserData(JSON.parse(userData));
+        setTotalTime(JSON.parse(userData).data.total_time);
+      } catch (e) {
+        console.error("Failed to parse user_data from localStorage", e);
+      }
+    }
+  }, []);
+
+  // Function to handle call end and update total time
+  const handleCallEnd = async () => {
+    if (!callStartTime || !parsedUserData) return;
+
+    const callEndTime = new Date();
+    const callDurationMs = callEndTime.getTime() - callStartTime.getTime();
+    const callDurationMinutes = Math.ceil(callDurationMs / (1000 * 60)); // Round up to nearest minute
+
+    if (callDurationMinutes <= 0) return;
+
+    try {
+      // Update user's total_time in the database
+      const response = await fetch('/api/profile/update', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          total_time: Math.max(0, totalTime - callDurationMinutes),
+        }),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+
+        // Update localStorage with new total_time
+        const updatedUserData = {
+          ...parsedUserData,
+          data: {
+            ...parsedUserData.data,
+            total_time: result.user.total_time,
+          },
+        };
+
+        localStorage.setItem("user_data", JSON.stringify(updatedUserData));
+        setTotalTime(result.user.total_time);
+        setParsedUserData(updatedUserData);
+
+        console.log(`Call duration: ${callDurationMinutes} minutes. Remaining time: ${result.user.total_time} minutes.`);
+      } else {
+        console.error('Failed to update user total_time');
+      }
+    } catch (error) {
+      console.error('Error updating call duration:', error);
+    }
+
+    setCallStartTime(null); // Reset call start time
+  };
 
   const conversation = useConversation({
     onConnect: () => {
       console.log("Connected to ElevenLabs voice agent");
       setErrorMessage("");
+      setCallStartTime(new Date()); // Track when the call starts
     },
     onDisconnect: () => {
       console.log("Disconnected from ElevenLabs voice agent");
+      handleCallEnd(); // Calculate and update call duration
     },
     onMessage: (message: string | { message: string; source: Role }) => {
       console.log("Received message from voice agent:", message);
@@ -97,8 +166,16 @@ export default function VoiceChat({ sessionId, onMessage, onError }: VoiceChatPr
     }
   };
 
+  const [showMinutesModal, setShowMinutesModal] = useState(false);
+
   const handleStartConversation = async () => {
     try {
+
+      if(totalTime <= 0){
+        console.log("Total time is less than or equal to 0");
+        setShowMinutesModal(true);
+        return;
+      }
       // Get agent ID from environment variable
       const agentId = process.env.NEXT_PUBLIC_ELEVENLABS_AGENT_ID;
 
@@ -203,7 +280,7 @@ export default function VoiceChat({ sessionId, onMessage, onError }: VoiceChatPr
 
       {/* Current Transcript Display */}
       {currentTranscript && (
-        <div className="mb-4 p-3 bg-blue-50 rounded-lg">
+        <div className="mb-4 p-3 bg-blue-50 rounded-lg hidden">
           <p className="text-sm text-blue-800">
             <span className="font-medium">You said:</span> {currentTranscript}
           </p>
@@ -212,7 +289,7 @@ export default function VoiceChat({ sessionId, onMessage, onError }: VoiceChatPr
 
       {/* Agent Response Display */}
       {agentResponse && (
-        <div className="mb-4 p-3 bg-green-50 rounded-lg">
+        <div className="mb-4 p-3 bg-green-50 rounded-lg hidden">
           <p className="text-sm text-green-800">
             <span className="font-medium">Agent:</span> {agentResponse}
           </p>
@@ -299,6 +376,26 @@ export default function VoiceChat({ sessionId, onMessage, onError }: VoiceChatPr
           <p>Speak clearly and the agent will respond with voice</p>
         )}
       </div>
+      
+      {/* Minutes Modal */}
+      {showMinutesModal && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black/80 z-50">
+          <div className="relative">
+            {/* Close button */}
+            <button
+              onClick={() => setShowMinutesModal(false)}
+              className="absolute top-2 right-2 z-10 bg-white/20 hover:bg-white/30 rounded-full p-2 text-white transition-colors"
+              title="Close"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <MinutesSection userId={parsedUserData?.id} currentMinutes={parsedUserData?.data?.total_time} />
+          </div>
+        </div>
+      )}
+      
     </div>
   );
 }

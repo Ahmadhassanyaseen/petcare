@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { connectToDatabase } from "@/lib/mongoose";
 import Transaction from "../../../models/Transaction";
+import User from "../../../models/User";
 import Subscription from "../../../models/Subscription";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -16,7 +17,7 @@ const PLAN_PRICES = {
 
 export async function POST(req: NextRequest) {
   try {
-    const { paymentIntentId, userId } = await req.json();
+    const { paymentIntentId, userId, total_time } = await req.json();
 
     if (!paymentIntentId || !userId) {
       return NextResponse.json(
@@ -56,6 +57,16 @@ export async function POST(req: NextRequest) {
       stripePaymentIntentId: paymentIntent.id,
       status: "completed",
     });
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return NextResponse.json(
+        { error: "User not found" },
+        { status: 404 }
+      );
+    }
+    user.total_time = (user.total_time || 0) + parseInt(total_time);
+    await user.save();
 
     if (paymentIntent.status === "succeeded") {
       // Get the charge details

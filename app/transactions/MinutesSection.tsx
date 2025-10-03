@@ -50,11 +50,11 @@ export default function MinutesSection({ userId, currentMinutes }: MinutesSectio
     <>
       <div className="mb-8">
         {/* Current Minutes Display */}
-        <div className="relative rounded-2xl border border-white/30 bg-white/10 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] overflow-hidden mb-6">
+        <div className="relative rounded-2xl border border-white/30 bg-white backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] overflow-hidden mb-6">
           <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-orange-400/40 via-orange-600/70 to-orange-400/40" />
           <div className="p-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-4">
+            <div className="flex items-center justify-between ">
+              <div className="flex items-center space-x-4 ">
                 <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center">
                   <BsClock className="w-6 h-6 text-orange-600" />
                 </div>
@@ -80,7 +80,7 @@ export default function MinutesSection({ userId, currentMinutes }: MinutesSectio
         </div>
 
         {/* Purchase Minutes Section */}
-        <div className="relative rounded-2xl border border-white/30 bg-white/10 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] overflow-hidden">
+        <div className="relative rounded-2xl border border-white/30 bg-white backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] overflow-hidden">
           <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-orange-400/40 via-orange-600/70 to-orange-400/40" />
           <div className="p-6">
             <div className="text-center mb-6">

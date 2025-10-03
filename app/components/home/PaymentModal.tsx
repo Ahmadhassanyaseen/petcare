@@ -20,8 +20,8 @@ interface PaymentModalProps {
 
 const PLAN_DETAILS = {
   basic: { name: "Basic", price: "$9.99/month" },
-  premium: { name: "Premium", price: "$29.99/month" },
-  professional: { name: "Professional", price: "$49.99/month" },
+  premium: { name: "Premium", price: "$19.99/month" },
+  professional: { name: "Professional", price: "$29.99/month" },
 };
 
 const CardForm = ({ plan, userId, onClose, clientSecret }: { plan: string; userId: string; onClose: () => void; clientSecret: string }) => {
@@ -65,6 +65,12 @@ const CardForm = ({ plan, userId, onClose, clientSecret }: { plan: string; userI
         setError(confirmError.message || "Payment confirmation failed");
         return;
       }
+      let total_time = "";
+      if (plan === "basic") {
+        total_time = "40";
+      } else if (plan === "premium") {
+        total_time = "100";
+      } 
 
       if (paymentIntent && paymentIntent.status === "succeeded") {
         // Process the successful payment
@@ -74,6 +80,7 @@ const CardForm = ({ plan, userId, onClose, clientSecret }: { plan: string; userI
           body: JSON.stringify({
             paymentIntentId: paymentIntent.id,
             userId,
+            total_time,
           }),
         });
 
@@ -85,9 +92,9 @@ const CardForm = ({ plan, userId, onClose, clientSecret }: { plan: string; userI
         }
 
         if (data.success) {
-          alert("Payment successful! Your subscription is now active.");
+          // alert("Payment successful! Your subscription is now active.");
           onClose();
-          router.refresh(); // Refresh to show updated subscription status
+          router.push("/chat"); // Refresh to show updated subscription status
         } else {
           setError("Payment processing failed");
         }
@@ -215,7 +222,7 @@ export default function PaymentModal({ isOpen, onClose, plan, userId }: PaymentM
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-50 p-4">
+    <div className="fixed inset-0 bg-black/50 z-50 p-4 flex justify-center items-center w-full h-full">
       <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full">
         <div className="text-center mb-6">
           <h2 className="text-2xl font-bold mb-2">
