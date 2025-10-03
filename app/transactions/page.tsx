@@ -2,8 +2,10 @@ import { getAuthFromCookies } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { connectToDatabase } from "@/lib/mongoose";
 import Transaction from "@/models/Transaction";
+import User from "@/models/User";
 import Link from "next/link";
-import { BsArrowLeft, BsCreditCard, BsCalendar, BsCheckCircle, BsXCircle, BsClock } from "react-icons/bs";
+import { BsArrowLeft, BsCreditCard, BsCalendar, BsCheckCircle, BsXCircle, BsClock, BsPlus } from "react-icons/bs";
+import MinutesSection from "./MinutesSection";
 
 interface Transaction {
   _id: string;
@@ -57,6 +59,9 @@ export default async function TransactionsPage() {
     .sort({ createdAt: -1 })
     .select("plan amount currency status cardLast4 cardBrand createdAt stripePaymentIntentId");
 
+  const user = await User.findById(session.sub).select("total_time");
+  const userMinutes = user?.total_time || 0;
+
   const transactionData = transactions.map((t: any) => ({
     _id: t._id.toString(),
     plan: t.plan,
@@ -105,6 +110,8 @@ export default async function TransactionsPage() {
       {/* Main Content */}
       <section className="relative -mt-16 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Minutes Purchase Section */}
+          <MinutesSection userId={session.sub} currentMinutes={userMinutes} />
           {transactionData.length === 0 ? (
             <div className="relative rounded-2xl border border-white/30 bg-white/10 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] overflow-hidden">
               <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-orange-400/40 via-orange-600/70 to-orange-400/40" />

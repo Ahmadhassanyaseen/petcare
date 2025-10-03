@@ -5,6 +5,7 @@ export interface IUser extends Document {
   email: string;
   password: string; // hashed
   name?: string;
+  total_time?: number; // Total minutes available for chat
   createdAt: Date;
   updatedAt: Date;
 }
@@ -14,6 +15,7 @@ const UserSchema = new Schema<IUser>(
     email: { type: String, required: true, unique: true, index: true },
     password: { type: String, required: true },
     name: { type: String },
+    total_time: { type: Number, default: 0 },
   },
   { timestamps: true }
 );
