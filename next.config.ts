@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Cloudflare Pages Functions configuration
+  experimental: {
+    esmExternals: 'loose',
+  },
 };
 
 export default nextConfig;
