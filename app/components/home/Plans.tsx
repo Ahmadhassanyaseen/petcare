@@ -210,19 +210,52 @@ export default function PricingPlans() {
 
             <ul className="mt-6 space-y-4 text-gray-700">
               <li className="flex items-center gap-3">
-                <Image src="/group56.png" width={20} height={20} alt="icon" />
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="10" cy="10" r="9.25" stroke="url(#paint0_linear_8_128)" strokeWidth="1.5"/>
+                  <path d="M15 6.60003L7.8 13.8L4.5 10.5L5.346 9.65403L7.8 12.102L14.154 5.75403L15 6.60003Z" fill="#FF921F"/>
+                  <defs>
+                  <linearGradient id="paint0_linear_8_128" x1="20" y1="-2.38419e-07" x2="3.2" y2="12.8" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#FF921F"/>
+                  </linearGradient>
+                  </defs>
+                  </svg>
+
                 40 minutes Consultation
               </li>
               <li className="flex items-center gap-3">
-                <Image src="/group56.png" width={20} height={20} alt="icon" />
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="10" cy="10" r="9.25" stroke="url(#paint0_linear_8_128)" strokeWidth="1.5"/>
+                  <path d="M15 6.60003L7.8 13.8L4.5 10.5L5.346 9.65403L7.8 12.102L14.154 5.75403L15 6.60003Z" fill="#FF921F"/>
+                  <defs>
+                  <linearGradient id="paint0_linear_8_128" x1="20" y1="-2.38419e-07" x2="3.2" y2="12.8" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#FF921F"/>
+                  </linearGradient>
+                  </defs>
+                  </svg>
                 Vaccination reminders
               </li>
               <li className="flex items-center gap-3">
-                <Image src="/group56.png" width={20} height={20} alt="icon" />
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="10" cy="10" r="9.25" stroke="url(#paint0_linear_8_128)" strokeWidth="1.5"/>
+                  <path d="M15 6.60003L7.8 13.8L4.5 10.5L5.346 9.65403L7.8 12.102L14.154 5.75403L15 6.60003Z" fill="#FF921F"/>
+                  <defs>
+                  <linearGradient id="paint0_linear_8_128" x1="20" y1="-2.38419e-07" x2="3.2" y2="12.8" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#FF921F"/>
+                  </linearGradient>
+                  </defs>
+                  </svg>
                 Basic grooming
               </li>
               <li className="flex items-center gap-3">
-                <Image src="/group56.png" width={20} height={20} alt="icon" />
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="10" cy="10" r="9.25" stroke="url(#paint0_linear_8_128)" strokeWidth="1.5"/>
+                  <path d="M15 6.60003L7.8 13.8L4.5 10.5L5.346 9.65403L7.8 12.102L14.154 5.75403L15 6.60003Z" fill="#FF921F"/>
+                  <defs>
+                  <linearGradient id="paint0_linear_8_128" x1="20" y1="-2.38419e-07" x2="3.2" y2="12.8" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#FF921F"/>
+                  </linearGradient>
+                  </defs>
+                  </svg>
                 Email support
               </li>
             </ul>
@@ -252,19 +285,51 @@ export default function PricingPlans() {
 
             <ul className="mt-6 space-y-4 text-gray-700">
               <li className="flex items-center gap-3">
-                <Image src="/group56.png" width={20} height={20} alt="icon" />
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="10" cy="10" r="9.25" stroke="url(#paint0_linear_8_128)" strokeWidth="1.5"/>
+                  <path d="M15 6.60003L7.8 13.8L4.5 10.5L5.346 9.65403L7.8 12.102L14.154 5.75403L15 6.60003Z" fill="#FF921F"/>
+                  <defs>
+                  <linearGradient id="paint0_linear_8_128" x1="20" y1="-2.38419e-07" x2="3.2" y2="12.8" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#FF921F"/>
+                  </linearGradient>
+                  </defs>
+                  </svg>
                 100 minutes Consultation
               </li>
               <li className="flex items-center gap-3">
-                <Image src="/group56.png" width={20} height={20} alt="icon" />
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="10" cy="10" r="9.25" stroke="url(#paint0_linear_8_128)" strokeWidth="1.5"/>
+                  <path d="M15 6.60003L7.8 13.8L4.5 10.5L5.346 9.65403L7.8 12.102L14.154 5.75403L15 6.60003Z" fill="#FF921F"/>
+                  <defs>
+                  <linearGradient id="paint0_linear_8_128" x1="20" y1="-2.38419e-07" x2="3.2" y2="12.8" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#FF921F"/>
+                  </linearGradient>
+                  </defs>
+                  </svg>
                 Priority appointments
               </li>
               <li className="flex items-center gap-3">
-                <Image src="/group56.png" width={20} height={20} alt="icon" />
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="10" cy="10" r="9.25" stroke="url(#paint0_linear_8_128)" strokeWidth="1.5"/>
+                  <path d="M15 6.60003L7.8 13.8L4.5 10.5L5.346 9.65403L7.8 12.102L14.154 5.75403L15 6.60003Z" fill="#FF921F"/>
+                  <defs>
+                  <linearGradient id="paint0_linear_8_128" x1="20" y1="-2.38419e-07" x2="3.2" y2="12.8" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#FF921F"/>
+                  </linearGradient>
+                  </defs>
+                  </svg>
                 Advanced grooming
               </li>
               <li className="flex items-center gap-3">
-                <Image src="/group56.png" width={20} height={20} alt="icon" />
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="10" cy="10" r="9.25" stroke="url(#paint0_linear_8_128)" strokeWidth="1.5"/>
+                  <path d="M15 6.60003L7.8 13.8L4.5 10.5L5.346 9.65403L7.8 12.102L14.154 5.75403L15 6.60003Z" fill="#FF921F"/>
+                  <defs>
+                  <linearGradient id="paint0_linear_8_128" x1="20" y1="-2.38419e-07" x2="3.2" y2="12.8" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#FF921F"/>
+                  </linearGradient>
+                  </defs>
+                  </svg>
                 24/7 chat support
               </li>
             </ul>
@@ -294,23 +359,63 @@ export default function PricingPlans() {
 
             <ul className="mt-6 space-y-4 text-gray-700">
               <li className="flex items-center gap-3">
-                <Image src="/group56.png" width={20} height={20} alt="icon" />
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="10" cy="10" r="9.25" stroke="url(#paint0_linear_8_128)" strokeWidth="1.5"/>
+                  <path d="M15 6.60003L7.8 13.8L4.5 10.5L5.346 9.65403L7.8 12.102L14.154 5.75403L15 6.60003Z" fill="#FF921F"/>
+                  <defs>
+                  <linearGradient id="paint0_linear_8_128" x1="20" y1="-2.38419e-07" x2="3.2" y2="12.8" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#FF921F"/>
+                  </linearGradient>
+                  </defs>
+                  </svg>
                 All Premium features
               </li>
               <li className="flex items-center gap-3">
-                <Image src="/group56.png" width={20} height={20} alt="icon" />
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="10" cy="10" r="9.25" stroke="url(#paint0_linear_8_128)" strokeWidth="1.5"/>
+                  <path d="M15 6.60003L7.8 13.8L4.5 10.5L5.346 9.65403L7.8 12.102L14.154 5.75403L15 6.60003Z" fill="#FF921F"/>
+                  <defs>
+                  <linearGradient id="paint0_linear_8_128" x1="20" y1="-2.38419e-07" x2="3.2" y2="12.8" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#FF921F"/>
+                  </linearGradient>
+                  </defs>
+                  </svg>
                 Advanced medical advice
               </li>
               <li className="flex items-center gap-3">
-                <Image src="/group56.png" width={20} height={20} alt="icon" />
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="10" cy="10" r="9.25" stroke="url(#paint0_linear_8_128)" strokeWidth="1.5"/>
+                  <path d="M15 6.60003L7.8 13.8L4.5 10.5L5.346 9.65403L7.8 12.102L14.154 5.75403L15 6.60003Z" fill="#FF921F"/>
+                  <defs>
+                  <linearGradient id="paint0_linear_8_128" x1="20" y1="-2.38419e-07" x2="3.2" y2="12.8" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#FF921F"/>
+                  </linearGradient>
+                  </defs>
+                  </svg>
                 Surgery preparation guidance
               </li>
               <li className="flex items-center gap-3">
-                <Image src="/group56.png" width={20} height={20} alt="icon" />
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="10" cy="10" r="9.25" stroke="url(#paint0_linear_8_128)" strokeWidth="1.5"/>
+                  <path d="M15 6.60003L7.8 13.8L4.5 10.5L5.346 9.65403L7.8 12.102L14.154 5.75403L15 6.60003Z" fill="#FF921F"/>
+                  <defs>
+                  <linearGradient id="paint0_linear_8_128" x1="20" y1="-2.38419e-07" x2="3.2" y2="12.8" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#FF921F"/>
+                  </linearGradient>
+                  </defs>
+                  </svg>
                 Specialist referrals
               </li>
               <li className="flex items-center gap-3">
-                <Image src="/group56.png" width={20} height={20} alt="icon" />
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="10" cy="10" r="9.25" stroke="url(#paint0_linear_8_128)" strokeWidth="1.5"/>
+                  <path d="M15 6.60003L7.8 13.8L4.5 10.5L5.346 9.65403L7.8 12.102L14.154 5.75403L15 6.60003Z" fill="#FF921F"/>
+                  <defs>
+                  <linearGradient id="paint0_linear_8_128" x1="20" y1="-2.38419e-07" x2="3.2" y2="12.8" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#FF921F"/>
+                  </linearGradient>
+                  </defs>
+                  </svg>
                 Priority veterinarian access
               </li>
             </ul>
