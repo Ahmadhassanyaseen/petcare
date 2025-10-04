@@ -34,15 +34,15 @@ export default function NavbarBanner() {
 
         {/* Desktop Links */}
         <ul className="hidden md:flex gap-8 text-gray-800 font-medium">
-          <li><Link href="#home" className="hover:text-orange-500 transition">Home</Link></li>
-          <li><Link href="#work" className="hover:text-orange-500 transition">How It Works</Link></li>
-          <li><Link href="#about" className="hover:text-orange-500 transition">About Us</Link></li>
+          <li><Link href="#home" className="hover:text-orange-500 transition text-xl">Home</Link></li>
+          <li><Link href="#work" className="hover:text-orange-500 transition text-xl">How It Works</Link></li>
+          <li><Link href="#about" className="hover:text-orange-500 transition text-xl">About Us</Link></li>
           {parsedUserData ? (
-            <li><Link href="/profile" className="hover:text-orange-500 transition">Profile</Link></li>
+            <li><Link href="/profile" className="hover:text-orange-500 transition text-xl">Profile</Link></li>
           ) : (
             <>
-              <li><Link href="/login" className="hover:text-orange-500 transition">Login</Link></li>
-              <li><Link href="/signup" className="hover:text-orange-500 transition">Create Account</Link></li>
+              <li><Link href="/login" className="hover:text-orange-500 transition text-xl">Login</Link></li>
+              <li><Link href="/signup" className="hover:text-orange-500 transition text-xl">Create Account</Link></li>
             </>
           )}
         </ul>
@@ -52,7 +52,7 @@ export default function NavbarBanner() {
           {parsedUserData ? (
             <Link
               href="/chat"
-              className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-full text-sm font-semibold flex items-center gap-2 transition"
+              className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-full text-xl font-semibold flex items-center gap-2 transition"
             >
               Chat Now
               <span className="relative w-5 h-5 flex items-center justify-center">
@@ -63,7 +63,7 @@ export default function NavbarBanner() {
           ) : (
             <Link
               href="#plans"
-              className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-full text-sm font-semibold flex items-center gap-2 transition"
+              className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-full text-xl font-semibold flex items-center gap-2 transition"
             >
               Subscribe Now
               <span className="relative w-5 h-5 flex items-center justify-center">
@@ -99,17 +99,37 @@ export default function NavbarBanner() {
           <Link href="#home" className="hover:text-orange-500" onClick={() => setIsOpen(false)}>Home</Link>
           <Link href="#work" className="hover:text-orange-500" onClick={() => setIsOpen(false)}>How It Works</Link>
           <Link href="#about" className="hover:text-orange-500" onClick={() => setIsOpen(false)}>About Us</Link>
-          <Link
-            href="#plans"
-            className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-full text-sm font-semibold flex items-center gap-2 transition"
-            onClick={() => setIsOpen(false)}
-          >
-            Subscribe Now
-            <span className="relative w-5 h-5 flex items-center justify-center">
-              <Image src="/Ellipse.png" alt="Circle" width={20} height={20} className="absolute" />
-              <Image src="/Arrow.png" alt="Arrow" width={10} height={10} className="relative" />
-            </span>
-          </Link>
+          {parsedUserData ? (
+            <Link href="/profile" className="hover:text-orange-500 transition">Profile</Link>
+          ) : (
+            <>
+              <Link href="/login" className="hover:text-orange-500 transition">Login</Link>
+              <Link href="/signup" className="hover:text-orange-500 transition">Create Account</Link>
+            </>
+          )}
+         {parsedUserData ? (
+            <Link
+              href="/chat"
+              className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-full text-sm font-semibold flex items-center gap-2 transition"
+            >
+              Chat Now
+              <span className="relative w-5 h-5 flex items-center justify-center">
+                <Image src="/Ellipse.png" alt="Circle" width={20} height={20} className="absolute" />
+                <Image src="/Arrow.png" alt="Arrow" width={10} height={10} className="relative" />
+              </span>
+            </Link>
+          ) : (
+            <Link
+              href="#plans"
+              className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-full text-sm font-semibold flex items-center gap-2 transition"
+            >
+              Subscribe Now
+              <span className="relative w-5 h-5 flex items-center justify-center">
+                <Image src="/Ellipse.png" alt="Circle" width={20} height={20} className="absolute" />
+                <Image src="/Arrow.png" alt="Arrow" width={10} height={10} className="relative" />
+              </span>
+            </Link>
+          )}
         </div>
       </nav>
     </div>

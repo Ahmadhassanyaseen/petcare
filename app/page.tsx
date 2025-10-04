@@ -8,7 +8,7 @@ import Banner3 from "./components/home/Banner3";
 // import Chat from "./components/chat/Chat";
 import Founder from "./components/home/Founder";
 import Support from "./components/home/Support";
-import { Conversation } from "./components/chat/Conversation";
+// import { Conversation } from "./components/chat/Conversation";
 
 export default function Home() {
   return (
@@ -25,6 +25,7 @@ export default function Home() {
         {/* Hero Banner2 */}
         {/* <Banner2/> */}
         <Support />
+       
 
         {/* Feature Section - Image left, text right */}
         {/* <About/> */}
@@ -34,7 +35,6 @@ export default function Home() {
 
         {/* Chat Component */}
         {/* <Chat/> */}
-        <Conversation/>
 
         <Founder />
          {/* Footer */}

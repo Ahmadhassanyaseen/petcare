@@ -3,7 +3,7 @@ compatibility_date = "2024-01-01"
 
 [pages]
 # Build configuration for Next.js
-build_output_dir = ".vercel/output"
+pages_build_output_dir = ".next"
 
 [[pages.build_config]]
 command = "npm run build"
@@ -12,6 +12,3 @@ watch_dir = "app"
 
 [env.production]
 vars = { NODE_ENV = "production" }
-
-[env.production.vars]
-NODE_ENV = "production"
