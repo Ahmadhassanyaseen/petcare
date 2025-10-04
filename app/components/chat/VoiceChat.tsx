@@ -1,25 +1,33 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from 'react';
-import { Role, useConversation } from '@elevenlabs/react';
-import { Mic, MicOff, Volume2, VolumeX } from 'lucide-react';
-import MinutesSection from '@/app/transactions/MinutesSection';
+import React, { useState, useRef, useEffect } from "react";
+import { Role, useConversation } from "@elevenlabs/react";
+import { Mic, MicOff, Volume2, VolumeX } from "lucide-react";
+import MinutesSection from "@/app/transactions/MinutesSection";
 
 interface VoiceChatProps {
   sessionId: string;
   userId?: string;
-  onMessage?: (message: { role: 'user' | 'assistant'; content: string; timestamp: Date }) => void;
+  onMessage?: (message: {
+    role: "user" | "assistant";
+    content: string;
+    timestamp: Date;
+  }) => void;
   onError?: (error: string) => void;
 }
 
 interface Message {
-  role: 'user' | 'assistant';
+  role: "user" | "assistant";
   content: string;
   timestamp: Date;
 }
 
-
-export default function VoiceChat({ sessionId, userId, onMessage, onError }: VoiceChatProps) {
+export default function VoiceChat({
+  sessionId,
+  userId,
+  onMessage,
+  onError,
+}: VoiceChatProps) {
   const [hasPermission, setHasPermission] = useState(false);
   const [totalTime, setTotalTime] = useState(0);
   const [isMuted, setIsMuted] = useState(false);
@@ -29,7 +37,7 @@ export default function VoiceChat({ sessionId, userId, onMessage, onError }: Voi
   const [callStartTime, setCallStartTime] = useState<Date | null>(null);
   const [agentResponse, setAgentResponse] = useState<string>("");
   const [parsedUserData, setParsedUserData] = useState<any>(null);
-  
+
   // const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -44,20 +52,24 @@ export default function VoiceChat({ sessionId, userId, onMessage, onError }: Voi
 
   // Function to handle call end and update total time
   const handleCallEnd = async () => {
-    if (!callStartTime || !parsedUserData) return;
+    console.log("Call ended");
+    console.log(callStartTime);
+    if (!callStartTime) return;
 
     const callEndTime = new Date();
+    console.log(callEndTime);
     const callDurationMs = callEndTime.getTime() - callStartTime.getTime();
+    console.log(callDurationMs);
     const callDurationMinutes = Math.ceil(callDurationMs / (1000 * 60)); // Round up to nearest minute
-
+    console.log(callDurationMinutes);
     if (callDurationMinutes <= 0) return;
 
     try {
       // Update user's total_time in the database
-      const response = await fetch('/api/profile/update', {
-        method: 'POST',
+      const response = await fetch("/api/profile/update", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           total_time: Math.max(0, totalTime - callDurationMinutes),
@@ -80,12 +92,14 @@ export default function VoiceChat({ sessionId, userId, onMessage, onError }: Voi
         setTotalTime(result.user.total_time);
         setParsedUserData(updatedUserData);
 
-        console.log(`Call duration: ${callDurationMinutes} minutes. Remaining time: ${result.user.total_time} minutes.`);
+        console.log(
+          `Call duration: ${callDurationMinutes} minutes. Remaining time: ${result.user.total_time} minutes.`
+        );
       } else {
-        console.error('Failed to update user total_time');
+        console.error("Failed to update user total_time");
       }
     } catch (error) {
-      console.error('Error updating call duration:', error);
+      console.error("Error updating call duration:", error);
     }
 
     setCallStartTime(null); // Reset call start time
@@ -104,11 +118,11 @@ export default function VoiceChat({ sessionId, userId, onMessage, onError }: Voi
     onMessage: (message: string | { message: string; source: Role }) => {
       console.log("Received message from voice agent:", message);
       const assistantMessage: Message = {
-        role: 'assistant',
-        content: typeof message === 'string' ? message : message.message,
-        timestamp: new Date()
+        role: "assistant",
+        content: typeof message === "string" ? message : message.message,
+        timestamp: new Date(),
       };
-      setAgentResponse(typeof message === 'string' ? message : message.message);
+      setAgentResponse(typeof message === "string" ? message : message.message);
       onMessage?.(assistantMessage);
 
       // Save assistant message to database
@@ -144,11 +158,16 @@ export default function VoiceChat({ sessionId, userId, onMessage, onError }: Voi
   // Save message to database
   const saveMessageToDB = async (message: Message) => {
     try {
-      console.log("Saving message with userId:", userId, "sessionId:", sessionId); // Debug log
-      const response = await fetch('/api/chat/save', {
-        method: 'POST',
+      console.log(
+        "Saving message with userId:",
+        userId,
+        "sessionId:",
+        sessionId
+      ); // Debug log
+      const response = await fetch("/api/chat/save", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           sessionId,
@@ -159,14 +178,14 @@ export default function VoiceChat({ sessionId, userId, onMessage, onError }: Voi
       });
 
       if (!response.ok) {
-        throw new Error('Failed to save message');
+        throw new Error("Failed to save message");
       }
 
       const result = await response.json();
       console.log("Save result:", result); // Debug log
     } catch (error) {
-      console.error('Error saving message to database:', error);
-      onError?.('Failed to save message to database');
+      console.error("Error saving message to database:", error);
+      onError?.("Failed to save message to database");
     }
   };
 
@@ -174,8 +193,7 @@ export default function VoiceChat({ sessionId, userId, onMessage, onError }: Voi
 
   const handleStartConversation = async () => {
     try {
-
-      if(totalTime <= 0){
+      if (totalTime <= 0) {
         console.log("Total time is less than or equal to 0");
         setShowMinutesModal(true);
         return;
@@ -215,9 +233,9 @@ export default function VoiceChat({ sessionId, userId, onMessage, onError }: Voi
       // If user was speaking, save their final message
       if (currentTranscript.trim()) {
         const userMessage: Message = {
-          role: 'user',
+          role: "user",
           content: currentTranscript.trim(),
-          timestamp: new Date()
+          timestamp: new Date(),
         };
         onMessage?.(userMessage);
         await saveMessageToDB(userMessage);
@@ -252,10 +270,12 @@ export default function VoiceChat({ sessionId, userId, onMessage, onError }: Voi
             disabled={status !== "connected"}
             className={`p-2 rounded-full transition-colors ${
               status === "connected"
-                ? (isMuted ? 'bg-orange-100 hover:bg-orange-200' : 'bg-blue-100 hover:bg-blue-200')
-                : 'bg-gray-100 cursor-not-allowed'
+                ? isMuted
+                  ? "bg-orange-100 hover:bg-orange-200"
+                  : "bg-blue-100 hover:bg-blue-200"
+                : "bg-gray-100 cursor-not-allowed"
             }`}
-            title={isMuted ? 'Unmute' : 'Mute'}
+            title={isMuted ? "Unmute" : "Mute"}
           >
             {isMuted ? (
               <VolumeX className="h-4 w-4 text-orange-600" />
@@ -268,16 +288,20 @@ export default function VoiceChat({ sessionId, userId, onMessage, onError }: Voi
 
       {/* Status Display */}
       <div className="mb-4 text-center">
-        <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium ${
-          status === 'connected'
-            ? 'bg-green-100 text-green-800'
-            : status === 'connecting'
-            ? 'bg-yellow-100 text-yellow-800'
-            : 'bg-gray-100 text-gray-800'
-        }`}>
-          <div className={`w-2 h-2 rounded-full ${
-            status === 'connected' ? 'bg-green-500' : 'bg-gray-400'
-          }`} />
+        <div
+          className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium ${
+            status === "connected"
+              ? "bg-green-100 text-green-800"
+              : status === "connecting"
+              ? "bg-yellow-100 text-yellow-800"
+              : "bg-gray-100 text-gray-800"
+          }`}
+        >
+          <div
+            className={`w-2 h-2 rounded-full ${
+              status === "connected" ? "bg-green-500" : "bg-gray-400"
+            }`}
+          />
           Status: {status}
         </div>
       </div>
@@ -331,56 +355,63 @@ export default function VoiceChat({ sessionId, userId, onMessage, onError }: Voi
             Start Voice Chat
           </button>
         )} */}
-           <button
-                 onClick={ status === "connected" ? handleEndConversation : handleStartConversation}
-                //   disabled={isProcessing}
-                  className={`
+        <button
+          onClick={
+            status === "connected"
+              ? handleEndConversation
+              : handleStartConversation
+          }
+          //   disabled={isProcessing}
+          className={`
                     relative w-36 h-36 md:w-40 md:h-40 rounded-full border-4 transition-all duration-300 flex items-center justify-center mx-auto
-                    ${status === "connected"
-                      ? 'border-red-500 bg-gradient-to-br from-red-50 to-red-100 shadow-lg shadow-red-200/50 animate-pulse'
-                      : 'border-blue-400 bg-gradient-to-br from-blue-50 to-purple-50 hover:from-blue-100 hover:to-purple-100 shadow-lg hover:shadow-xl hover:scale-105'
+                    ${
+                      status === "connected"
+                        ? "border-red-500 bg-gradient-to-br from-red-50 to-red-100 shadow-lg shadow-red-200/50 animate-pulse"
+                        : "border-blue-400 bg-gradient-to-br from-blue-50 to-purple-50 hover:from-blue-100 hover:to-purple-100 shadow-lg hover:shadow-xl hover:scale-105"
                     }
-                    ${status === "connected" ? 'opacity-50' : 'cursor-pointer'}
+                    ${status === "connected" ? "opacity-50" : "cursor-pointer"}
                   `}
-                >
-                  {/* Microphone Icon */}
-                  <svg
-                    className={`w-18 h-18 md:w-20 md:h-20 transition-colors duration-300 ${
-                        status === "connected" ? 'text-red-500' : 'text-blue-500'
-                    }`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
-                    />
-                  </svg>
+        >
+          {/* Microphone Icon */}
+          <svg
+            className={`w-18 h-18 md:w-20 md:h-20 transition-colors duration-300 ${
+              status === "connected" ? "text-red-500" : "text-blue-500"
+            }`}
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
+            />
+          </svg>
 
-                  {/* Recording Animation Rings */}
-                  {status === "connected" && (
-                    <>
-                      <div className="absolute inset-0 rounded-full border-4 border-red-300 animate-ping"></div>
-                      <div className="absolute inset-2 rounded-full border-4 border-red-200 animate-ping animation-delay-300"></div>
-                      <div className="absolute inset-4 rounded-full border-4 border-red-100 animate-ping animation-delay-600"></div>
-                    </>
-                  )}
-                </button>
+          {/* Recording Animation Rings */}
+          {status === "connected" && (
+            <>
+              <div className="absolute inset-0 rounded-full border-4 border-red-300 animate-ping"></div>
+              <div className="absolute inset-2 rounded-full border-4 border-red-200 animate-ping animation-delay-300"></div>
+              <div className="absolute inset-4 rounded-full border-4 border-red-100 animate-ping animation-delay-600"></div>
+            </>
+          )}
+        </button>
       </div>
 
       {/* Instructions */}
       <div className="mt-4 text-xs text-gray-600 text-center">
         {!hasPermission && (
-          <p className="text-orange-600">⚠️ Microphone access is required for voice chat</p>
+          <p className="text-orange-600">
+            ⚠️ Microphone access is required for voice chat
+          </p>
         )}
         {status === "connected" && (
           <p>Speak clearly and the agent will respond with voice</p>
         )}
       </div>
-      
+
       {/* Minutes Modal */}
       {showMinutesModal && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black/80 z-50">
@@ -391,15 +422,28 @@ export default function VoiceChat({ sessionId, userId, onMessage, onError }: Voi
               className="absolute -top-2 -right-2 z-10 bg-red-500 hover:bg-red-600 rounded-full p-2 text-white transition-colors"
               title="Close"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
-            <MinutesSection userId={parsedUserData?.id} currentMinutes={parsedUserData?.data?.total_time} onPaymentSuccess={() => setShowMinutesModal(false)} />
+            <MinutesSection
+              userId={parsedUserData?.id}
+              currentMinutes={parsedUserData?.data?.total_time}
+              onPaymentSuccess={() => setShowMinutesModal(false)}
+            />
           </div>
         </div>
       )}
-      
     </div>
   );
 }

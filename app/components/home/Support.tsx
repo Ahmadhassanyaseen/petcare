@@ -1,3 +1,5 @@
+import { Conversation } from "../chat/Conversation";
+
 // components/PetSupportSection.tsx
 export default function PetSupportSection() {
   return (
@@ -10,10 +12,10 @@ export default function PetSupportSection() {
         <p className="mt-2 text-xl md:text-2xl font-semibold bg-gradient-to-r from-orange-400 via-pink-500 to-purple-600 bg-clip-text text-transparent">
           Seamless Help, Anytime
         </p>
-
+        <Conversation/>
         {/* Features */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-10">
-          {/* Instant Support */}
+        {/* <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-10">
+          
           <div className="flex flex-col items-center text-center">
             <div className="h-16 w-16 flex items-center justify-center rounded-full bg-white shadow-md overflow-hidden">
               <img
@@ -28,7 +30,7 @@ export default function PetSupportSection() {
             </p>
           </div>
 
-          {/* Personalized Care */}
+        
           <div className="flex flex-col items-center text-center">
             <div className="h-16 w-16 flex items-center justify-center rounded-full bg-white shadow-md overflow-hidden">
               <img
@@ -43,7 +45,7 @@ export default function PetSupportSection() {
             </p>
           </div>
 
-          {/* Always Available */}
+          
           <div className="flex flex-col items-center text-center">
             <div className="h-16 w-16 flex items-center justify-center rounded-full bg-white shadow-md overflow-hidden">
               <img
@@ -57,7 +59,7 @@ export default function PetSupportSection() {
               Reliable pet care guidance anywhere, without delays or stress.
             </p>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );
