@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongoose";
 import Chat from "@/models/Chat";
+// import { IMessage } from "@/types";
 
 export async function POST(request: Request) {
   try {
@@ -37,7 +38,7 @@ export async function POST(request: Request) {
       role,
       content: message,
       timestamp: new Date()
-    });
+    } as any);
 
     await chat.save();
 

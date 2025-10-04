@@ -1,15 +1,22 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import NavbarBanner from "./Navbar";
 
 export default function Banner3() {
   const [isOpen, setIsOpen] = useState(false);
-  const userData = localStorage.getItem("user_data");
-  const parsedUserData = JSON.parse(userData || "{}");
+  const [userData, setUserData] = useState(null);
 
-  console.log(parsedUserData);
+  useEffect(() => {
+    // Check if we're on the client side before accessing localStorage
+    if (typeof window !== 'undefined') {
+      const storedUserData = localStorage.getItem("user_data");
+      const parsedUserData = JSON.parse(storedUserData || "{}");
+      setUserData(parsedUserData);
+      console.log(parsedUserData);
+    }
+  }, []);
 
   return (
     <div

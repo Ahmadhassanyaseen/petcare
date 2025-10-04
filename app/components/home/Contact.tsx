@@ -86,7 +86,7 @@ export default function ContactForm() {
               Additional information *
             </label>
             <textarea
-              rows="4"
+              rows={4}
               placeholder="Provide any additional details about your use case, problem or assistance you might need"
               className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
               required
