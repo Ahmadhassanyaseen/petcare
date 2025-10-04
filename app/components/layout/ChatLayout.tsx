@@ -15,9 +15,10 @@ interface ChatSession {
 interface ChatLayoutProps {
   children: React.ReactNode
   onNewChat?: () => void
+  userId?: string
 }
 
-const ChatLayout: React.FC<ChatLayoutProps> = ({ children, onNewChat }) => {
+const ChatLayout: React.FC<ChatLayoutProps> = ({ children, onNewChat, userId }) => {
   const router = useRouter()
   const pathname = usePathname()
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -25,14 +26,16 @@ const ChatLayout: React.FC<ChatLayoutProps> = ({ children, onNewChat }) => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    loadChatSessions()
-  }, [])
+    if (userId) {
+      loadChatSessions()
+    }
+  }, [userId])
 
   const loadChatSessions = async () => {
-    if (typeof window === 'undefined') return
+    if (typeof window === 'undefined' || !userId) return
 
     try {
-      const response = await fetch('/api/chat/sessions')
+      const response = await fetch(`/api/chat/all_sessions`)
       if (response.ok) {
         const sessions = await response.json()
         setChatSessions(sessions)

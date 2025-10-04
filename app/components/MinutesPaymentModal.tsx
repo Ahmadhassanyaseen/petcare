@@ -18,6 +18,7 @@ interface MinutesPaymentModalProps {
   onClose: () => void;
   minutes: "20" | "40" | "60" | null;
   userId: string;
+  onPaymentSuccess?: () => void;
 }
 
 const MINUTES_PACKAGES = {
@@ -30,12 +31,14 @@ const CardForm = ({
   minutes, 
   userId, 
   onClose, 
-  clientSecret 
+  clientSecret,
+  onPaymentSuccess 
 }: { 
   minutes: string; 
   userId: string; 
   onClose: () => void; 
   clientSecret: string;
+  onPaymentSuccess?: () => void;
 }) => {
   const stripe = useStripe();
   const router = useRouter();
@@ -97,9 +100,29 @@ const CardForm = ({
         }
 
         if (data.success) {
-          alert(`Payment successful! ${data.minutesAdded} minutes have been added to your account.`);
+          // Update localStorage with new minutes
+          const currentUserData = localStorage.getItem("user_data");
+          if (currentUserData) {
+            try {
+              const userData = JSON.parse(currentUserData);
+              if (userData && userData.data) {
+                userData.data.total_time = (userData.data.total_time || 0) + parseInt(minutes);
+                localStorage.setItem("user_data", JSON.stringify(userData));
+              }
+            } catch (error) {
+              console.error("Failed to update localStorage:", error);
+            }
+          }
+
+          // Close modal immediately after successful payment
           onClose();
+          onPaymentSuccess?.(); // Close the parent modal in VoiceChat
           router.refresh(); // Refresh to show updated minutes
+
+          // Show success message after modal is closed
+          setTimeout(() => {
+            alert(`Payment successful! ${data.minutesAdded} minutes have been added to your account.`);
+          }, 100);
         } else {
           setError("Payment processing failed");
         }
@@ -184,7 +207,7 @@ const CardForm = ({
   );
 };
 
-export default function MinutesPaymentModal({ isOpen, onClose, minutes, userId }: MinutesPaymentModalProps) {
+export default function MinutesPaymentModal({ isOpen, onClose, minutes, userId, onPaymentSuccess }: MinutesPaymentModalProps) {
   const router = useRouter();
   const [clientSecret, setClientSecret] = useState("");
 
@@ -256,7 +279,7 @@ export default function MinutesPaymentModal({ isOpen, onClose, minutes, userId }
 
         {clientSecret ? (
           <Elements options={options} stripe={stripePromise}>
-            <CardForm minutes={minutes} userId={userId} onClose={onClose} clientSecret={clientSecret} />
+            <CardForm minutes={minutes} userId={userId} onClose={onClose} clientSecret={clientSecret} onPaymentSuccess={onPaymentSuccess} />
           </Elements>
         ) : (
           <div className="text-center py-8">

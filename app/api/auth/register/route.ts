@@ -34,7 +34,7 @@ export async function POST(req: Request) {
     const user = await User.create({ email: email.toLowerCase(), password: hashed, name });
     console.log("User created with ID:", user._id);
 
-    return NextResponse.json({ id: user._id.toString(), email: user.email, name: user.name }, { status: 201 });
+    return NextResponse.json({  id: user._id.toString(), email: user.email, name: user.name , createdAt: user.createdAt , data : user }, { status: 201 });
   } catch (err) {
     console.error("/api/auth/register error", err);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
