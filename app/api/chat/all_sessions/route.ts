@@ -6,14 +6,14 @@ export async function GET(request: NextRequest) {
   try {
     await connectToDatabase()
 
-    const { searchParams } = new URL(request.url)
-    const userId = searchParams.get('userId')
+    // const { searchParams } = new URL(request.url)
+    // const userId = searchParams.get('userId')
 
     // If userId is provided, filter chats by user
-    const query = userId ? { userId } : {}
+    // const query = userId ? { userId } : {}
 
     // Get all chat documents and transform them into session format
-    const chats = await Chat.find(query).sort({ updatedAt: -1 })
+    const chats = await Chat.find().sort({ updatedAt: -1 })
 
     const sessions = chats.map(chat => ({
       id: chat._id,

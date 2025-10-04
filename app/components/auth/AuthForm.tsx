@@ -27,9 +27,9 @@ export default function AuthForm({ mode = "login" }: { mode?: Mode }) {
         body: JSON.stringify(payload),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data?.error || "Request failed");
+      // if (!res.ok) throw new Error(data?.error || "Request failed");
       localStorage.setItem("user_data", JSON.stringify(data));
-      router.push("/profile");
+      router.push("/chat");
       router.refresh();
     } catch (err: any) {
       setError(err.message || "Something went wrong");

@@ -5,6 +5,8 @@ import ChatLayout from "../components/layout/ChatLayout";
 import VoiceChat from "../components/chat/VoiceChat";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+// import { getCurrentUserId } from "../../lib/auth";
+
 interface Message {
   role: "user" | "assistant";
   content: string;
@@ -23,9 +25,19 @@ const page = () => {
   const [chatHistory, setChatHistory] = useState<Message[]>([]);
   const [error, setError] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
     initializeChatSession();
+    // initializeUserId();
+    const user_data = localStorage.getItem("user_data");
+    if (user_data) {
+      const userData = JSON.parse(user_data);
+      console.log("Setting userId from localStorage:", userData.id); // Debug log
+      setUserId(userData.id);
+    } else {
+      console.log("No user_data found in localStorage"); // Debug log
+    }
   }, []);
 
   const generateNewSessionId = () => {
@@ -33,6 +45,15 @@ const page = () => {
       "session_" + Date.now() + "_" + Math.random().toString(36).substr(2, 9)
     );
   };
+
+  // const initializeUserId = async () => {
+  //   try {
+  //     const currentUserId = await ;
+  //     setUserId(currentUserId);
+  //   } catch (err) {
+  //     console.error("Failed to get user ID:", err);
+  //   }
+  // };
 
   const logout = ()=>{
     localStorage.removeItem("user_data");
@@ -59,7 +80,7 @@ const page = () => {
   };
 
   return (
-    <ChatLayout onNewChat={handleNewChatSession}>
+    <ChatLayout onNewChat={handleNewChatSession} userId={userId || undefined}>
       <div className="flex-1 flex flex-col items-center justify-center p-4 md:p-8">
         <div className="text-center mb-8 max-w-2xl mx-auto">
           <div className="mb-6">
@@ -173,6 +194,7 @@ const page = () => {
           <div className="mb-8 max-w-md mx-auto">
             <VoiceChat
               sessionId={sessionId}
+              userId={userId || undefined}
               onMessage={(message) => {
                 setChatHistory((prev) => [...prev, message]);
               }}

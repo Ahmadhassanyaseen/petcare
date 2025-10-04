@@ -6,6 +6,7 @@ import MinutesPaymentModal from "../components/MinutesPaymentModal";
 interface MinutesSectionProps {
   userId: string;
   currentMinutes: number;
+  onPaymentSuccess?: () => void;
 }
 
 const MINUTES_PACKAGES = [
@@ -32,7 +33,7 @@ const MINUTES_PACKAGES = [
   },
 ];
 
-export default function MinutesSection({ userId, currentMinutes }: MinutesSectionProps) {
+export default function MinutesSection({ userId, currentMinutes, onPaymentSuccess }: MinutesSectionProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMinutes, setSelectedMinutes] = useState<"20" | "40" | "60" | null>(null);
 
@@ -69,7 +70,7 @@ export default function MinutesSection({ userId, currentMinutes }: MinutesSectio
               </div>
               <div className="text-right">
                 <div className="text-3xl font-bold text-slate-900">
-                  {currentMinutes}
+                  {currentMinutes || 0}
                 </div>
                 <div className="text-sm text-slate-600">
                   minutes remaining
@@ -159,6 +160,7 @@ export default function MinutesSection({ userId, currentMinutes }: MinutesSectio
         onClose={closeModal}
         minutes={selectedMinutes}
         userId={userId}
+        onPaymentSuccess={onPaymentSuccess}
       />
     </>
   );

@@ -115,7 +115,7 @@ export default function ProfilePage() {
                     <div className="space-y-2 md:col-span-2">
                       <label className="text-sm font-medium text-slate-600">Member Since</label>
                       <div className="text-lg font-semibold text-slate-900 bg-slate-50 rounded-lg px-4 py-3 border border-slate-200">
-                        {formatDate(parsedUserData?.createdAt) || "Unknown"}
+                        {formatDate(parsedUserData?.createdAt) || formatDate(new Date().toISOString())}
                       </div>
                     </div>
                   </div>

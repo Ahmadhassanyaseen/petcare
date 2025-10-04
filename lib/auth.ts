@@ -45,3 +45,8 @@ export async function getAuthFromCookies(): Promise<JwtPayload | null> {
   if (!token) return null;
   return verifyAuthToken(token);
 }
+
+export async function getCurrentUserId(): Promise<string | null> {
+  const authData = await getAuthFromCookies();
+  return authData?.sub || null;
+}

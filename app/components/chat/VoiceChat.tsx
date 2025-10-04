@@ -7,6 +7,7 @@ import MinutesSection from '@/app/transactions/MinutesSection';
 
 interface VoiceChatProps {
   sessionId: string;
+  userId?: string;
   onMessage?: (message: { role: 'user' | 'assistant'; content: string; timestamp: Date }) => void;
   onError?: (error: string) => void;
 }
@@ -18,28 +19,26 @@ interface Message {
 }
 
 
-export default function VoiceChat({ sessionId, onMessage, onError }: VoiceChatProps) {
+export default function VoiceChat({ sessionId, userId, onMessage, onError }: VoiceChatProps) {
   const [hasPermission, setHasPermission] = useState(false);
   const [totalTime, setTotalTime] = useState(0);
   const [isMuted, setIsMuted] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isListening, setIsListening] = useState(false);
   const [currentTranscript, setCurrentTranscript] = useState("");
-  const [agentResponse, setAgentResponse] = useState("");
   const [callStartTime, setCallStartTime] = useState<Date | null>(null);
+  const [agentResponse, setAgentResponse] = useState<string>("");
   const [parsedUserData, setParsedUserData] = useState<any>(null);
-
+  
+  // const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
-    // Runs only in browser
-    const userData = localStorage.getItem("user_data");
-    if (userData) {
-      try {
-        setParsedUserData(JSON.parse(userData));
-        setTotalTime(JSON.parse(userData).data.total_time);
-      } catch (e) {
-        console.error("Failed to parse user_data from localStorage", e);
-      }
+    // initializeChatSession();
+    const user_data = localStorage.getItem("user_data");
+    if (user_data) {
+      const userData = JSON.parse(user_data);
+      setParsedUserData(userData);
+      setTotalTime(userData.data.total_time);
     }
   }, []);
 
@@ -145,6 +144,7 @@ export default function VoiceChat({ sessionId, onMessage, onError }: VoiceChatPr
   // Save message to database
   const saveMessageToDB = async (message: Message) => {
     try {
+      console.log("Saving message with userId:", userId, "sessionId:", sessionId); // Debug log
       const response = await fetch('/api/chat/save', {
         method: 'POST',
         headers: {
@@ -152,6 +152,7 @@ export default function VoiceChat({ sessionId, onMessage, onError }: VoiceChatPr
         },
         body: JSON.stringify({
           sessionId,
+          userId,
           message: message.content,
           role: message.role,
         }),
@@ -160,6 +161,9 @@ export default function VoiceChat({ sessionId, onMessage, onError }: VoiceChatPr
       if (!response.ok) {
         throw new Error('Failed to save message');
       }
+
+      const result = await response.json();
+      console.log("Save result:", result); // Debug log
     } catch (error) {
       console.error('Error saving message to database:', error);
       onError?.('Failed to save message to database');
@@ -384,14 +388,14 @@ export default function VoiceChat({ sessionId, onMessage, onError }: VoiceChatPr
             {/* Close button */}
             <button
               onClick={() => setShowMinutesModal(false)}
-              className="absolute top-2 right-2 z-10 bg-white/20 hover:bg-white/30 rounded-full p-2 text-white transition-colors"
+              className="absolute -top-2 -right-2 z-10 bg-red-500 hover:bg-red-600 rounded-full p-2 text-white transition-colors"
               title="Close"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
-            <MinutesSection userId={parsedUserData?.id} currentMinutes={parsedUserData?.data?.total_time} />
+            <MinutesSection userId={parsedUserData?.id} currentMinutes={parsedUserData?.data?.total_time} onPaymentSuccess={() => setShowMinutesModal(false)} />
           </div>
         </div>
       )}

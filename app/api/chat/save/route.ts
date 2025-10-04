@@ -1,15 +1,15 @@
 import { NextResponse } from "next/server";
-import { connectToDatabase } from "@/lib/mongoose";
 import Chat from "@/models/Chat";
+import { connectToDatabase } from "@/lib/mongoose";
 // import { IMessage } from "@/types";
 
 export async function POST(request: Request) {
   try {
-    const { sessionId, message, role } = await request.json();
+    const { sessionId, userId, message, role } = await request.json();
 
-    if (!sessionId || !message || !role) {
+    if (!sessionId || !userId || !message || !role) {
       return NextResponse.json(
-        { error: "Missing required fields: sessionId, message, role" },
+        { error: "Missing required fields: sessionId, userId, message, role" },
         { status: 400 }
       );
     }
@@ -29,8 +29,12 @@ export async function POST(request: Request) {
     if (!chat) {
       chat = new Chat({
         sessionId,
+        userId,
         messages: []
       });
+    } else if (!chat.userId) {
+      // Update existing chat without userId to include the current user's ID
+      chat.userId = userId;
     }
 
     // Add new message
