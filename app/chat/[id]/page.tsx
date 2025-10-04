@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import ChatLayout from "../../components/layout/ChatLayout";
+import ChatMenu from "@/app/components/chat/ChatMenu";
 
 interface Message {
   _id: string;
@@ -44,6 +45,7 @@ export default function ChatPage() {
             </h1>
             <p className="text-sm text-gray-600 mt-1">Conversation history</p>
           </div>
+          <ChatMenu />
         </header>
 
         {/* Messages Area */}
