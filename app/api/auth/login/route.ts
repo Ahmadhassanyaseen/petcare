@@ -39,7 +39,7 @@ export async function POST(req: Request) {
     const token = signAuthToken({ sub: user._id.toString(), email: user.email, name: user.name });
     await setAuthCookie(token);
 
-    return NextResponse.json({ id: user._id.toString(), email: user.email, name: user.name });
+    return NextResponse.json({ id: user._id.toString(), email: user.email, name: user.name , createdAt: user.createdAt , data : user });
   } catch (err) {
     console.error("/api/auth/login error", err);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
