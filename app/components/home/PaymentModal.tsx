@@ -8,6 +8,7 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 // Initialize Stripe
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
@@ -313,7 +314,12 @@ export default function PaymentModal({ isOpen, onClose, plan, userId }: PaymentM
   // Redirect to login if userId is empty
   useEffect(() => {
     if (isOpen && (!userId || userId.trim() === "")) {
-      alert("Please log in to make a payment");
+      // alert("Please log in to make a payment");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Please log in to make a payment",
+      });
       router.push("/login");
       onClose();
       return;
@@ -365,8 +371,6 @@ export default function PaymentModal({ isOpen, onClose, plan, userId }: PaymentM
     }
   }, [isOpen, userId]);
 
-  if (!isOpen || !plan) return null;
-
   const options: StripeElementsOptions = {
     clientSecret,
     appearance: {
@@ -377,6 +381,8 @@ export default function PaymentModal({ isOpen, onClose, plan, userId }: PaymentM
 
   // Memoize options to prevent unnecessary re-renders
   const memoizedOptions = useMemo(() => options, [clientSecret]);
+
+  if (!isOpen || !plan) return null;
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 p-4 flex justify-center items-center w-full h-full">
