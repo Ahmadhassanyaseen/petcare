@@ -92,6 +92,11 @@ export async function POST(req: NextRequest) {
         limit: 1,
       });
 
+      console.log("Charges retrieved:", {
+        count: charges.data.length,
+        paymentIntentId: paymentIntent.id,
+      });
+
       if (charges.data.length > 0) {
         const charge = charges.data[0];
 
@@ -148,11 +153,23 @@ export async function POST(req: NextRequest) {
         }
 
         // Add minutes to user's total_time
+        console.log("About to update user with ID:", userId);
         const user = await User.findById(userId);
         if (user) {
+          console.log("User found:", user);
           const currentMinutes = user.total_time || 0;
           user.total_time = currentMinutes + minutesPackage.minutes;
+          user.subscription_date = new Date();
+          user.subscription_amount = minutesPackage.price / 100; // Convert cents to dollars
+          // Set default renewal setting if not already set
+          if (user.renew === undefined) {
+            user.renew = true;
+          }
+          user.markModified('subscription_date');
+          user.markModified('subscription_amount');
+          user.markModified('renew');
           await user.save();
+          console.log("User updated:", user);
         } else {
           return NextResponse.json(
             { error: "User not found" },

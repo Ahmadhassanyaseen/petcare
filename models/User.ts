@@ -7,6 +7,9 @@ export interface IUser extends Document {
   name?: string;
   total_time?: number; // Total minutes available for chat
   stripeCustomerId?: string; // Stripe customer ID for future payments
+  renew?: boolean; // True if subscription will renew
+  subscription_date?: Date; // Subscription plan
+  subscription_amount?: number; // Subscription plan
   createdAt: Date;
   updatedAt: Date;
 }
@@ -18,6 +21,9 @@ const UserSchema = new Schema<IUser>(
     name: { type: String },
     total_time: { type: Number, default: 0 },
     stripeCustomerId: { type: String, unique: true, sparse: true },
+    renew: { type: Boolean, default: true },
+    subscription_date: { type: Date },
+    subscription_amount: { type: Number},
   },
   { timestamps: true }
 );

@@ -84,7 +84,7 @@ const page = () => {
           <div className="mb-6">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#ff4d2d] to-[#ff7a18] bg-clip-text text-transparent mb-4">
                   Voice Chat Assistant
                 </h1>
                 <p className="text-gray-600 text-lg mb-8 max-w-md mx-auto">

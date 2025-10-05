@@ -3,12 +3,14 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { BsCreditCard, BsClock, BsCheckCircle } from "react-icons/bs";
 import { useRouter } from "next/navigation";
+import ChatMenu from "../components/chat/ChatMenu";
 
 
 export default function ProfilePage() {
   const [parsedUserData, setParsedUserData] = useState<any>(null);
   const [paymentMethods, setPaymentMethods] = useState<any[]>([]);
   const [loadingPaymentMethods, setLoadingPaymentMethods] = useState(false);
+  const [updatingRenewal, setUpdatingRenewal] = useState(false);
   const router = useRouter();
 
   const formatDate = (dateString: string) => {
@@ -68,15 +70,51 @@ export default function ProfilePage() {
     }
   };
 
+  const updateRenewalSetting = async (renew: boolean) => {
+    if (!parsedUserData?.id) return;
+
+    setUpdatingRenewal(true);
+    try {
+      const response = await fetch("/api/update-renewal", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId: parsedUserData.id,
+          renew: renew
+        }),
+      });
+
+      if (response.ok) {
+        // Update localStorage data
+        const updatedUserData = {
+          ...parsedUserData,
+          data: {
+            ...parsedUserData.data,
+            renew: renew
+          }
+        };
+        setParsedUserData(updatedUserData);
+        localStorage.setItem("user_data", JSON.stringify(updatedUserData));
+      } else {
+        console.error("Failed to update renewal setting");
+      }
+    } catch (error) {
+      console.error("Error updating renewal setting:", error);
+    } finally {
+      setUpdatingRenewal(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-50">
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-r from-[#ff4d2d] to-[#ff7a18]">
         <div className="absolute inset-0 bg-[url('/dog.png')] bg-no-repeat bg-right-bottom opacity-10" />
         <div className="absolute inset-0 bg-black/20" />
+        <ChatMenu/>
 
         {/* Back Button */}
-        <div className="absolute top-6 left-6 z-50">
+        {/* <div className="absolute top-6 left-6 z-50">
           <Link
             href="/"
             className="group flex items-center space-x-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-4 py-3 text-white hover:bg-white/20 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
@@ -88,7 +126,7 @@ export default function ProfilePage() {
             </div>
             <span className="text-sm font-semibold tracking-wide">Back to Home</span>
           </Link>
-        </div>
+        </div> */}
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
           <div className="text-center">
@@ -218,7 +256,7 @@ export default function ProfilePage() {
                         </div>
                         <div>
                           <p className="text-sm font-medium text-slate-900">Profile Complete</p>
-                          <p className="text-xs text-slate-600">85%</p>
+                          <p className="text-xs text-slate-600">100%</p>
                         </div>
                       </div>
                     </div>
@@ -240,7 +278,78 @@ export default function ProfilePage() {
                 </div>
               </div>
 
-              {/* Actions */}
+              {/* Subscription Settings */}
+              <div className="relative rounded-2xl border border-white/30 bg-white/10 backdrop-blur-xl shadow overflow-hidden">
+                <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-orange-400/40 via-orange-600/70 to-orange-400/40" />
+                <div className="p-6">
+                  <h3 className="text-lg font-semibold text-slate-900 mb-4">Subscription Settings</h3>
+
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between p-3 bg-gradient-to-r from-orange-50 to-orange-100 rounded-lg">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center">
+                          <svg className="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="text-sm font-medium text-slate-900">Monthly Renewal</p>
+                          <p className="text-xs text-slate-600">
+                            {parsedUserData?.data?.renew !== false ? "Automatically renew subscription" : "Manual renewal only"}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-center">
+                        <button
+                          onClick={() => updateRenewalSetting(!parsedUserData?.data?.renew)}
+                          disabled={updatingRenewal}
+                          className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 ${
+                            parsedUserData?.data?.renew !== false
+                              ? "bg-orange-500"
+                              : "bg-gray-200"
+                          } ${updatingRenewal ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
+                        >
+                          <span
+                            className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                              parsedUserData?.data?.renew !== false
+                                ? "translate-x-6"
+                                : "translate-x-1"
+                            }`}
+                          />
+                        </button>
+                        {updatingRenewal && (
+                          <div className="ml-2 animate-spin rounded-full h-4 w-4 border-b-2 border-orange-500"></div>
+                        )}
+                      </div>
+                    </div>
+
+                    {parsedUserData?.data?.subscription_date && (
+                      <div className="flex items-center justify-between p-3 bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg">
+                        <div className="flex items-center space-x-3">
+                          <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                            <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-slate-900">Last Subscription</p>
+                            <p className="text-xs text-slate-600">
+                              {formatDate(parsedUserData.data.subscription_date)}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-sm font-medium text-slate-900">
+                            ${parsedUserData?.data?.subscription_amount?.toFixed(2) || "0.00"}
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Account Actions */}
               <div className="relative rounded-2xl border border-white/30 bg-white/10 backdrop-blur-xl shadow overflow-hidden">
                 <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-orange-400/40 via-orange-600/70 to-orange-400/40" />
                 <div className="p-6">

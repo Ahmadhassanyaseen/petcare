@@ -40,7 +40,7 @@ export default function ChatPage() {
         {/* Header */}
         <header className="p-6 bg-white/80 backdrop-blur-lg border-b border-white/20 shadow-sm">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-[#ff4d2d] to-[#ff7a18] bg-clip-text text-transparent">
               Chat with AI
             </h1>
             <p className="text-sm text-gray-600 mt-1">Conversation history</p>
@@ -54,9 +54,9 @@ export default function ChatPage() {
             {loading ? (
               <div className="flex items-center justify-center h-64">
                 <div className="flex space-x-2">
-                  <div className="w-3 h-3 bg-blue-400 rounded-full animate-bounce"></div>
-                  <div className="w-3 h-3 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                  <div className="w-3 h-3 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                  <div className="w-3 h-3 bg-orange-400 rounded-full animate-bounce"></div>
+                  <div className="w-3 h-3 bg-orange-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                  <div className="w-3 h-3 bg-orange-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                 </div>
                 <p className="ml-4 text-gray-600">Loading messages...</p>
               </div>

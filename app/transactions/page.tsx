@@ -55,6 +55,31 @@ export default function TransactionsPage() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // Function to fetch transactions
+  const fetchTransactions = async () => {
+    if (!parsedUserData?.id) return;
+
+    try {
+      const response = await fetch('/api/get-transactions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: parsedUserData.id }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.transactions) {
+        setTransactions(data.transactions);
+      } else {
+        console.error('Failed to fetch transactions:', data.error);
+      }
+    } catch (error) {
+      console.error('Error fetching transactions:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     const userData = localStorage.getItem("user_data");
     if (userData) {
@@ -67,30 +92,6 @@ export default function TransactionsPage() {
   }, []);
 
   useEffect(() => {
-    const fetchTransactions = async () => {
-      if (!parsedUserData?.id) return;
-
-      try {
-        const response = await fetch('/api/get-transactions', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ userId: parsedUserData.id }),
-        });
-
-        const data = await response.json();
-
-        if (response.ok && data.transactions) {
-          setTransactions(data.transactions);
-        } else {
-          console.error('Failed to fetch transactions:', data.error);
-        }
-      } catch (error) {
-        console.error('Error fetching transactions:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchTransactions();
   }, [parsedUserData?.id]);
 
@@ -133,7 +134,13 @@ export default function TransactionsPage() {
       <section className="relative -mt-16 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Minutes Purchase Section */}
-          <MinutesSection userId={parsedUserData?.id} currentMinutes={parsedUserData?.data?.total_time} />
+          <MinutesSection
+            userId={parsedUserData?.id}
+            onPaymentSuccess={() => {
+              fetchTransactions();
+              setLoading(true);
+            }}
+          />
 
           {loading ? (
             <div className="relative rounded-2xl border border-white/30 bg-white/10 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] overflow-hidden">

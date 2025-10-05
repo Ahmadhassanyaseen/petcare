@@ -34,9 +34,10 @@ export default function VoiceChat({
   const [errorMessage, setErrorMessage] = useState("");
   const [isListening, setIsListening] = useState(false);
   const [currentTranscript, setCurrentTranscript] = useState("");
-  const [callStartTime, setCallStartTime] = useState<Date | null>(null);
+  const callStartTimeRef = useRef<Date | null>(null);
   const [agentResponse, setAgentResponse] = useState<string>("");
   const [parsedUserData, setParsedUserData] = useState<any>(null);
+  const [xeno, setXeno] = useState<any>(false);
 
   // const [userId, setUserId] = useState<string | null>(null);
 
@@ -48,17 +49,22 @@ export default function VoiceChat({
       setParsedUserData(userData);
       setTotalTime(userData.data.total_time);
     }
-  }, []);
+  }, [totalTime || xeno]);
 
-  // Function to handle call end and update total time
+  // console.log("Total time:", totalTime);
   const handleCallEnd = async () => {
     console.log("Call ended");
-    console.log(callStartTime);
-    if (!callStartTime) return;
+    console.log(callStartTimeRef.current);
+    let startTime = callStartTimeRef.current;
+    if (!startTime){
+      console.log("Call start Time Not Found");
+      startTime = new Date(Date.now() - 60000); // Set to 1 minute ago if null
+      callStartTimeRef.current = startTime; // Update ref for future use
+    }
 
     const callEndTime = new Date();
     console.log(callEndTime);
-    const callDurationMs = callEndTime.getTime() - callStartTime.getTime();
+    const callDurationMs = callEndTime.getTime() - startTime.getTime();
     console.log(callDurationMs);
     const callDurationSeconds = callDurationMs / (1000); // Round up to nearest minute
     console.log(callDurationSeconds);
@@ -68,7 +74,7 @@ export default function VoiceChat({
     const callDurationMinutes = remainderSeconds > 30 
       ? minutes + 1 
       : minutes;
-    
+    console.log("Call duration minutes:", callDurationMinutes);
     if (callDurationMinutes <= 0) return;
 
     try {
@@ -79,6 +85,7 @@ export default function VoiceChat({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          id: parsedUserData.id,
           total_time: Math.max(0, totalTime - callDurationMinutes),
         }),
       });
@@ -109,16 +116,19 @@ export default function VoiceChat({
       console.error("Error updating call duration:", error);
     }
 
-    setCallStartTime(null); // Reset call start time
+    callStartTimeRef.current = null; // Reset call start time
   };
 
   const conversation = useConversation({
     onConnect: () => {
       console.log("Connected to ElevenLabs voice agent");
       setErrorMessage("");
-      setCallStartTime(new Date()); // Track when the call starts
+      const startTime = new Date();
+      console.log("Setting call start time to:", startTime);
+      callStartTimeRef.current = startTime;
     },
     onDisconnect: () => {
+      console.log("Total time before disconnect:", callStartTimeRef.current);
       console.log("Disconnected from ElevenLabs voice agent");
       handleCallEnd(); // Calculate and update call duration
     },
@@ -269,6 +279,7 @@ export default function VoiceChat({
 
   return (
     <div className="w-full max-w-md mx-auto bg-white rounded-lg shadow-lg p-6">
+      {/* {totalTime} */}
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold">Voice Chat</h3>
         <div className="flex gap-2">
@@ -445,8 +456,7 @@ export default function VoiceChat({
             </button>
             <MinutesSection
               userId={parsedUserData?.id}
-              currentMinutes={parsedUserData?.data?.total_time}
-              onPaymentSuccess={() => setShowMinutesModal(false)}
+              onPaymentSuccess={() => {setShowMinutesModal(false); setXeno(!xeno);}}
             />
           </div>
         </div>
