@@ -3,10 +3,14 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { BsCreditCard } from "react-icons/bs";
 import { useRouter } from "next/navigation";
+import CardList from "../components/cards/CardList";
+import AddCardModal from "../components/cards/AddCardModal";
 
 
 export default function ProfilePage() {
   const [parsedUserData, setParsedUserData] = useState<any>(null);
+  const [showAddCardModal, setShowAddCardModal] = useState(false);
+  const [cardsRefreshTrigger, setCardsRefreshTrigger] = useState(0);
   const router = useRouter();
 
   const formatDate = (dateString: string) => {
@@ -36,6 +40,10 @@ export default function ProfilePage() {
   const logout = () => {
     localStorage.removeItem("user_data");
     router.push("/");
+  };
+
+  const handleCardAdded = () => {
+    setCardsRefreshTrigger(prev => prev + 1);
   };
 
   return (
@@ -121,6 +129,28 @@ export default function ProfilePage() {
                   </div>
                 </div>
               </div>
+
+              {/* Payment Methods */}
+              <div className="relative rounded-2xl border border-white/30 bg-white/10 backdrop-blur-xl shadow overflow-hidden">
+                <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-orange-400/40 via-orange-600/70 to-orange-400/40" />
+                <div className="p-8">
+                  <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-2xl font-bold text-slate-900">Payment Methods</h2>
+                    <button
+                      onClick={() => setShowAddCardModal(true)}
+                      className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-[#ff6a3d] to-[#ff8a1e] rounded-lg shadow hover:from-[#ff5a2b] hover:to-[#ff7a18] transition-all duration-200 transform hover:scale-105"
+                    >
+                      <BsCreditCard className="w-4 h-4 inline mr-2" />
+                      Add Card
+                    </button>
+                  </div>
+
+                  <CardList
+                    key={cardsRefreshTrigger}
+                    onAddCard={() => setShowAddCardModal(true)}
+                  />
+                </div>
+              </div>
             </div>
 
             {/* Sidebar */}
@@ -196,6 +226,13 @@ export default function ProfilePage() {
           </div>
         </div>
       </section>
+
+      {/* Add Card Modal */}
+      <AddCardModal
+        isOpen={showAddCardModal}
+        onClose={() => setShowAddCardModal(false)}
+        onCardAdded={handleCardAdded}
+      />
     </div>
   );
 }
