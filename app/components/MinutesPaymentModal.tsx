@@ -1,4 +1,5 @@
 "use client";
+import Swal from 'sweetalert2';
 import { useState, useEffect, useMemo } from "react";
 import { loadStripe, StripeElementsOptions } from "@stripe/stripe-js";
 import {
@@ -175,7 +176,14 @@ const CardForm = ({
 
           // Show success message after modal is closed
           setTimeout(() => {
-            alert(`Payment successful! ${data.minutesAdded} minutes have been added to your account.`);
+            Swal.fire({
+              icon: 'success',
+              title: 'Payment Successful!',
+              text: `${data.minutesAdded} minutes have been added to your account.`,
+              timer: 3000,
+              timerProgressBar: true,
+              showConfirmButton: false,
+            });
           }, 100);
         } else {
           setError("Payment processing failed");
