@@ -6,6 +6,7 @@ export interface IUser extends Document {
   password: string; // hashed
   name?: string;
   total_time?: number; // Total minutes available for chat
+  stripeCustomerId?: string; // Stripe customer ID for future payments
   createdAt: Date;
   updatedAt: Date;
 }
@@ -16,6 +17,7 @@ const UserSchema = new Schema<IUser>(
     password: { type: String, required: true },
     name: { type: String },
     total_time: { type: Number, default: 0 },
+    stripeCustomerId: { type: String, unique: true, sparse: true },
   },
   { timestamps: true }
 );

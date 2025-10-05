@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { loadStripe, StripeElementsOptions } from "@stripe/stripe-js";
 import {
   Elements,
@@ -24,7 +24,27 @@ const PLAN_DETAILS = {
   professional: { name: "Professional", price: "$29.99/month" },
 };
 
-const CardForm = ({ plan, userId, onClose, clientSecret }: { plan: string; userId: string; onClose: () => void; clientSecret: string }) => {
+const CardForm = ({ 
+  plan, 
+  userId, 
+  onClose, 
+  clientSecret,
+  paymentMethods,
+  useNewCard,
+  setUseNewCard,
+  selectedPaymentMethod,
+  setSelectedPaymentMethod,
+}: { 
+  plan: string; 
+  userId: string; 
+  onClose: () => void; 
+  clientSecret: string;
+  paymentMethods: any[];
+  useNewCard: boolean;
+  setUseNewCard: (value: boolean) => void;
+  selectedPaymentMethod: string;
+  setSelectedPaymentMethod: (value: string) => void;
+}) => {
   const stripe = useStripe();
   const router = useRouter();
   const elements = useElements();
@@ -35,44 +55,82 @@ const CardForm = ({ plan, userId, onClose, clientSecret }: { plan: string; userI
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!stripe || !elements || !cardholderName.trim() || !clientSecret) {
-      setError("Please fill in all fields");
+    if (!stripe || !clientSecret) {
+      setError("Payment system not ready");
       return;
+    }
+
+    // Validate based on payment method choice
+    if (useNewCard) {
+      if (!elements || !cardholderName.trim()) {
+        setError("Please fill in all fields");
+        return;
+      }
+
+      const cardElement = elements.getElement(CardElement);
+      if (!cardElement) {
+        setError("Card element not found");
+        return;
+      }
+    } else {
+      if (!selectedPaymentMethod) {
+        setError("Please select a payment method");
+        return;
+      }
     }
 
     setLoading(true);
     setError(null);
 
     try {
-      const cardElement = elements.getElement(CardElement);
+      let paymentIntent;
 
-      if (!cardElement) {
-        setError("Card element not found");
-        return;
-      }
+      if (useNewCard) {
+        // Confirm the payment intent with new card element
+        if (!elements) {
+          setError("Payment elements not ready");
+          return;
+        }
 
-      // Confirm the payment intent with card element
-      const { error: confirmError, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-          card: cardElement,
-          billing_details: {
-            name: cardholderName,
+        const cardElement = elements.getElement(CardElement);
+
+        const { error: confirmError, paymentIntent: pi } = await stripe.confirmCardPayment(clientSecret, {
+          payment_method: {
+            card: cardElement!,
+            billing_details: {
+              name: cardholderName,
+            },
           },
-        },
-      });
+        });
 
-      if (confirmError) {
-        setError(confirmError.message || "Payment confirmation failed");
-        return;
+        if (confirmError) {
+          setError(confirmError.message || "Payment confirmation failed");
+          return;
+        }
+
+        paymentIntent = pi;
+      } else {
+        // Confirm the payment intent with saved payment method
+        const { error: confirmError, paymentIntent: pi } = await stripe.confirmCardPayment(clientSecret, {
+          payment_method: selectedPaymentMethod,
+        });
+
+        if (confirmError) {
+          setError(confirmError.message || "Payment confirmation failed");
+          return;
+        }
+
+        paymentIntent = pi;
       }
-      let total_time = "";
-      if (plan === "basic") {
-        total_time = "40";
-      } else if (plan === "premium") {
-        total_time = "100";
-      } 
 
       if (paymentIntent && paymentIntent.status === "succeeded") {
+        let total_time = "";
+        if (plan === "basic") {
+          total_time = "40";
+        } else if (plan === "premium") {
+          total_time = "100";
+        }
+
         // Process the successful payment
         const response = await fetch("/api/checkout", {
           method: "POST",
@@ -110,46 +168,112 @@ const CardForm = ({ plan, userId, onClose, clientSecret }: { plan: string; userI
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          Cardholder Name
-        </label>
-        <input
-          type="text"
-          value={cardholderName}
-          onChange={(e) => setCardholderName(e.target.value)}
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-          placeholder="John Doe"
-          required
-        />
-      </div>
+      {/* Payment Method Selection */}
+      {paymentMethods.length > 0 && (
+        <div className="space-y-3">
+          <label className="block text-sm font-medium text-gray-700">
+            Payment Method
+          </label>
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          Card Information
-        </label>
-        <div className="p-3 border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-orange-500 focus-within:border-transparent">
-          <CardElement
-            options={{
-              style: {
-                base: {
-                  fontSize: "16px",
-                  color: "#424770",
-                  "::placeholder": {
-                    color: "#aab7c4",
-                  },
-                },
-              },
-            }}
-          />
+          {/* Toggle between saved methods and new card */}
+          <div className="flex gap-4 mb-4">
+            <button
+              type="button"
+              onClick={() => setUseNewCard(false)}
+              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                !useNewCard
+                  ? "bg-orange-500 text-white"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              }`}
+            >
+              Use Saved Card
+            </button>
+            <button
+              type="button"
+              onClick={() => setUseNewCard(true)}
+              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                useNewCard
+                  ? "bg-orange-500 text-white"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              }`}
+            >
+              Use New Card
+            </button>
+          </div>
+
+          {/* Saved Payment Methods */}
+          {!useNewCard && (
+            <div className="space-y-2">
+              {paymentMethods.map((pm) => (
+                <label key={pm.id} className="flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
+                  <input
+                    type="radio"
+                    name="paymentMethod"
+                    value={pm.id}
+                    checked={selectedPaymentMethod === pm.id}
+                    onChange={(e) => setSelectedPaymentMethod(e.target.value)}
+                    className="mr-3 text-orange-500 focus:ring-orange-500"
+                  />
+                  <div className="flex-1">
+                    <div className="font-medium capitalize">
+                      {pm.card.brand} ending in {pm.card.last4}
+                    </div>
+                    <div className="text-sm text-gray-500">
+                      Expires {pm.card.exp_month}/{pm.card.exp_year}
+                    </div>
+                  </div>
+                </label>
+              ))}
+            </div>
+          )}
         </div>
-      </div>
+      )}
+
+      {/* New Card Form */}
+      {useNewCard && (
+        <>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Cardholder Name
+            </label>
+            <input
+              type="text"
+              value={cardholderName}
+              onChange={(e) => setCardholderName(e.target.value)}
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+              placeholder="John Doe"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Card Information
+            </label>
+            <div className="p-3 border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-orange-500 focus-within:border-transparent">
+              <CardElement
+                options={{
+                  style: {
+                    base: {
+                      fontSize: "16px",
+                      color: "#424770",
+                      "::placeholder": {
+                        color: "#aab7c4",
+                      },
+                    },
+                  },
+                }}
+              />
+            </div>
+          </div>
+        </>
+      )}
 
       {error && (
         <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
           <div className="flex items-center">
             <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 001 1V6a1 1 0 00-1-1z" clipRule="evenodd" />
             </svg>
             {error}
           </div>
@@ -168,7 +292,7 @@ const CardForm = ({ plan, userId, onClose, clientSecret }: { plan: string; userI
         <button
           type="submit"
           className="px-6 py-3 rounded-lg bg-gradient-to-r from-[#ff6a3d] to-[#ff8a1e] text-white font-semibold hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-          disabled={loading || !stripe}
+          disabled={loading || (!useNewCard && !selectedPaymentMethod)}
         >
           {loading ? "Processing..." : `Pay ${PLAN_DETAILS[plan as keyof typeof PLAN_DETAILS]?.price}`}
         </button>
@@ -180,6 +304,10 @@ const CardForm = ({ plan, userId, onClose, clientSecret }: { plan: string; userI
 export default function PaymentModal({ isOpen, onClose, plan, userId }: PaymentModalProps) {
   const router = useRouter();
   const [clientSecret, setClientSecret] = useState("");
+  const [paymentMethods, setPaymentMethods] = useState<any[]>([]);
+  const [useNewCard, setUseNewCard] = useState(false);
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>("");
+  const [loadingPaymentMethods, setLoadingPaymentMethods] = useState(false);
   const [currentPlan, setCurrentPlan] = useState<string>("");
 
   // Redirect to login if userId is empty
@@ -199,7 +327,7 @@ export default function PaymentModal({ isOpen, onClose, plan, userId }: PaymentM
       fetch("/api/create-payment-intent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ plan }),
+        body: JSON.stringify({ plan, userId }),
       })
         .then((res) => res.json())
         .then((data) => {
@@ -211,6 +339,32 @@ export default function PaymentModal({ isOpen, onClose, plan, userId }: PaymentM
     }
   }, [isOpen, plan, userId]);
 
+  // Fetch payment methods when modal opens
+  useEffect(() => {
+    if (isOpen && userId && userId.trim() !== "") {
+      setLoadingPaymentMethods(true);
+      fetch("/api/get-payment-methods", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.paymentMethods) {
+            setPaymentMethods(data.paymentMethods);
+            if (data.paymentMethods.length > 0) {
+              setSelectedPaymentMethod(data.paymentMethods[0].id);
+              setUseNewCard(false);
+            } else {
+              setUseNewCard(true);
+            }
+          }
+        })
+        .catch((err) => console.error("Failed to fetch payment methods:", err))
+        .finally(() => setLoadingPaymentMethods(false));
+    }
+  }, [isOpen, userId]);
+
   if (!isOpen || !plan) return null;
 
   const options: StripeElementsOptions = {
@@ -220,6 +374,9 @@ export default function PaymentModal({ isOpen, onClose, plan, userId }: PaymentM
       labels: "floating",
     },
   };
+
+  // Memoize options to prevent unnecessary re-renders
+  const memoizedOptions = useMemo(() => options, [clientSecret]);
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 p-4 flex justify-center items-center w-full h-full">
@@ -234,8 +391,18 @@ export default function PaymentModal({ isOpen, onClose, plan, userId }: PaymentM
         </div>
 
         {clientSecret ? (
-          <Elements options={options} stripe={stripePromise}>
-            <CardForm plan={plan} userId={userId} onClose={onClose} clientSecret={clientSecret} />
+          <Elements options={memoizedOptions} stripe={stripePromise}>
+            <CardForm
+              plan={plan}
+              userId={userId}
+              onClose={onClose}
+              clientSecret={clientSecret}
+              paymentMethods={paymentMethods}
+              useNewCard={useNewCard}
+              setUseNewCard={setUseNewCard}
+              selectedPaymentMethod={selectedPaymentMethod}
+              setSelectedPaymentMethod={setSelectedPaymentMethod}
+            />
           </Elements>
         ) : (
           <div className="text-center py-8">

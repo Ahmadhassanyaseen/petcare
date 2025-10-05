@@ -1,12 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { BsCreditCard } from "react-icons/bs";
+import { BsCreditCard, BsClock, BsCheckCircle } from "react-icons/bs";
 import { useRouter } from "next/navigation";
 
 
 export default function ProfilePage() {
   const [parsedUserData, setParsedUserData] = useState<any>(null);
+  const [paymentMethods, setPaymentMethods] = useState<any[]>([]);
+  const [loadingPaymentMethods, setLoadingPaymentMethods] = useState(false);
   const router = useRouter();
 
   const formatDate = (dateString: string) => {
@@ -26,7 +28,13 @@ export default function ProfilePage() {
     const userData = localStorage.getItem("user_data");
     if (userData) {
       try {
-        setParsedUserData(JSON.parse(userData));
+        const parsed = JSON.parse(userData);
+        setParsedUserData(parsed);
+
+        // Fetch payment methods if user has an ID
+        if (parsed?.id) {
+          fetchPaymentMethods(parsed.id);
+        }
       } catch (e) {
         console.error("Failed to parse user_data from localStorage", e);
       }
@@ -36,6 +44,28 @@ export default function ProfilePage() {
   const logout = () => {
     localStorage.removeItem("user_data");
     router.push("/");
+  };
+
+  const fetchPaymentMethods = async (userId: string) => {
+    if (!userId) return;
+
+    setLoadingPaymentMethods(true);
+    try {
+      const response = await fetch("/api/get-payment-methods", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId }),
+      });
+
+      const data = await response.json();
+      if (data.paymentMethods) {
+        setPaymentMethods(data.paymentMethods);
+      }
+    } catch (error) {
+      console.error("Failed to fetch payment methods:", error);
+    } finally {
+      setLoadingPaymentMethods(false);
+    }
   };
 
   return (
@@ -119,6 +149,53 @@ export default function ProfilePage() {
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
+
+              {/* Payment Methods Section */}
+              <div className="relative rounded-2xl border border-white/30 bg-white/10 backdrop-blur-xl shadow overflow-hidden">
+                <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-orange-400/40 via-orange-600/70 to-orange-400/40" />
+                <div className="p-8">
+                  <h2 className="text-2xl font-bold text-slate-900 mb-6">Payment Methods</h2>
+
+                  {loadingPaymentMethods ? (
+                    <div className="flex items-center justify-center py-8">
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500"></div>
+                      <span className="ml-3 text-slate-600">Loading payment methods...</span>
+                    </div>
+                  ) : paymentMethods.length > 0 ? (
+                    <div className="space-y-4">
+                      {paymentMethods.map((pm) => (
+                        <div key={pm.id} className="flex items-center justify-between p-4 bg-slate-50 rounded-lg border border-slate-200">
+                          <div className="flex items-center space-x-3">
+                            <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center">
+                              <BsCreditCard className="w-5 h-5 text-orange-600" />
+                            </div>
+                            <div>
+                              <p className="font-medium text-slate-900 capitalize">
+                                {pm.card.brand} ending in {pm.card.last4}
+                              </p>
+                              <p className="text-sm text-slate-600">
+                                Expires {pm.card.exp_month}/{pm.card.exp_year}
+                              </p>
+                            </div>
+                          </div>
+                          <div className="flex items-center">
+                            <BsCheckCircle className="w-5 h-5 text-green-500" />
+                            <span className="ml-2 text-sm font-medium text-green-600">Default</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-center py-8">
+                      <BsCreditCard className="w-12 h-12 text-slate-400 mx-auto mb-4" />
+                      <p className="text-slate-600 mb-2">No payment methods found</p>
+                      <p className="text-sm text-slate-500">
+                        Payment methods will appear here after making a purchase
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

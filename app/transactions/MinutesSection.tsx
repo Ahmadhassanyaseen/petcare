@@ -114,9 +114,9 @@ export default function MinutesSection({ userId, currentMinutes, onPaymentSucces
                   )}
 
                   <div className="text-center">
-                    <div className="w-12 h-12 mx-auto mb-4 bg-orange-100 rounded-full flex items-center justify-center">
+                    {/* <div className="w-12 h-12 mx-auto mb-4 bg-orange-100 rounded-full flex items-center justify-center">
                       <BsClock className="w-6 h-6 text-orange-600" />
-                    </div>
+                    </div> */}
                     
                     <h3 className="text-xl font-bold text-slate-900 mb-2">
                       {pkg.amount} Minutes

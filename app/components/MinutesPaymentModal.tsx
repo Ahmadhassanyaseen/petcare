@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { loadStripe, StripeElementsOptions } from "@stripe/stripe-js";
 import {
   Elements,
@@ -32,13 +32,23 @@ const CardForm = ({
   userId, 
   onClose, 
   clientSecret,
-  onPaymentSuccess 
+  onPaymentSuccess,
+  paymentMethods,
+  useNewCard,
+  setUseNewCard,
+  selectedPaymentMethod,
+  setSelectedPaymentMethod,
 }: { 
   minutes: string; 
   userId: string; 
   onClose: () => void; 
   clientSecret: string;
   onPaymentSuccess?: () => void;
+  paymentMethods: any[];
+  useNewCard: boolean;
+  setUseNewCard: (value: boolean) => void;
+  selectedPaymentMethod: string;
+  setSelectedPaymentMethod: (value: string) => void;
 }) => {
   const stripe = useStripe();
   const router = useRouter();
@@ -50,35 +60,79 @@ const CardForm = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!stripe || !elements || !cardholderName.trim() || !clientSecret) {
-      setError("Please fill in all fields");
+    if (!stripe || !clientSecret) {
+      setError("Payment system not ready");
       return;
+    }
+
+    // Validate based on payment method choice
+    if (useNewCard) {
+      if (!elements || !cardholderName.trim()) {
+        setError("Please fill in all fields");
+        return;
+      }
+
+      const cardElement = elements.getElement(CardElement);
+      if (!cardElement) {
+        setError("Card element not found");
+        return;
+      }
+    } else {
+      if (!selectedPaymentMethod) {
+        setError("Please select a payment method");
+        return;
+      }
     }
 
     setLoading(true);
     setError(null);
 
     try {
-      const cardElement = elements.getElement(CardElement);
+      let paymentIntent;
 
-      if (!cardElement) {
-        setError("Card element not found");
-        return;
-      }
+      if (useNewCard) {
+        // Confirm the payment intent with new card element
+        const cardElement = elements?.getElement(CardElement);
 
-      // Confirm the payment intent with card element
-      const { error: confirmError, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-          card: cardElement,
-          billing_details: {
-            name: cardholderName,
+        if (!cardElement) {
+          setError("Card element not found");
+          return;
+        }
+
+        const { error: confirmError, paymentIntent: pi } = await stripe.confirmCardPayment(clientSecret, {
+          payment_method: {
+            card: cardElement!,
+            billing_details: {
+              name: cardholderName,
+            },
           },
-        },
-      });
+        });
 
-      if (confirmError) {
-        setError(confirmError.message || "Payment confirmation failed");
-        return;
+        if (confirmError) {
+          console.error("Stripe confirmation error:", confirmError);
+          setError(confirmError.message || "Payment confirmation failed");
+          return;
+        }
+
+        console.log("Payment confirmation successful:", {
+          paymentIntentId: pi?.id,
+          status: pi?.status,
+          paymentMethod: pi?.payment_method,
+        });
+
+        paymentIntent = pi;
+      } else {
+        // Confirm the payment intent with saved payment method
+        const { error: confirmError, paymentIntent: pi } = await stripe.confirmCardPayment(clientSecret, {
+          payment_method: selectedPaymentMethod,
+        });
+
+        if (confirmError) {
+          setError(confirmError.message || "Payment confirmation failed");
+          return;
+        }
+
+        paymentIntent = pi;
       }
 
       if (paymentIntent && paymentIntent.status === "succeeded") {
@@ -140,40 +194,106 @@ const CardForm = ({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          Cardholder Name
-        </label>
-        <input
-          type="text"
-          value={cardholderName}
-          onChange={(e) => setCardholderName(e.target.value)}
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-          placeholder="John Doe"
-          required
-        />
-      </div>
+      {/* Payment Method Selection */}
+      {paymentMethods.length > 0 && (
+        <div className="space-y-3">
+          <label className="block text-sm font-medium text-gray-700">
+            Payment Method
+          </label>
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          Card Information
-        </label>
-        <div className="p-3 border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-orange-500 focus-within:border-transparent">
-          <CardElement
-            options={{
-              style: {
-                base: {
-                  fontSize: "16px",
-                  color: "#424770",
-                  "::placeholder": {
-                    color: "#aab7c4",
-                  },
-                },
-              },
-            }}
-          />
+          {/* Toggle between saved methods and new card */}
+          <div className="flex gap-4 mb-4">
+            <button
+              type="button"
+              onClick={() => setUseNewCard(false)}
+              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                !useNewCard
+                  ? "bg-orange-500 text-white"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              }`}
+            >
+              Use Saved Card
+            </button>
+            <button
+              type="button"
+              onClick={() => setUseNewCard(true)}
+              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                useNewCard
+                  ? "bg-orange-500 text-white"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              }`}
+            >
+              Use New Card
+            </button>
+          </div>
+
+          {/* Saved Payment Methods */}
+          {!useNewCard && (
+            <div className="space-y-2">
+              {paymentMethods.map((pm) => (
+                <label key={pm.id} className="flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
+                  <input
+                    type="radio"
+                    name="paymentMethod"
+                    value={pm.id}
+                    checked={selectedPaymentMethod === pm.id}
+                    onChange={(e) => setSelectedPaymentMethod(e.target.value)}
+                    className="mr-3 text-orange-500 focus:ring-orange-500"
+                  />
+                  <div className="flex-1">
+                    <div className="font-medium capitalize">
+                      {pm.card.brand} ending in {pm.card.last4}
+                    </div>
+                    <div className="text-sm text-gray-500">
+                      Expires {pm.card.exp_month}/{pm.card.exp_year}
+                    </div>
+                  </div>
+                </label>
+              ))}
+            </div>
+          )}
         </div>
-      </div>
+      )}
+
+      {/* New Card Form */}
+      {useNewCard && (
+        <>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Cardholder Name
+            </label>
+            <input
+              type="text"
+              value={cardholderName}
+              onChange={(e) => setCardholderName(e.target.value)}
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+              placeholder="John Doe"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Card Information
+            </label>
+            <div className="p-3 border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-orange-500 focus-within:border-transparent">
+              <CardElement
+                options={{
+                  style: {
+                    base: {
+                      fontSize: "16px",
+                      color: "#424770",
+                      "::placeholder": {
+                        color: "#aab7c4",
+                      },
+                    },
+                  },
+                }}
+              />
+            </div>
+          </div>
+        </>
+      )}
 
       {error && (
         <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
@@ -198,7 +318,7 @@ const CardForm = ({
         <button
           type="submit"
           className="px-6 py-3 rounded-lg bg-gradient-to-r from-[#ff6a3d] to-[#ff8a1e] text-white font-semibold hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-          disabled={loading || !stripe}
+          disabled={loading || (!useNewCard && !selectedPaymentMethod)}
         >
           {loading ? "Processing..." : `Pay ${packageInfo?.price}`}
         </button>
@@ -210,6 +330,10 @@ const CardForm = ({
 export default function MinutesPaymentModal({ isOpen, onClose, minutes, userId, onPaymentSuccess }: MinutesPaymentModalProps) {
   const router = useRouter();
   const [clientSecret, setClientSecret] = useState("");
+  const [paymentMethods, setPaymentMethods] = useState<any[]>([]);
+  const [useNewCard, setUseNewCard] = useState(false);
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>("");
+  const [loadingPaymentMethods, setLoadingPaymentMethods] = useState(false);
 
   // Redirect to login if userId is empty
   useEffect(() => {
@@ -227,7 +351,7 @@ export default function MinutesPaymentModal({ isOpen, onClose, minutes, userId, 
       fetch("/api/create-minutes-payment-intent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ minutes }),
+        body: JSON.stringify({ minutes, userId }),
       })
         .then((res) => res.json())
         .then((data) => {
@@ -239,10 +363,43 @@ export default function MinutesPaymentModal({ isOpen, onClose, minutes, userId, 
     }
   }, [isOpen, minutes, userId]);
 
-  if (!isOpen || !minutes) return null;
+  // Fetch payment methods when modal opens
+  useEffect(() => {
+    if (isOpen && userId && userId.trim() !== "") {
+      setLoadingPaymentMethods(true);
+      console.log("Fetching payment methods for userId:", userId);
+      fetch("/api/get-payment-methods", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId }),
+      })
+        .then((res) => {
+          console.log("Response status:", res.status);
+          console.log("Response headers:", Object.fromEntries(res.headers.entries()));
+          return res.json();
+        })
+        .then((data) => {
+          console.log("Full payment methods response:", JSON.stringify(data, null, 2));
+          if (data.paymentMethods) {
+            setPaymentMethods(data.paymentMethods);
+            if (data.paymentMethods.length > 0) {
+              setSelectedPaymentMethod(data.paymentMethods[0].id);
+              setUseNewCard(false);
+            } else {
+              setUseNewCard(true);
+            }
+          } else {
+            console.log("No paymentMethods property in response");
+          }
+        })
+        .catch((err) => {
+          console.error("Failed to fetch payment methods:", err);
+        })
+        .finally(() => setLoadingPaymentMethods(false));
+    }
+  }, [isOpen, userId]);
 
-  const packageInfo = MINUTES_PACKAGES[minutes as keyof typeof MINUTES_PACKAGES];
-
+  // Memoize options to prevent unnecessary re-renders - must be before early return
   const options: StripeElementsOptions = {
     clientSecret,
     appearance: {
@@ -250,6 +407,12 @@ export default function MinutesPaymentModal({ isOpen, onClose, minutes, userId, 
       labels: "floating",
     },
   };
+
+  const memoizedOptions = useMemo(() => options, [clientSecret]);
+
+  if (!isOpen || !minutes) return null;
+
+  const packageInfo = MINUTES_PACKAGES[minutes as keyof typeof MINUTES_PACKAGES];
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
@@ -278,8 +441,19 @@ export default function MinutesPaymentModal({ isOpen, onClose, minutes, userId, 
         </div>
 
         {clientSecret ? (
-          <Elements options={options} stripe={stripePromise}>
-            <CardForm minutes={minutes} userId={userId} onClose={onClose} clientSecret={clientSecret} onPaymentSuccess={onPaymentSuccess} />
+          <Elements options={memoizedOptions} stripe={stripePromise}>
+            <CardForm
+              minutes={minutes}
+              userId={userId}
+              onClose={onClose}
+              clientSecret={clientSecret}
+              onPaymentSuccess={onPaymentSuccess}
+              paymentMethods={paymentMethods}
+              useNewCard={useNewCard}
+              setUseNewCard={setUseNewCard}
+              selectedPaymentMethod={selectedPaymentMethod}
+              setSelectedPaymentMethod={setSelectedPaymentMethod}
+            />
           </Elements>
         ) : (
           <div className="text-center py-8">

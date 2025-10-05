@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
+import { connectToDatabase } from "@/lib/mongoose";
+import User from "../../../models/User";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2025-08-27.basil",
@@ -13,7 +15,7 @@ const MINUTES_PRICES = {
 
 export async function POST(req: NextRequest) {
   try {
-    const { minutes } = await req.json();
+    const { minutes, userId } = await req.json();
 
     if (!minutes || !MINUTES_PRICES[minutes as keyof typeof MINUTES_PRICES]) {
       return NextResponse.json(
@@ -22,20 +24,60 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    if (!userId) {
+      return NextResponse.json(
+        { error: "User ID is required" },
+        { status: 400 }
+      );
+    }
+
     const amount = MINUTES_PRICES[minutes as keyof typeof MINUTES_PRICES];
 
-    // Create PaymentIntent
+    await connectToDatabase();
+
+    // Get user and check if they already have a Stripe customer ID
+    const user = await User.findById(userId);
+    if (!user) {
+      return NextResponse.json(
+        { error: "User not found" },
+        { status: 404 }
+      );
+    }
+
+    let customerId = user.stripeCustomerId;
+
+    // Create customer if user doesn't have one
+    if (!customerId) {
+      const customer = await stripe.customers.create({
+        email: user.email,
+        name: user.name || undefined,
+        metadata: {
+          userId: user._id.toString(),
+        },
+      });
+
+      customerId = customer.id;
+
+      // Save customer ID to user
+      user.stripeCustomerId = customerId;
+      await user.save();
+    }
+    // Create PaymentIntent with customer
     const paymentIntent = await stripe.paymentIntents.create({
       amount,
       currency: "usd",
+      customer: customerId,
+      setup_future_usage: "off_session", // This enables saving the payment method for future use
       metadata: {
         type: "minutes",
         minutes: minutes.toString(),
+        userId: userId,
       },
     });
 
     return NextResponse.json({
       clientSecret: paymentIntent.client_secret,
+      customerId: customerId,
     });
 
   } catch (error: any) {
