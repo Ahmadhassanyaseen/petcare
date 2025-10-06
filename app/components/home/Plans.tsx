@@ -295,7 +295,7 @@ export default function PricingPlans() {
               Most Popular
             </span>
 
-            <h3 className="text-lg font-semibold text-gray-800">Pro</h3>
+            <h3 className="text-lg font-semibold text-gray-800">Premium</h3>
             <p className="text-gray-500 mt-1">
               Best for ongoing care and pampering.
             </p>
