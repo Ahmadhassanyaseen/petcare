@@ -25,7 +25,7 @@ export default function NavbarBanner() {
      
     >
       {/* Navbar */}
-      <nav className="min-w-full md:min-w-7xl max-w-7xl flex justify-between items-center py-5 px-6 md:px-20 relative">
+      <nav className="min-w-full md:min-w-7xl max-w-7xl flex justify-between items-center py-5 px-6 xl:px-0 md:px-20 relative">
         {/* Logo + Text */}
         <div className="flex items-center gap-2">
           <Image src="/paw.png" alt="VET365 Logo" width={40} height={40} priority />

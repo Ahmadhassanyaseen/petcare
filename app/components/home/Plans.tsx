@@ -206,6 +206,7 @@ export default function PricingPlans() {
 
             <p className="mt-4 text-4xl font-bold text-gray-900">
               $9.99 <span className="text-base font-medium text-gray-500">/mo</span>
+              <span className="text-base font-small text-gray-500 ms-5">$0.30 center per min</span>
             </p>
 
             <ul className="mt-6 space-y-4 text-gray-700">
@@ -220,7 +221,7 @@ export default function PricingPlans() {
                   </defs>
                   </svg>
 
-                40 minutes Consultation
+                30 minutes Consultation (buy additional minutes as needed)
               </li>
               <li className="flex items-center gap-3">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -232,7 +233,7 @@ export default function PricingPlans() {
                   </linearGradient>
                   </defs>
                   </svg>
-                Vaccination reminders
+                Medical Emergencies - what to do (expert advice)
               </li>
               <li className="flex items-center gap-3">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -244,7 +245,7 @@ export default function PricingPlans() {
                   </linearGradient>
                   </defs>
                   </svg>
-                Basic grooming
+                Medications Information - get the details
               </li>
               <li className="flex items-center gap-3">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -256,7 +257,19 @@ export default function PricingPlans() {
                   </linearGradient>
                   </defs>
                   </svg>
-                Email support
+                Get expert advice on any animal medical situation
+              </li>
+               <li className="flex items-center gap-3">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="10" cy="10" r="9.25" stroke="url(#paint0_linear_8_128)" strokeWidth="1.5"/>
+                  <path d="M15 6.60003L7.8 13.8L4.5 10.5L5.346 9.65403L7.8 12.102L14.154 5.75403L15 6.60003Z" fill="#FF921F"/>
+                  <defs>
+                  <linearGradient id="paint0_linear_8_128" x1="20" y1="-2.38419e-07" x2="3.2" y2="12.8" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#FF921F"/>
+                  </linearGradient>
+                  </defs>
+                  </svg>
+                Research any disease / Diagnosis, as detailed as you want
               </li>
             </ul>
 
@@ -281,6 +294,7 @@ export default function PricingPlans() {
 
             <p className="mt-4 text-4xl font-bold text-gray-900">
               $19.99 <span className="text-base font-medium text-gray-500">/mo</span>
+              <span className="text-base font-small text-gray-500 ms-5">$0.22 center per min</span>
             </p>
 
             <ul className="mt-6 space-y-4 text-gray-700">
@@ -294,7 +308,7 @@ export default function PricingPlans() {
                   </linearGradient>
                   </defs>
                   </svg>
-                100 minutes Consultation
+                90 minutes Consultation (buy additional minutes as needed)
               </li>
               <li className="flex items-center gap-3">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -306,7 +320,7 @@ export default function PricingPlans() {
                   </linearGradient>
                   </defs>
                   </svg>
-                Priority appointments
+                Medical emergencies – what to do (expert advice)
               </li>
               <li className="flex items-center gap-3">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -318,7 +332,7 @@ export default function PricingPlans() {
                   </linearGradient>
                   </defs>
                   </svg>
-                Advanced grooming
+                Medication information – get all the details
               </li>
               <li className="flex items-center gap-3">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -330,7 +344,19 @@ export default function PricingPlans() {
                   </linearGradient>
                   </defs>
                   </svg>
-                24/7 chat support
+                Get expert advice on any animal medical situation
+              </li>
+               <li className="flex items-center gap-3">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="10" cy="10" r="9.25" stroke="url(#paint0_linear_8_128)" strokeWidth="1.5"/>
+                  <path d="M15 6.60003L7.8 13.8L4.5 10.5L5.346 9.65403L7.8 12.102L14.154 5.75403L15 6.60003Z" fill="#FF921F"/>
+                  <defs>
+                  <linearGradient id="paint0_linear_8_128" x1="20" y1="-2.38419e-07" x2="3.2" y2="12.8" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#FF921F"/>
+                  </linearGradient>
+                  </defs>
+                  </svg>
+                Research any disease or diagnosis, as detailed as you want
               </li>
             </ul>
 

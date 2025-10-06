@@ -30,21 +30,27 @@ export default function Banner3() {
       <NavbarBanner/>
 
       {/* Banner Section */}
-      <div className="flex mt-3 max-w-7xl flex-col md:flex-row justify-between items-center flex-1 px-6 md:px-20 py-10 md:py-0" id="home">
+      <div className="flex mt-3 max-w-7xl flex-col lg:flex-row justify-between items-center flex-1 px-6 md:px-20 xl:px-0 py-0 md:py-0" id="home">
         {/* Left Content */}
         <div className="max-w-xl text-center md:text-left space-y-5">
-          <h2 className="text-3xl md:text-5xl font-bold leading-snug">
-            Talk with our 
-            Veterinarian approved 
-            <span className="bg-gradient-to-r from-orange-400 via-pink-500 to-purple-600 bg-clip-text text-transparent"> AI pet health expert 
+          <h2 className="text-3xl md:text-4xl font-bold leading-snug">
+           Get A Veterinarian Medical Expert 
+            <span className="bg-gradient-to-r from-orange-400 via-pink-500 to-purple-600 bg-clip-text text-transparent"> in Your Pocket 
             24/7</span>
           </h2>
 
           <p className="text-gray-700 text-xl">
-            Available 24/7 on your phone or computer, it helps you check if foods,
+            {/* Available 24/7 on your phone or computer, it helps you check if foods,
             chemicals, or plants are dangerous, guides you step by step during
             emergencies, and pinpoints the closest emergency vet when every
-            second counts.
+            second counts. */}
+            Conversational guidance on health, nutrition & emergencies — anywhere, anytime.
+            24/7 AI Veterinary Expertise — Just start a conversation and get the answers.
+            Subscribe and get round-the-clock access to an AI-powered veterinary medical expert — 
+            available 24/7/365. Connected to trusted sources like ChatGPT and vast veterinary health databases, 
+            this advanced conversational AI Vet expert delivers reliable guidance on your pet’s health, nutrition, 
+            and emergencies anytime you need it. Simply create an account, tap “Speak with the AI Vet,” ask your question out loud,
+            and have a natural, hands-free conversation — no typing required.
           </p>
 
           {/* Banner Button */}
