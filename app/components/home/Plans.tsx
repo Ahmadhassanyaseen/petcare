@@ -206,11 +206,11 @@ export default function PricingPlans() {
 
             <p className="mt-4 text-4xl font-bold text-gray-900">
               $9.99 <span className="text-base font-medium text-gray-500">/mo</span>
-              <span className="text-base font-small text-gray-500 ms-5">$0.30 center per min</span>
+              <span className="text-base font-small text-gray-500 ms-5">$0.33 center per min</span>
             </p>
 
             <ul className="mt-6 space-y-4 text-gray-700">
-              <li className="flex items-center gap-3">
+              <li className="flex items-center gap-2">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="10" cy="10" r="9.25" stroke="url(#paint0_linear_8_128)" strokeWidth="1.5"/>
                   <path d="M15 6.60003L7.8 13.8L4.5 10.5L5.346 9.65403L7.8 12.102L14.154 5.75403L15 6.60003Z" fill="#FF921F"/>
@@ -221,9 +221,9 @@ export default function PricingPlans() {
                   </defs>
                   </svg>
 
-                30 minutes Consultation (buy additional minutes as needed)
+                <span className="font-bold">30 Minutes Talk Time <span className="fs-small" style={{ fontSize:'14px',fontWeight:'normal' }}>(buy additional minutes)</span></span>
               </li>
-              <li className="flex items-center gap-3">
+              <li className="flex items-center gap-2">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="10" cy="10" r="9.25" stroke="url(#paint0_linear_8_128)" strokeWidth="1.5"/>
                   <path d="M15 6.60003L7.8 13.8L4.5 10.5L5.346 9.65403L7.8 12.102L14.154 5.75403L15 6.60003Z" fill="#FF921F"/>
@@ -233,9 +233,11 @@ export default function PricingPlans() {
                   </linearGradient>
                   </defs>
                   </svg>
-                Medical Emergencies - what to do (expert advice)
+                 
+                <span className="font-bold">Medical Emergencies  <span className="fs-small" style={{ fontSize:'14px',fontWeight:'normal' }}>(expert advice)</span></span>
+            
               </li>
-              <li className="flex items-center gap-3">
+              <li className="flex items-center gap-2">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="10" cy="10" r="9.25" stroke="url(#paint0_linear_8_128)" strokeWidth="1.5"/>
                   <path d="M15 6.60003L7.8 13.8L4.5 10.5L5.346 9.65403L7.8 12.102L14.154 5.75403L15 6.60003Z" fill="#FF921F"/>
@@ -245,9 +247,11 @@ export default function PricingPlans() {
                   </linearGradient>
                   </defs>
                   </svg>
-                Medications Information - get the details
+                 
+                 <span className="font-bold"> Medications Information  <span className="fs-small" style={{ fontSize:'14px',fontWeight:'normal' }}>(get the details)</span></span>
+            
               </li>
-              <li className="flex items-center gap-3">
+              <li className="flex items-center gap-2">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="10" cy="10" r="9.25" stroke="url(#paint0_linear_8_128)" strokeWidth="1.5"/>
                   <path d="M15 6.60003L7.8 13.8L4.5 10.5L5.346 9.65403L7.8 12.102L14.154 5.75403L15 6.60003Z" fill="#FF921F"/>
@@ -257,9 +261,11 @@ export default function PricingPlans() {
                   </linearGradient>
                   </defs>
                   </svg>
-                Get expert advice on any animal medical situation
+                
+                 <span className="font-bold"> Get Expert Advice  <span className="fs-small" style={{ fontSize:'14px',fontWeight:'normal' }}>(for any medical situations)</span></span>
+            
               </li>
-               <li className="flex items-center gap-3">
+               <li className="flex items-center gap-2">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="10" cy="10" r="9.25" stroke="url(#paint0_linear_8_128)" strokeWidth="1.5"/>
                   <path d="M15 6.60003L7.8 13.8L4.5 10.5L5.346 9.65403L7.8 12.102L14.154 5.75403L15 6.60003Z" fill="#FF921F"/>
@@ -269,7 +275,9 @@ export default function PricingPlans() {
                   </linearGradient>
                   </defs>
                   </svg>
-                Research any disease / Diagnosis, as detailed as you want
+               
+                 <span className="font-bold"> Research any disease / Diagnosis  </span>
+            
               </li>
             </ul>
 
@@ -298,8 +306,8 @@ export default function PricingPlans() {
             </p>
 
             <ul className="mt-6 space-y-4 text-gray-700">
-              <li className="flex items-center gap-3">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <li className="flex items-center gap-2">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="10" cy="10" r="9.25" stroke="url(#paint0_linear_8_128)" strokeWidth="1.5"/>
                   <path d="M15 6.60003L7.8 13.8L4.5 10.5L5.346 9.65403L7.8 12.102L14.154 5.75403L15 6.60003Z" fill="#FF921F"/>
                   <defs>
@@ -308,9 +316,10 @@ export default function PricingPlans() {
                   </linearGradient>
                   </defs>
                   </svg>
-                90 minutes Consultation (buy additional minutes as needed)
+
+                <span className="font-bold">90 Minutes Talk Time <span className="fs-small" style={{ fontSize:'14px',fontWeight:'normal' }}>(buy additional minutes)</span></span>
               </li>
-              <li className="flex items-center gap-3">
+              <li className="flex items-center gap-2">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="10" cy="10" r="9.25" stroke="url(#paint0_linear_8_128)" strokeWidth="1.5"/>
                   <path d="M15 6.60003L7.8 13.8L4.5 10.5L5.346 9.65403L7.8 12.102L14.154 5.75403L15 6.60003Z" fill="#FF921F"/>
@@ -320,9 +329,11 @@ export default function PricingPlans() {
                   </linearGradient>
                   </defs>
                   </svg>
-                Medical emergencies – what to do (expert advice)
+                 
+                <span className="font-bold">Medical Emergencies  <span className="fs-small" style={{ fontSize:'14px',fontWeight:'normal' }}>(expert advice)</span></span>
+            
               </li>
-              <li className="flex items-center gap-3">
+              <li className="flex items-center gap-2">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="10" cy="10" r="9.25" stroke="url(#paint0_linear_8_128)" strokeWidth="1.5"/>
                   <path d="M15 6.60003L7.8 13.8L4.5 10.5L5.346 9.65403L7.8 12.102L14.154 5.75403L15 6.60003Z" fill="#FF921F"/>
@@ -332,9 +343,11 @@ export default function PricingPlans() {
                   </linearGradient>
                   </defs>
                   </svg>
-                Medication information – get all the details
+                 
+                 <span className="font-bold"> Medications Information  <span className="fs-small" style={{ fontSize:'14px',fontWeight:'normal' }}>(get the details)</span></span>
+            
               </li>
-              <li className="flex items-center gap-3">
+              <li className="flex items-center gap-2">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="10" cy="10" r="9.25" stroke="url(#paint0_linear_8_128)" strokeWidth="1.5"/>
                   <path d="M15 6.60003L7.8 13.8L4.5 10.5L5.346 9.65403L7.8 12.102L14.154 5.75403L15 6.60003Z" fill="#FF921F"/>
@@ -344,9 +357,11 @@ export default function PricingPlans() {
                   </linearGradient>
                   </defs>
                   </svg>
-                Get expert advice on any animal medical situation
+                
+                 <span className="font-bold"> Get Expert Advice  <span className="fs-small" style={{ fontSize:'14px',fontWeight:'normal' }}>(for any medical situations)</span></span>
+            
               </li>
-               <li className="flex items-center gap-3">
+               <li className="flex items-center gap-2">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="10" cy="10" r="9.25" stroke="url(#paint0_linear_8_128)" strokeWidth="1.5"/>
                   <path d="M15 6.60003L7.8 13.8L4.5 10.5L5.346 9.65403L7.8 12.102L14.154 5.75403L15 6.60003Z" fill="#FF921F"/>
@@ -356,7 +371,9 @@ export default function PricingPlans() {
                   </linearGradient>
                   </defs>
                   </svg>
-                Research any disease or diagnosis, as detailed as you want
+               
+                 <span className="font-bold"> Research any disease / Diagnosis  </span>
+            
               </li>
             </ul>
 
