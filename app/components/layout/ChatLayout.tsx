@@ -62,7 +62,7 @@ const ChatLayout: React.FC<ChatLayoutProps> = ({ children, onNewChat, userId }) 
           border-r border-gray-200 flex flex-col fixed md:relative z-50 md:z-auto h-full
         `}>
           {/* Sidebar Header */}
-          <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-blue-600 to-purple-600">
+          <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-[#ff4d2d] to-[#ff7a18]">
             <div className="flex items-center justify-between text-white">
               <h2 className="text-lg font-semibold">Chat History</h2>
               <button
@@ -137,7 +137,7 @@ const ChatLayout: React.FC<ChatLayoutProps> = ({ children, onNewChat, userId }) 
                   onNewChat()
                   setSidebarOpen(false)
                 }}
-                className=" w-full py-2 px-4 rounded-lg font-medium transition-colors cursor-pointer bg-gradient-to-br from-blue-600 to-purple-600 text-white"
+                className=" w-full py-2 px-4 rounded-lg font-medium transition-colors cursor-pointer bg-gradient-to-br from-[#ff4d2d] to-[#ff7a18] text-white"
               >
                 🎤 New Voice Chat
               </button>

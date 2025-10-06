@@ -14,7 +14,7 @@ const ChatMenu = () => {
     <div className="relative">
       <button
         onClick={() => setIsMenuOpen(!isMenuOpen)}
-        className="group flex items-center space-x-3 bg-gradient-to-br from-blue-600 to-purple-600 backdrop-blur-md border border-white/20 rounded-xl px-4 py-3 text-white hover:bg-white/20 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+        className="group flex items-center space-x-3 bg-gradient-to-br from-[#ff4d2d] to-[#ff7a18] backdrop-blur-md border border-white/20 rounded-xl px-4 py-3 text-white hover:bg-white/20 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
       >
         <div className="p-2 rounded-lg bg-white/20 group-hover:bg-white/30 transition-all duration-300">
           <svg
@@ -38,7 +38,7 @@ const ChatMenu = () => {
 
       {isMenuOpen && (
         <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-60">
-          <Link
+          {/* <Link
             href="/"
             className="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-200"
             onClick={() => setIsMenuOpen(false)}
@@ -57,7 +57,7 @@ const ChatMenu = () => {
               />
             </svg>
             Home
-          </Link>
+          </Link> */}
           <Link
             href="/profile"
             className="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-200"
@@ -72,7 +72,6 @@ const ChatMenu = () => {
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                strokeWidth={2}
                 d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
               />
             </svg>
@@ -93,7 +92,7 @@ const ChatMenu = () => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
               />
             </svg>
             Chat

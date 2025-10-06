@@ -40,12 +40,22 @@ export async function POST(req: NextRequest) {
 
     const plan = paymentIntent.metadata?.plan;
     const amount = paymentIntent.amount;
+    const customerId = paymentIntent.customer as string;
 
     if (!plan || !amount) {
       return NextResponse.json(
         { error: "Invalid payment intent" },
         { status: 400 }
       );
+    }
+
+    // If we have a customer ID from the PaymentIntent, ensure it's saved to the user
+    if (customerId) {
+      const user = await User.findById(userId);
+      if (user && !user.stripeCustomerId) {
+        user.stripeCustomerId = customerId;
+        await user.save();
+      }
     }
 
     // Create transaction record
@@ -86,6 +96,50 @@ export async function POST(req: NextRequest) {
         }
         await transaction.save();
 
+        // IMPORTANT: Ensure the payment method is saved for future use
+        if (charge.payment_method && customerId) {
+          try {
+            console.log("Processing payment method for charge:", charge.id);
+            console.log("Payment method ID from charge:", charge.payment_method);
+            console.log("Customer ID:", customerId);
+
+            // Retrieve the payment method to check its status
+            const paymentMethod = await stripe.paymentMethods.retrieve(charge.payment_method as string);
+            console.log("Retrieved payment method:", {
+              id: paymentMethod.id,
+              customer: paymentMethod.customer,
+              type: paymentMethod.type,
+              created: paymentMethod.created,
+            });
+
+            // Attach payment method to customer if not already attached
+            if (!paymentMethod.customer) {
+              console.log("Attaching unattached payment method to customer:", customerId);
+              await stripe.paymentMethods.attach(charge.payment_method as string, {
+                customer: customerId,
+              });
+              console.log("Payment method attached successfully");
+            } else if (paymentMethod.customer !== customerId) {
+              console.log("Payment method attached to different customer, reattaching to:", customerId);
+              await stripe.paymentMethods.attach(charge.payment_method as string, {
+                customer: customerId,
+              });
+              console.log("Payment method reattached successfully");
+            } else {
+              console.log("Payment method already attached to correct customer:", customerId);
+            }
+          } catch (pmError) {
+            console.error("Error handling payment method:", pmError);
+          }
+        } else {
+          console.log("No payment method found in charge or no customerId");
+          console.log("Charge details:", {
+            id: charge.id,
+            payment_method: charge.payment_method,
+            customer: customerId,
+          });
+        }
+
         // Create or update subscription
         await Subscription.findOneAndUpdate(
           { userId },
@@ -93,7 +147,7 @@ export async function POST(req: NextRequest) {
             userId,
             plan,
             status: "active",
-            stripeCustomerId: charge.customer as string || "",
+            stripeCustomerId: customerId,
             stripeSubscriptionId: paymentIntent.id,
           },
           { upsert: true, new: true }

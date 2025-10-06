@@ -1,11 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BsClock, BsPlus, BsLightning } from "react-icons/bs";
 import MinutesPaymentModal from "../components/MinutesPaymentModal";
 
 interface MinutesSectionProps {
   userId: string;
-  currentMinutes: number;
+  currentMinutes?: number; // Make this optional since we'll manage our own state
   onPaymentSuccess?: () => void;
 }
 
@@ -33,9 +33,28 @@ const MINUTES_PACKAGES = [
   },
 ];
 
-export default function MinutesSection({ userId, currentMinutes, onPaymentSuccess }: MinutesSectionProps) {
+export default function MinutesSection({ userId, currentMinutes: initialMinutes, onPaymentSuccess }: MinutesSectionProps) {
+  const [currentMinutes, setCurrentMinutes] = useState(initialMinutes || 0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMinutes, setSelectedMinutes] = useState<"20" | "40" | "60" | null>(null);
+
+  // Fetch current minutes from localStorage
+  const fetchCurrentMinutes = () => {
+    const userData = localStorage.getItem("user_data");
+    if (userData) {
+      try {
+        const parsed = JSON.parse(userData);
+        setCurrentMinutes(parsed.data?.total_time || 0);
+      } catch (e) {
+        console.error("Failed to parse user_data from localStorage", e);
+      }
+    }
+  };
+
+  // Fetch minutes on mount and when payment succeeds
+  useEffect(() => {
+    fetchCurrentMinutes();
+  }, []);
 
   const handlePurchase = (minutes: "20" | "40" | "60") => {
     setSelectedMinutes(minutes);
@@ -45,6 +64,12 @@ export default function MinutesSection({ userId, currentMinutes, onPaymentSucces
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedMinutes(null);
+  };
+
+  const handlePaymentSuccess = () => {
+    // Refetch minutes after successful payment
+    fetchCurrentMinutes();
+    onPaymentSuccess?.();
   };
 
   return (
@@ -114,9 +139,9 @@ export default function MinutesSection({ userId, currentMinutes, onPaymentSucces
                   )}
 
                   <div className="text-center">
-                    <div className="w-12 h-12 mx-auto mb-4 bg-orange-100 rounded-full flex items-center justify-center">
+                    {/* <div className="w-12 h-12 mx-auto mb-4 bg-orange-100 rounded-full flex items-center justify-center">
                       <BsClock className="w-6 h-6 text-orange-600" />
-                    </div>
+                    </div> */}
                     
                     <h3 className="text-xl font-bold text-slate-900 mb-2">
                       {pkg.amount} Minutes
@@ -160,7 +185,7 @@ export default function MinutesSection({ userId, currentMinutes, onPaymentSucces
         onClose={closeModal}
         minutes={selectedMinutes}
         userId={userId}
-        onPaymentSuccess={onPaymentSuccess}
+        onPaymentSuccess={handlePaymentSuccess}
       />
     </>
   );

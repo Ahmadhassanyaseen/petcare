@@ -1,11 +1,13 @@
-import { getAuthFromCookies } from "@/lib/auth";
-import { redirect } from "next/navigation";
+// import { getAuthFromCookies } from "@/lib/auth";
+// import { redirect } from "next/navigation";
+'use client';
 import { connectToDatabase } from "@/lib/mongoose";
 import Transaction from "@/models/Transaction";
 import User from "@/models/User";
 import Link from "next/link";
 import { BsArrowLeft, BsCreditCard, BsCalendar, BsCheckCircle, BsXCircle, BsClock, BsPlus } from "react-icons/bs";
 import MinutesSection from "./MinutesSection";
+import { useEffect, useState } from "react";
 
 interface Transaction {
   _id: string;
@@ -48,31 +50,52 @@ const formatAmount = (amount: number, currency: string) => {
   }).format(amount / 100); // Convert from cents to dollars
 };
 
-export default async function TransactionsPage() {
-  const session = await getAuthFromCookies();
-  if (!session) {
-    redirect("/login");
-  }
+export default function TransactionsPage() {
+  const [parsedUserData, setParsedUserData] = useState<any>(null);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  await connectToDatabase();
-  const transactions = await Transaction.find({ userId: session.sub })
-    .sort({ createdAt: -1 })
-    .select("plan amount currency status cardLast4 cardBrand createdAt stripePaymentIntentId");
+  // Function to fetch transactions
+  const fetchTransactions = async () => {
+    if (!parsedUserData?.id) return;
 
-  const user = await User.findById(session.sub).select("total_time");
-  const userMinutes = user?.total_time || 0;
+    try {
+      const response = await fetch('/api/get-transactions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: parsedUserData.id }),
+      });
 
-  const transactionData = transactions.map((t: any) => ({
-    _id: t._id.toString(),
-    plan: t.plan,
-    amount: t.amount,
-    currency: t.currency,
-    status: t.status,
-    cardLast4: t.cardLast4,
-    cardBrand: t.cardBrand,
-    createdAt: t.createdAt.toISOString(),
-    stripePaymentIntentId: t.stripePaymentIntentId,
-  }));
+      const data = await response.json();
+
+      if (response.ok && data.transactions) {
+        setTransactions(data.transactions);
+      } else {
+        console.error('Failed to fetch transactions:', data.error);
+      }
+    } catch (error) {
+      console.error('Error fetching transactions:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const userData = localStorage.getItem("user_data");
+    if (userData) {
+      try {
+        setParsedUserData(JSON.parse(userData));
+      } catch (e) {
+        console.error("Failed to parse user_data from localStorage", e);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchTransactions();
+  }, [parsedUserData?.id]);
+
+  const userMinutes = parsedUserData?.data?.total_time || 0;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-50">
@@ -111,8 +134,23 @@ export default async function TransactionsPage() {
       <section className="relative -mt-16 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Minutes Purchase Section */}
-          <MinutesSection userId={session.sub} currentMinutes={userMinutes} />
-          {transactionData.length === 0 ? (
+          <MinutesSection
+            userId={parsedUserData?.id}
+            onPaymentSuccess={() => {
+              fetchTransactions();
+              setLoading(true);
+            }}
+          />
+
+          {loading ? (
+            <div className="relative rounded-2xl border border-white/30 bg-white/10 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] overflow-hidden">
+              <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-orange-400/40 via-orange-600/70 to-orange-400/40" />
+              <div className="p-12 text-center">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500 mx-auto"></div>
+                <p className="mt-2 text-gray-600">Loading transactions...</p>
+              </div>
+            </div>
+          ) : transactions.length === 0 ? (
             <div className="relative rounded-2xl border border-white/30 bg-white/10 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] overflow-hidden">
               <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-orange-400/40 via-orange-600/70 to-orange-400/40" />
               <div className="p-12 text-center">
@@ -131,7 +169,7 @@ export default async function TransactionsPage() {
             </div>
           ) : (
             <div className="space-y-6">
-              {transactionData.map((transaction: Transaction) => (
+              {transactions.map((transaction: Transaction) => (
                 <div
                   key={transaction._id}
                   className="relative rounded-2xl border border-white/30 bg-white/10 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] overflow-hidden"
@@ -158,21 +196,10 @@ export default async function TransactionsPage() {
                           </p>
                         </div>
                       </div>
-
-                      <div className="text-right">
-                        <div className="text-2xl font-bold text-slate-900">
-                          {formatAmount(transaction.amount, transaction.currency)}
-                        </div>
-                        <div className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(transaction.status)}`}>
-                          {getStatusIcon(transaction.status)}
-                          <span className="ml-2 capitalize">{transaction.status}</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {(transaction.cardLast4 || transaction.cardBrand) && (
-                      <div className="mt-4 pt-4 border-t border-slate-200">
-                        <div className="flex items-center justify-between text-sm text-slate-600">
+                      <div>
+                      {(transaction.cardLast4 || transaction.cardBrand) && (
+                      <div className="">
+                        <div className="flex items-center justify-between gap-5 text-md">
                           <span>
                             {transaction.cardBrand && (
                               <span className="capitalize mr-2">{transaction.cardBrand}</span>
@@ -185,6 +212,20 @@ export default async function TransactionsPage() {
                         </div>
                       </div>
                     )}
+                      </div>
+
+                      <div className="text-right">
+                        <div className="text-2xl font-bold text-slate-900">
+                          {formatAmount(transaction.amount, transaction.currency)}
+                        </div>
+                        <div className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(transaction.status)}`}>
+                          {getStatusIcon(transaction.status)}
+                          <span className="ml-2 capitalize">{transaction.status}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                   
                   </div>
                 </div>
               ))}
