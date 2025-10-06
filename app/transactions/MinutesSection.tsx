@@ -183,7 +183,8 @@ export default function MinutesSection({ userId, currentMinutes: initialMinutes,
       <MinutesPaymentModal
         isOpen={isModalOpen}
         onClose={closeModal}
-        minutes={selectedMinutes}
+        // minutes={selectedMinutes}
+        price={selectedMinutes}
         userId={userId}
         onPaymentSuccess={handlePaymentSuccess}
       />
