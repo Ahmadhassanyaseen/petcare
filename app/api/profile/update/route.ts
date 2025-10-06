@@ -7,6 +7,7 @@ import { z } from "zod";
 const updateProfileSchema = z.object({
   name: z.string().min(1, "Name is required").max(50, "Name must be less than 50 characters").optional(),
   profileImage: z.string().url("Must be a valid URL").optional(),
+  total_time: z.number().min(0, "Total time must be non-negative").optional(),
   id: z.string().optional(),
 });
 
@@ -27,7 +28,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const { name, profileImage , id } = parsed.data;
+    const { name, profileImage , id, total_time } = parsed.data;
 
     await connectToDatabase();
 
@@ -35,6 +36,7 @@ export async function POST(req: Request) {
     const updateData: any = {};
     if (name !== undefined) updateData.name = name;
     if (profileImage !== undefined) updateData.profileImage = profileImage;
+    if (total_time !== undefined) updateData.total_time = total_time;
 
     const user = await User.findByIdAndUpdate(
       id,
@@ -53,6 +55,7 @@ export async function POST(req: Request) {
         email: user.email,
         name: user.name,
         profileImage: user.profileImage,
+        total_time: user.total_time,
         createdAt: user.createdAt,
       },
     });
