@@ -60,8 +60,15 @@ export default function VoiceChat({
     console.log(callEndTime);
     const callDurationMs = callEndTime.getTime() - callStartTime.getTime();
     console.log(callDurationMs);
-    const callDurationMinutes = Math.ceil(callDurationMs / (1000 * 60)); // Round up to nearest minute
-    console.log(callDurationMinutes);
+    const callDurationSeconds = callDurationMs / (1000); // Round up to nearest minute
+    console.log(callDurationSeconds);
+    const minutes = Math.floor(callDurationSeconds / 60);
+    const remainderSeconds = callDurationSeconds % 60;
+    
+    const callDurationMinutes = remainderSeconds > 30 
+      ? minutes + 1 
+      : minutes;
+    
     if (callDurationMinutes <= 0) return;
 
     try {
