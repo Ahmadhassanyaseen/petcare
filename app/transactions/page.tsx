@@ -8,6 +8,7 @@ import Link from "next/link";
 import { BsArrowLeft, BsCreditCard, BsCalendar, BsCheckCircle, BsXCircle, BsClock, BsPlus } from "react-icons/bs";
 import MinutesSection from "./MinutesSection";
 import { useEffect, useState } from "react";
+import ChatMenu from "../components/chat/ChatMenu";
 
 interface Transaction {
   _id: string;
@@ -100,6 +101,7 @@ export default function TransactionsPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-50">
       {/* Header */}
+      <ChatMenu/>
       <section className="relative overflow-hidden bg-gradient-to-r from-[#ff4d2d] to-[#ff7a18]">
         <div className="absolute inset-0 bg-black/20" />
 

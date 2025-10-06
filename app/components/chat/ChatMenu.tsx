@@ -10,13 +10,13 @@ const ChatMenu = () => {
         router.push("/");
       }
   return (
-    <div className="absolute top-6 right-6 z-50">
+    <div className="absolute top-0 right-0 lg:top-6 lg:right-6 z-50">
     <div className="relative">
       <button
         onClick={() => setIsMenuOpen(!isMenuOpen)}
-        className="group flex items-center space-x-3 bg-gradient-to-br from-[#ff4d2d] to-[#ff7a18] backdrop-blur-md border border-white/20 rounded-xl px-4 py-3 text-white hover:bg-white/20 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+        className="group flex items-center space-x-3 bg-gradient-to-br from-[#ff4d2d] to-[#ff7a18] backdrop-blur-md border border-white/20 rounded-xl px-2 py-2 md:px-4 md:py-3 text-white hover:bg-white/20 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
       >
-        <div className="p-2 rounded-lg bg-white/20 group-hover:bg-white/30 transition-all duration-300">
+        <div className="p-2 m-0 lg:mr-2 rounded-lg bg-white/20 group-hover:bg-white/30 transition-all duration-300">
           <svg
             className="w-5 h-5"
             fill="none"
@@ -31,7 +31,7 @@ const ChatMenu = () => {
             />
           </svg>
         </div>
-        <span className="text-sm font-semibold tracking-wide">
+        <span className="text-sm hidden lg:block font-semibold tracking-wide">
           Menu
         </span>
       </button>

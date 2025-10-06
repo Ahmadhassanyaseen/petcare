@@ -76,7 +76,7 @@ export default function Footer() {
           <h4 className="font-semibold text-gray-900 mb-4 w-[104px]">Legal</h4>
           <ul className="space-y-2 text-sm text-gray-700 w-[104px]">
             <li>
-              <Link href="#privacy-policy">Privacy Policy</Link>
+              <Link href="/privacy-policy.docx" target="_blank">Privacy Policy</Link>
             </li>
             <li>
               <Link href="#terms">Terms & Conditions</Link>

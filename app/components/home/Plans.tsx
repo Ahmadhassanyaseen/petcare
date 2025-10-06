@@ -206,7 +206,7 @@ export default function PricingPlans() {
 
             <p className="mt-4 text-4xl font-bold text-gray-900">
               $9.99 <span className="text-base font-medium text-gray-500">/mo</span>
-              <span className="text-base font-small text-gray-500 ms-5">$0.33 center per min</span>
+              <span className="text-base text-[12px] lg:text-[14px] md:text-[9px] text-gray-500 ms-5">$0.33 center per min</span>
             </p>
 
             <ul className="mt-6 space-y-4 text-gray-700">
@@ -221,7 +221,7 @@ export default function PricingPlans() {
                   </defs>
                   </svg>
 
-                <span className="font-bold">30 Minutes Talk Time <span className="fs-small" style={{ fontSize:'14px',fontWeight:'normal' }}>(buy additional minutes)</span></span>
+                <span className="font-bold text-[12px] lg:text-[14px] md:text-[11px]">30 Minutes Talk Time <span className="font-normal">(buy additional minutes)</span></span>
               </li>
               <li className="flex items-center gap-2">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -234,7 +234,7 @@ export default function PricingPlans() {
                   </defs>
                   </svg>
                  
-                <span className="font-bold">Medical Emergencies  <span className="fs-small" style={{ fontSize:'14px',fontWeight:'normal' }}>(expert advice)</span></span>
+                <span className="font-bold text-[12px] lg:text-[14px] md:text-[11px]">Medical Emergencies  <span className="font-normal">(expert advice)</span></span>
             
               </li>
               <li className="flex items-center gap-2">
@@ -248,7 +248,7 @@ export default function PricingPlans() {
                   </defs>
                   </svg>
                  
-                 <span className="font-bold"> Medications Information  <span className="fs-small" style={{ fontSize:'14px',fontWeight:'normal' }}>(get the details)</span></span>
+                 <span className="font-bold text-[12px] lg:text-[14px] md:text-[11px]"> Medications Information  <span className="font-normal">(get the details)</span></span>
             
               </li>
               <li className="flex items-center gap-2">
@@ -262,7 +262,7 @@ export default function PricingPlans() {
                   </defs>
                   </svg>
                 
-                 <span className="font-bold"> Get Expert Advice  <span className="fs-small" style={{ fontSize:'14px',fontWeight:'normal' }}>(for any medical situations)</span></span>
+                 <span className="font-bold text-[12px] lg:text-[14px] md:text-[11px]"> Get Expert Advice  <span className="font-normal">(for any medical situations)</span></span>
             
               </li>
                <li className="flex items-center gap-2">
@@ -276,7 +276,7 @@ export default function PricingPlans() {
                   </defs>
                   </svg>
                
-                 <span className="font-bold"> Research any disease / Diagnosis  </span>
+                 <span className="font-bold text-[12px] lg:text-[14px] md:text-[11px]"> Research any disease / Diagnosis  </span>
             
               </li>
             </ul>
@@ -302,7 +302,7 @@ export default function PricingPlans() {
 
             <p className="mt-4 text-4xl font-bold text-gray-900">
               $19.99 <span className="text-base font-medium text-gray-500">/mo</span>
-              <span className="text-base font-small text-gray-500 ms-5">$0.22 center per min</span>
+              <span className="text-base text-[12px] lg:text-[14px] md:text-[9px] text-gray-500 ms-5">$0.22 center per min</span>
             </p>
 
             <ul className="mt-6 space-y-4 text-gray-700">
@@ -317,7 +317,7 @@ export default function PricingPlans() {
                   </defs>
                   </svg>
 
-                <span className="font-bold">90 Minutes Talk Time <span className="fs-small" style={{ fontSize:'14px',fontWeight:'normal' }}>(buy additional minutes)</span></span>
+                <span className="font-bold text-[12px] lg:text-[14px] md:text-[11px]">90 Minutes Talk Time <span className="font-normal">(buy additional minutes)</span></span>
               </li>
               <li className="flex items-center gap-2">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -330,7 +330,7 @@ export default function PricingPlans() {
                   </defs>
                   </svg>
                  
-                <span className="font-bold">Medical Emergencies  <span className="fs-small" style={{ fontSize:'14px',fontWeight:'normal' }}>(expert advice)</span></span>
+                <span className="font-bold text-[12px] lg:text-[14px] md:text-[11px]">Medical Emergencies  <span className="font-normal">(expert advice)</span></span>
             
               </li>
               <li className="flex items-center gap-2">
@@ -344,7 +344,7 @@ export default function PricingPlans() {
                   </defs>
                   </svg>
                  
-                 <span className="font-bold"> Medications Information  <span className="fs-small" style={{ fontSize:'14px',fontWeight:'normal' }}>(get the details)</span></span>
+                 <span className="font-bold text-[12px] lg:text-[14px] md:text-[11px]"> Medications Information  <span className="font-normal">(get the details)</span></span>
             
               </li>
               <li className="flex items-center gap-2">
@@ -358,7 +358,7 @@ export default function PricingPlans() {
                   </defs>
                   </svg>
                 
-                 <span className="font-bold"> Get Expert Advice  <span className="fs-small" style={{ fontSize:'14px',fontWeight:'normal' }}>(for any medical situations)</span></span>
+                 <span className="font-bold text-[12px] lg:text-[14px] md:text-[11px]"> Get Expert Advice  <span className="font-normal" >(for any medical situations)</span></span>
             
               </li>
                <li className="flex items-center gap-2">
@@ -372,7 +372,7 @@ export default function PricingPlans() {
                   </defs>
                   </svg>
                
-                 <span className="font-bold"> Research any disease / Diagnosis  </span>
+                 <span className="font-bold text-[12px] lg:text-[14px] md:text-[11px]"> Research any disease / Diagnosis  </span>
             
               </li>
             </ul>

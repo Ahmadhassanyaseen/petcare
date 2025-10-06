@@ -11,6 +11,7 @@ export default function ProfilePage() {
   const [paymentMethods, setPaymentMethods] = useState<any[]>([]);
   const [loadingPaymentMethods, setLoadingPaymentMethods] = useState(false);
   const [updatingRenewal, setUpdatingRenewal] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
   const router = useRouter();
 
   const formatDate = (dateString: string) => {
@@ -70,6 +71,43 @@ export default function ProfilePage() {
     }
   };
 
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file || !parsedUserData?.id) return;
+
+    setUploadingImage(true);
+    try {
+      const formData = new FormData();
+      formData.append("image", file);
+      formData.append("userId", parsedUserData.id);
+
+      const response = await fetch("/api/profile/upload-image", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Update localStorage data
+        const updatedUserData = {
+          ...parsedUserData,
+          profileImage: data.imageUrl,
+        };
+        setParsedUserData(updatedUserData);
+        localStorage.setItem("user_data", JSON.stringify(updatedUserData));
+      } else {
+        console.error("Failed to upload image:", data.error);
+        alert("Failed to upload image. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      alert("Error uploading image. Please try again.");
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
   const updateRenewalSetting = async (renew: boolean) => {
     if (!parsedUserData?.id) return;
 
@@ -109,7 +147,7 @@ export default function ProfilePage() {
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-50">
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-r from-[#ff4d2d] to-[#ff7a18]">
-        <div className="absolute inset-0 bg-[url('/dog.png')] bg-no-repeat bg-right-bottom opacity-10" />
+        <div className="absolute inset-0 bg-[url('/lady.png')] bg-no-repeat bg-bottom-right bg-auto lg:bg-contain" />
         <div className="absolute inset-0 bg-black/20" />
         <ChatMenu/>
 
@@ -132,14 +170,36 @@ export default function ProfilePage() {
           <div className="text-center">
             {/* Avatar */}
             <div className="relative inline-block mb-8">
-              <div className="w-32 h-32 rounded-full bg-white/20 backdrop-blur-xl border-4 border-white/30 flex items-center justify-center text-6xl font-bold text-white shadow-2xl">
-                {parsedUserData?.name ? parsedUserData.name.charAt(0).toUpperCase() : "U"}
+              <div className="w-32 h-32 rounded-full bg-white/20 backdrop-blur-xl border-4 border-white/30 flex items-center justify-center text-6xl font-bold text-white shadow-2xl overflow-hidden">
+                {parsedUserData?.profileImage ? (
+                  <img
+                    src={parsedUserData.profileImage}
+                    alt={`${parsedUserData.name || "User"}'s profile`}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  parsedUserData?.name ? parsedUserData.name.charAt(0).toUpperCase() : "U"
+                )}
               </div>
               <div className="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-white border-4 border-white shadow-lg flex items-center justify-center">
-                <svg className="w-4 h-4 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-                </svg>
+                <label className="cursor-pointer">
+                  <svg className="w-4 h-4 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                  </svg>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    className="hidden"
+                    disabled={uploadingImage}
+                  />
+                </label>
               </div>
+              {uploadingImage && (
+                <div className="absolute inset-0 w-32 h-32 rounded-full bg-black/50 flex items-center justify-center">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+                </div>
+              )}
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-4">
@@ -332,7 +392,9 @@ export default function ProfilePage() {
                             </svg>
                           </div>
                           <div>
-                            <p className="text-sm font-medium text-slate-900">Last Subscription</p>
+                            <p className="text-sm font-medium text-slate-900">{
+parsedUserData?.data?.subscription_amount == "4.99" ? "Basic Plan" : "Premium Plan"
+}</p>
                             <p className="text-xs text-slate-600">
                               {formatDate(parsedUserData.data.subscription_date)}
                             </p>
