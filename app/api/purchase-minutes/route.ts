@@ -161,6 +161,11 @@ export async function POST(req: NextRequest) {
           user.total_time = currentMinutes + minutesPackage.minutes;
           user.subscription_date = new Date();
           user.subscription_amount = minutesPackage.price / 100; // Convert cents to dollars
+          if(minutesPackage.minutes < 100){
+            user.subscription_name = "Basic";
+          }else{
+            user.subscription_name = "Premium";
+          }
           // Set default renewal setting if not already set
           if (user.renew === undefined) {
             user.renew = true;

@@ -11,6 +11,7 @@ const MINUTES_PRICES = {
   "20": 499, // $4.99 for 20 minutes
   "40": 999, // $9.99 for 40 minutes
   "60": 1499, // $14.99 for 60 minutes
+  "100": 1999, // $19.99 for 100 minutes
 };
 
 export async function POST(req: NextRequest) {

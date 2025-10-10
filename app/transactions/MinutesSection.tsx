@@ -32,25 +32,42 @@ const MINUTES_PACKAGES = [
     popular: false,
   },
 ];
+const PACKAGES = [
+  {
+    minutes: "40",
+    amount: 40,
+    price: "$9.99",
+    description: "Perfect for quick consultations",
+    popular: false,
+  },
+  {
+    minutes: "100",
+    amount: 100,
+    price: "$19.99",
+    description: "Great for detailed discussions",
+    popular: true,
+  }
+];
 
 export default function MinutesSection({ userId, currentMinutes: initialMinutes, onPaymentSuccess }: MinutesSectionProps) {
   const [currentMinutes, setCurrentMinutes] = useState(initialMinutes || 0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMinutes, setSelectedMinutes] = useState<"20" | "40" | "60" | null>(null);
-
+const [parsedUserData , setParsedUserData] = useState<any>(null);
   // Fetch current minutes from localStorage
   const fetchCurrentMinutes = () => {
     const userData = localStorage.getItem("user_data");
     if (userData) {
       try {
         const parsed = JSON.parse(userData);
+        setParsedUserData(parsed);
         setCurrentMinutes(parsed.data?.total_time || 0);
       } catch (e) {
         console.error("Failed to parse user_data from localStorage", e);
       }
     }
   };
-
+console.log(parsedUserData?.data?.subscription_name);
   // Fetch minutes on mount and when payment succeeds
   useEffect(() => {
     fetchCurrentMinutes();
@@ -117,9 +134,10 @@ export default function MinutesSection({ userId, currentMinutes: initialMinutes,
                 Add minutes to your account for AI-powered pet care consultations
               </p>
             </div>
-
-            <div className="grid md:grid-cols-3 gap-4">
-              {MINUTES_PACKAGES.map((pkg) => (
+{parsedUserData?.data?.subscription_name == "Free"
+?
+<div className="grid md:grid-cols-2 gap-4">
+              {PACKAGES.map((pkg) => (
                 <div
                   key={pkg.minutes}
                   className={`relative rounded-xl border-2 p-6 transition-all hover:scale-105 cursor-pointer ${
@@ -169,6 +187,59 @@ export default function MinutesSection({ userId, currentMinutes: initialMinutes,
                 </div>
               ))}
             </div>
+:
+<div className="grid md:grid-cols-3 gap-4">
+              {MINUTES_PACKAGES.map((pkg) => (
+                <div
+                  key={pkg.minutes}
+                  className={`relative rounded-xl border-2 p-6 transition-all hover:scale-105 cursor-pointer ${
+                    pkg.popular
+                      ? "border-orange-500 bg-orange-50"
+                      : "border-gray-200 bg-white hover:border-orange-300"
+                  }`}
+                  onClick={() => handlePurchase(pkg.minutes as "20" | "40" | "60")}
+                >
+                  {pkg.popular && (
+                    <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                      <div className="bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-semibold flex items-center">
+                        <BsLightning className="w-3 h-3 mr-1" />
+                        Most Popular
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="text-center">
+                    {/* <div className="w-12 h-12 mx-auto mb-4 bg-orange-100 rounded-full flex items-center justify-center">
+                      <BsClock className="w-6 h-6 text-orange-600" />
+                    </div> */}
+                    
+                    <h3 className="text-xl font-bold text-slate-900 mb-2">
+                      {pkg.amount} Minutes
+                    </h3>
+                    
+                    <div className="text-3xl font-bold text-orange-600 mb-2">
+                      {pkg.price}
+                    </div>
+                    
+                    <p className="text-sm text-slate-600 mb-4">
+                      {pkg.description}
+                    </p>
+                    
+                    <button
+                      className={`w-full py-3 px-4 rounded-lg font-semibold transition-all ${
+                        pkg.popular
+                          ? "bg-orange-500 text-white hover:bg-orange-600"
+                          : "bg-orange-100 text-orange-600 hover:bg-orange-200"
+                      }`}
+                    >
+                      <BsPlus className="w-5 h-5 inline mr-2" />
+                      Purchase Now
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>}
+            
 
             <div className="mt-6 text-center">
               <p className="text-sm text-slate-500">

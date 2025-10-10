@@ -11,6 +11,7 @@ export interface IUser extends Document {
   renew?: boolean; // True if subscription will renew
   subscription_date?: Date; // Subscription plan
   subscription_amount?: number; // Subscription plan
+  subscription_name?: string; // Subscription plan
   createdAt: Date;
   updatedAt: Date;
 }
@@ -26,6 +27,7 @@ const UserSchema = new Schema<IUser>(
     renew: { type: Boolean, default: true },
     subscription_date: { type: Date },
     subscription_amount: { type: Number},
+    subscription_name: { type: String , default: "Free"},
   },
   { timestamps: true }
 );
