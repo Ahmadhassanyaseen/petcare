@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Role, useConversation } from "@elevenlabs/react";
 import { Mic, MicOff, Volume2, VolumeX } from "lucide-react";
+import { useRouter } from "next/navigation";
 import MinutesSection from "@/app/transactions/MinutesSection";
 
 interface VoiceChatProps {
@@ -28,6 +29,7 @@ export default function VoiceChat({
   onMessage,
   onError,
 }: VoiceChatProps) {
+  const router = useRouter();
   const [hasPermission, setHasPermission] = useState(false);
   const [totalTime, setTotalTime] = useState(0);
   const [isMuted, setIsMuted] = useState(false);
@@ -47,7 +49,7 @@ export default function VoiceChat({
     if (user_data) {
       const userData = JSON.parse(user_data);
       setParsedUserData(userData);
-      setTotalTime(userData.data.total_time);
+      setTotalTime(userData?.data?.total_time || 0);
     }
   }, [totalTime || xeno]);
 
@@ -210,6 +212,18 @@ export default function VoiceChat({
 
   const handleStartConversation = async () => {
     try {
+      // Check if user has any subscription/transaction
+      if (parsedUserData && parsedUserData.id) {
+        const response = await fetch(`/api/check-subscription?userId=${parsedUserData.id}`);
+        const data = await response.json();
+        
+        if (!data.hasTransaction) {
+          // No subscription found, navigate to plans
+          router.push('/#plans');
+          return;
+        }
+      }
+
       if (totalTime <= 0) {
         console.log("Total time is less than or equal to 0");
         setShowMinutesModal(true);

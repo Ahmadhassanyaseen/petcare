@@ -316,11 +316,15 @@ export default function PaymentModal({ isOpen, onClose, plan, userId }: PaymentM
     if (isOpen && (!userId || userId.trim() === "")) {
       // alert("Please log in to make a payment");
       Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Please log in to make a payment",
+        icon: "info",
+        title: "Welcome to PetCare!",
+        text: "Create an account to make a payment",
+        timer: 2000,
+        showConfirmButton: false,
+        showCloseButton: false,
+
       });
-      router.push("/login");
+      router.push("/signup");
       onClose();
       return;
     }

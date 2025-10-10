@@ -37,6 +37,7 @@ export default function MinutesSection({ userId, currentMinutes: initialMinutes,
   const [currentMinutes, setCurrentMinutes] = useState(initialMinutes || 0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMinutes, setSelectedMinutes] = useState<"20" | "40" | "60" | null>(null);
+  const [hasSubscription, setHasSubscription] = useState(false);
 
   // Fetch current minutes from localStorage
   const fetchCurrentMinutes = () => {
@@ -51,10 +52,25 @@ export default function MinutesSection({ userId, currentMinutes: initialMinutes,
     }
   };
 
+  // Check if user has subscription
+  const checkSubscription = async () => {
+    if (userId) {
+      try {
+        const response = await fetch(`/api/check-subscription?userId=${userId}`);
+        const data = await response.json();
+        setHasSubscription(data.hasTransaction || false);
+      } catch (error) {
+        console.error('Error checking subscription:', error);
+        setHasSubscription(false);
+      }
+    }
+  };
+
   // Fetch minutes on mount and when payment succeeds
   useEffect(() => {
     fetchCurrentMinutes();
-  }, []);
+    checkSubscription();
+  }, [userId]);
 
   const handlePurchase = (minutes: "20" | "40" | "60") => {
     setSelectedMinutes(minutes);
@@ -71,6 +87,9 @@ export default function MinutesSection({ userId, currentMinutes: initialMinutes,
     fetchCurrentMinutes();
     onPaymentSuccess?.();
   };
+
+  // Only show if user has subscription
+  
 
   return (
     <>
@@ -104,9 +123,13 @@ export default function MinutesSection({ userId, currentMinutes: initialMinutes,
             </div>
           </div>
         </div>
-
+       
+    
+ 
         {/* Purchase Minutes Section */}
-        <div className="relative rounded-2xl border border-white/30 bg-white backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] overflow-hidden">
+        <div className="relative rounded-2xl border border-white/30 bg-white backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] overflow-hidden ${
+    !userSubscription.hasActiveSubscription ? 'hidden' : ''
+  }`">
           <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-orange-400/40 via-orange-600/70 to-orange-400/40" />
           <div className="p-6">
             <div className="text-center mb-6">

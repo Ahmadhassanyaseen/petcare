@@ -88,7 +88,7 @@ const page = () => {
                   Voice Chat Assistant
                 </h1>
                 <p className="text-gray-600 text-lg mb-8 max-w-md mx-auto">
-                  Click the microphone to start recording your message. Speak
+                  Speak
                   naturally and I'll help you with your pet care questions.
                 </p>
               </div>

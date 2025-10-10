@@ -162,7 +162,7 @@ export default function TransactionsPage() {
                 <h3 className="text-xl font-semibold text-slate-900 mb-2">No Transactions Yet</h3>
                 <p className="text-slate-600 mb-6">You haven't made any payments yet. Start by subscribing to one of our plans!</p>
                 <Link
-                  href="/"
+                  href="/#plans"
                   className="inline-flex items-center justify-center px-6 py-3 text-white font-semibold bg-gradient-to-r from-[#ff6a3d] to-[#ff8a1e] rounded-lg shadow hover:from-[#ff5a2b] hover:to-[#ff7a18] transition-all hover:scale-105"
                 >
                   Browse Plans
