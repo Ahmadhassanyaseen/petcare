@@ -40,12 +40,31 @@ export default function MinutesSection({ userId, currentMinutes: initialMinutes,
   const [hasSubscription, setHasSubscription] = useState(false);
 
   // Fetch current minutes from localStorage
-  const fetchCurrentMinutes = () => {
+  const fetchCurrentMinutes = async () => {
     const userData = localStorage.getItem("user_data");
     if (userData) {
       try {
         const parsed = JSON.parse(userData);
-        setCurrentMinutes(parsed.data?.total_time || 0);
+        console.log(parsed);
+        // setCurrentMinutes(parsed.data?.total_time || 0);
+        const userId = parsed?.id; // 👈 get user ID from stored data
+
+      if (!userId) {
+        console.error("User ID not found in localStorage data");
+        return;
+      }
+
+      // ✅ fetch from your backend
+      const res = await fetch(`/api/users/${userId}`);
+      const data = await res.json();
+
+      if (!res.ok) {
+        console.error("Failed to fetch user data:", data);
+        return;
+      }
+
+      // ✅ set total_time from DB instead of localStorage
+      setCurrentMinutes(data.total_time || 0);
       } catch (e) {
         console.error("Failed to parse user_data from localStorage", e);
       }

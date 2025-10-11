@@ -12,6 +12,8 @@ export default function ProfilePage() {
   const [loadingPaymentMethods, setLoadingPaymentMethods] = useState(false);
   const [updatingRenewal, setUpdatingRenewal] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
+  const [latestSubscription, setLatestSubscription] = useState<any>(null);
+  const [loadingSubscription, setLoadingSubscription] = useState(false);
   const router = useRouter();
 
   const formatDate = (dateString: string) => {
@@ -34,15 +36,32 @@ export default function ProfilePage() {
         const parsed = JSON.parse(userData);
         setParsedUserData(parsed);
 
-        // Fetch payment methods if user has an ID
+        // Fetch payment methods and subscription if user has an ID
         if (parsed?.id) {
           fetchPaymentMethods(parsed.id);
+          fetchLatestSubscription(parsed.id);
         }
       } catch (e) {
         console.error("Failed to parse user_data from localStorage", e);
       }
     }
   }, []);
+
+  const fetchLatestSubscription = async (userId: string) => {
+    setLoadingSubscription(true);
+    try {
+      const response = await fetch(`/api/latest-subscription?userId=${userId}`);
+      const data = await response.json();
+      
+      if (response.ok && data.subscription) {
+        setLatestSubscription(data.subscription);
+      }
+    } catch (error) {
+      console.error('Error fetching latest subscription:', error);
+    } finally {
+      setLoadingSubscription(false);
+    }
+  };
 
   const logout = () => {
     localStorage.removeItem("user_data");
@@ -383,7 +402,7 @@ export default function ProfilePage() {
                       </div>
                     </div>
 
-                    {parsedUserData?.data?.subscription_date && (
+                    {latestSubscription && (
                       <div className="flex items-center justify-between p-3 bg-gradient-to-r from-orange-50 to-orange-100">
                         <div className="flex items-center space-x-3">
                           <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center">
@@ -392,17 +411,17 @@ export default function ProfilePage() {
                             </svg>
                           </div>
                           <div>
-                            <p className="text-sm font-medium text-slate-900">{
-                              parsedUserData?.data?.subscription_amount == "9.99" ? "Basic Plan" : "Premium Plan"
-                              }</p>
+                            <p className="text-sm font-medium text-slate-900">
+                              {latestSubscription.plan === "basic" ? "Basic Plan" : "Premium Plan"}
+                            </p>
                             <p className="text-xs text-slate-600">
-                              {formatDate(parsedUserData.data.subscription_date)}
+                              {formatDate(latestSubscription.createdAt)}
                             </p>
                           </div>
                         </div>
                         <div className="text-right">
                           <p className="text-sm font-medium text-slate-900">
-                            ${parsedUserData?.data?.subscription_amount?.toFixed(2) || "0.00"}
+                            ${(latestSubscription.amount / 100).toFixed(2)}
                           </p>
                         </div>
                       </div>
