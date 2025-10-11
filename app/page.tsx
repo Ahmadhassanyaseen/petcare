@@ -21,6 +21,7 @@ export default function Home() {
     
         {/* Header */}
         <Banner3/>
+        {/* This is test */}
 
         {/* Hero Banner2 */}
         {/* <Banner2/> */}
@@ -38,7 +39,7 @@ export default function Home() {
 
         <Founder />
          {/* Footer */}
-        <Footer2/>
+        <Footer2/> 
 
       </div>
     </>
