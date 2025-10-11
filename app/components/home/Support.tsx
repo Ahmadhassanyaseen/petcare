@@ -6,10 +6,9 @@ export default function PetSupportSection() {
     <section className="bg-[#fafafd] py-16 px-6 md:px-12 lg:px-20" id="work">
       <div className="max-w-7xl mx-auto text-center">
         {/* Heading */}
-        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">
-          {/* Compassionate AI Support for Pet Parents */}
+        {/* <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">
           ASK US FOR MORE DETAILS ABOUT THIS SERVICE !
-        </h2>
+        </h2> */}
         <p className="mt-2 text-xl md:text-2xl font-semibold bg-gradient-to-r from-orange-400 via-pink-500 to-purple-600 bg-clip-text text-transparent">
           Your Pet’s Health Answers — Anytime, Anywhere
         </p>
@@ -23,7 +22,7 @@ export default function PetSupportSection() {
           mind whenever you need it.
 
         </p>
-        <Conversation/>
+        {/* <Conversation/> */}
         {/* Features */}
         {/* <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-10">
           
