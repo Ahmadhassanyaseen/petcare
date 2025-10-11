@@ -439,14 +439,25 @@ export default function ProfilePage() {
                   <h3 className="text-lg font-semibold text-slate-900 mb-4">Account Actions</h3>
 
                   <div className="space-y-3">
-                    <Link
-                      href="/transactions"
-                      className="w-full flex items-center justify-center px-4 py-3 text-sm font-medium text-white bg-gradient-to-r from-[#ff6a3d] to-[#ff8a1e] rounded-lg shadow hover:from-[#ff5a2b] hover:to-[#ff7a18] transition-all duration-200 transform hover:scale-105"
-                    >
-                      <BsCreditCard className="w-4 h-4 mr-2" />
-                      View Transactions
-                    </Link>
-
+                  {latestSubscription ? (
+    // If latestSubscription is truthy (your original 'if' block)
+    <Link
+        href="/transactions"
+        className="w-full flex items-center justify-center px-4 py-3 text-sm font-medium text-white bg-gradient-to-r from-[#ff6a3d] to-[#ff8a1e] rounded-lg shadow hover:from-[#ff5a2b] hover:to-[#ff7a18] transition-all duration-200 transform hover:scale-105"
+    >
+        <BsCreditCard className="w-4 h-4 mr-2" />
+        View Transactions
+    </Link>
+) : (
+    // If latestSubscription is falsy (your 'else' block)
+    <Link
+        href="/#plans"
+        className="w-full flex items-center justify-center px-4 py-3 text-sm font-medium text-white bg-gradient-to-r from-[#ff6a3d] to-[#ff8a1e] rounded-lg shadow hover:from-[#ff5a2b] hover:to-[#ff7a18] transition-all duration-200 transform hover:scale-105"
+    >
+        <BsCreditCard className="w-4 h-4 mr-2" />
+        Buy a Plan Now
+    </Link>
+)}
                     {/* <form action="/api/auth/logout" method="post" className="w-full"> */}
                       <button
                         onClick={logout}
