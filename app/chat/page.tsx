@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import ChatLayout from "../components/layout/ChatLayout";
 import VoiceChat from "../components/chat/VoiceChat";
-import Link from "next/link";
+// import Link from "next/link";
 import { useRouter } from "next/navigation";
 import ChatMenu from "../components/chat/ChatMenu";
 // import { getCurrentUserId } from "../../lib/auth";
@@ -37,6 +37,7 @@ const page = () => {
       console.log("Setting userId from localStorage:", userData.id); // Debug log
       setUserId(userData.id);
     } else {
+      router.push("/login");
       console.log("No user_data found in localStorage"); // Debug log
     }
   }, []);

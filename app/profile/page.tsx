@@ -44,6 +44,8 @@ export default function ProfilePage() {
       } catch (e) {
         console.error("Failed to parse user_data from localStorage", e);
       }
+    }else{
+      router.push("/login");
     }
   }, []);
 

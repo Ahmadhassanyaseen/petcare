@@ -16,9 +16,20 @@ export async function GET(
       );
     }
 
+    // Get userId from query parameters for security filtering
+    // const { searchParams } = new URL(request.url);
+    // const userId = searchParams.get('userId');
+
+    // if (!userId) {
+    //   return NextResponse.json(
+    //     { error: "User ID is required" },
+    //     { status: 400 }
+    //   );
+    // }
+
     await connectToDatabase();
 
-    const chat = await Chat.findById(id);
+    const chat = await Chat.findOne({ _id: id });
 
     if (!chat) {
       return NextResponse.json(

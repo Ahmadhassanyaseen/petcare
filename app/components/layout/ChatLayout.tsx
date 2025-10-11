@@ -35,7 +35,7 @@ const ChatLayout: React.FC<ChatLayoutProps> = ({ children, onNewChat, userId }) 
     if (typeof window === 'undefined' || !userId) return
 
     try {
-      const response = await fetch(`/api/chat/all_sessions`)
+      const response = await fetch(`/api/chat/all_sessions?userId=${userId}`)
       if (response.ok) {
         const sessions = await response.json()
         setChatSessions(sessions)

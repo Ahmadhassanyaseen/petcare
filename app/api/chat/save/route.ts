@@ -7,6 +7,11 @@ export async function POST(request: Request) {
   try {
     const { sessionId, userId, message, role } = await request.json();
 
+    console.log("sessionId", sessionId);
+    console.log("userId", userId);
+    console.log("message", message);
+    console.log("role", role);
+
     if (!sessionId || !userId || !message || !role) {
       return NextResponse.json(
         { error: "Missing required fields: sessionId, userId, message, role" },

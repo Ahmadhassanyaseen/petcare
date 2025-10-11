@@ -9,6 +9,7 @@ import { BsArrowLeft, BsCreditCard, BsCalendar, BsCheckCircle, BsXCircle, BsCloc
 import MinutesSection from "./MinutesSection";
 import { useEffect, useState } from "react";
 import ChatMenu from "../components/chat/ChatMenu";
+import { useRouter } from "next/navigation";
 
 interface Transaction {
   _id: string;
@@ -55,6 +56,7 @@ export default function TransactionsPage() {
   const [parsedUserData, setParsedUserData] = useState<any>(null);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   // Function to fetch transactions
   const fetchTransactions = async () => {
@@ -89,6 +91,8 @@ export default function TransactionsPage() {
       } catch (e) {
         console.error("Failed to parse user_data from localStorage", e);
       }
+    }else{
+      router.push("/login");
     }
   }, []);
 

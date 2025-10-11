@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongoose";
-import Transaction from "../../../models/Transaction";
+import Transaction, { ITransaction } from "../../../models/Transaction";
 
 export async function GET(req: NextRequest) {
   try {
@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
       userId: userId,
       plan: { $in: ["basic", "premium"] },
       status: "completed"
-    }).sort({ createdAt: -1 }); // Sort by createdAt descending to get the latest
+    }).sort({ createdAt: -1 }) as ITransaction | null; // Sort by createdAt descending to get the latest
 
     if (!latestSubscription) {
       return NextResponse.json({
@@ -32,7 +32,7 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({
       subscription: {
-        id: latestSubscription._id.toString(),
+        id: (latestSubscription as any)._id.toString(),
         userId: latestSubscription.userId,
         plan: latestSubscription.plan,
         amount: latestSubscription.amount,

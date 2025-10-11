@@ -16,13 +16,23 @@ export default function ChatPage() {
   const chatId = params?.id as string;
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(true);
+  const [userId, setUserId] = useState<string | null>(null);
+
+  // Get userId from localStorage
+  useEffect(() => {
+    const user_data = localStorage.getItem("user_data");
+    if (user_data) {
+      const userData = JSON.parse(user_data);
+      setUserId(userData.id);
+    }
+  }, []);
 
   // Fetch messages from API
   useEffect(() => {
     if (!chatId) return;
     const fetchChat = async () => {
       try {
-        const res = await fetch(`/api/chat/${chatId}`);
+        const res = await fetch(`/api/chat/${chatId}?userId=${userId}`);
         const data = await res.json();
         setMessages(data.messages || []);
       } catch (err) {
@@ -35,7 +45,7 @@ export default function ChatPage() {
   }, [chatId]);
 
   return (
-    <ChatLayout>
+    <ChatLayout userId={userId || undefined}>
       <div className="flex flex-col h-full bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
         {/* Header */}
         <header className="p-6 bg-white/80 backdrop-blur-lg border-b border-white/20 shadow-sm">
