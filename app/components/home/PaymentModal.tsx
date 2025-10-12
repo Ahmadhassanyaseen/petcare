@@ -130,9 +130,9 @@ const CardForm = ({
       if (paymentIntent && paymentIntent.status === "succeeded") {
         let total_time = "";
         if (plan === "basic") {
-          total_time = "40";
+          total_time = "30";
         } else if (plan === "premium") {
-          total_time = "100";
+          total_time = "90";
         }
 
         // Process the successful payment
