@@ -45,14 +45,38 @@ export default function VoiceChat({
   // const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
-    // initializeChatSession();
-    const user_data = localStorage.getItem("user_data");
-    if (user_data) {
-      const userData = JSON.parse(user_data);
-      setParsedUserData(userData);
-      setTotalTime(userData?.data?.total_time || 0);
-    }
-  }, [totalTime || xeno]);
+    const fetchUserData = async () => {
+      const user_data = localStorage.getItem("user_data");
+      if (user_data) {
+        try {
+          const parsed = JSON.parse(user_data);
+          console.log(parsed);
+          const userId = parsed?.id; // 👈 get user ID from stored data
+          
+          if (userId) {
+            // ✅ fetch from your backend
+            const res = await fetch(`/api/users/${userId}`);
+            const data = await res.json();
+            if (!res.ok) {
+              console.error("Failed to fetch user data:", data);
+              return;
+            }
+            
+            // Update localStorage with fresh data from API
+            localStorage.setItem("user_data", JSON.stringify(data));
+            
+            // Set state with fresh data
+            setParsedUserData(data);
+            setTotalTime(data?.total_time || 0);
+          }
+        } catch (e) {
+          console.error("Failed to parse user_data from localStorage", e);
+        }
+      }
+    };
+    
+    fetchUserData();
+  }, [xeno]);
 
   // console.log("Total time:", totalTime);
   const handleCallEnd = async () => {
@@ -507,7 +531,7 @@ export default function VoiceChat({
               userId={parsedUserData?.id}
               onPaymentSuccess={() => {setShowMinutesModal(false); setXeno(!xeno);}}
             /> */}
-            <Plans onPaymentSuccess={() => setShowPlansModal(false)}/>
+            <Plans onPaymentSuccess={() => {setShowPlansModal(false); setXeno(!xeno)}}/>
           </div> 
         </div>
       )}
