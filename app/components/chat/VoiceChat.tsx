@@ -5,6 +5,7 @@ import { Role, useConversation } from "@elevenlabs/react";
 import { Mic, MicOff, Volume2, VolumeX } from "lucide-react";
 import { useRouter } from "next/navigation";
 import MinutesSection from "@/app/transactions/MinutesSection";
+import Plans from "@/app/components/home/Plans";
 
 interface VoiceChatProps {
   sessionId: string;
@@ -209,7 +210,7 @@ export default function VoiceChat({
   };
 
   const [showMinutesModal, setShowMinutesModal] = useState(false);
-
+  const [showPlansModal, setShowPlansModal] = useState(false);
   const handleStartConversation = async () => {
     try {
       // Check if user has any subscription/transaction
@@ -219,7 +220,8 @@ export default function VoiceChat({
         
         if (!data.hasTransaction) {
           // No subscription found, navigate to plans
-          router.push('/#plans');
+          // router.push('/#plans');
+          setShowPlansModal(true);
           return;
         }
       }
@@ -473,6 +475,40 @@ export default function VoiceChat({
               onPaymentSuccess={() => {setShowMinutesModal(false); setXeno(!xeno);}}
             />
           </div>
+        </div>
+      )}
+
+
+      {/* Plans Modal */}
+       {showPlansModal && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black/80 z-50">
+          <div className="relative">
+            {/* Close button */}
+            <button
+              onClick={() => setShowPlansModal(false)}
+              className="absolute -top-2 -right-2 z-10 bg-red-500 hover:bg-red-600 rounded-full p-2 text-white transition-colors"
+              title="Close"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+            {/* <MinutesSection
+              userId={parsedUserData?.id}
+              onPaymentSuccess={() => {setShowMinutesModal(false); setXeno(!xeno);}}
+            /> */}
+            <Plans onPaymentSuccess={() => setShowPlansModal(false)}/>
+          </div> 
         </div>
       )}
     </div>

@@ -17,6 +17,7 @@ interface PaymentModalProps {
   onClose: () => void;
   plan: "basic" | "premium" | "professional" | null;
   userId: string;
+  onPaymentSuccess?: () => void;
 }
 
 const PLAN_DETAILS = {
@@ -35,6 +36,7 @@ const CardForm = ({
   setUseNewCard,
   selectedPaymentMethod,
   setSelectedPaymentMethod,
+  onPaymentSuccess,
 }: { 
   plan: string; 
   userId: string; 
@@ -45,6 +47,7 @@ const CardForm = ({
   setUseNewCard: (value: boolean) => void;
   selectedPaymentMethod: string;
   setSelectedPaymentMethod: (value: string) => void;
+  onPaymentSuccess?: () => void;
 }) => {
   const stripe = useStripe();
   const router = useRouter();
@@ -153,6 +156,7 @@ const CardForm = ({
         if (data.success) {
           // alert("Payment successful! Your subscription is now active.");
           onClose();
+          onPaymentSuccess?.(); // Call the callback to close the modal in VoiceChat
           router.push("/chat"); // Refresh to show updated subscription status
         } else {
           setError("Payment processing failed");
@@ -302,7 +306,7 @@ const CardForm = ({
   );
 };
 
-export default function PaymentModal({ isOpen, onClose, plan, userId }: PaymentModalProps) {
+export default function PaymentModal({ isOpen, onClose, plan, userId, onPaymentSuccess }: PaymentModalProps) {
   const router = useRouter();
   const [clientSecret, setClientSecret] = useState("");
   const [paymentMethods, setPaymentMethods] = useState<any[]>([]);
@@ -412,6 +416,7 @@ export default function PaymentModal({ isOpen, onClose, plan, userId }: PaymentM
               setUseNewCard={setUseNewCard}
               selectedPaymentMethod={selectedPaymentMethod}
               setSelectedPaymentMethod={setSelectedPaymentMethod}
+              onPaymentSuccess={onPaymentSuccess}
             />
           </Elements>
         ) : (
