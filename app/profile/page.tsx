@@ -363,7 +363,7 @@ export default function ProfilePage() {
               <div className="relative rounded-2xl border border-white/30 bg-white/10 backdrop-blur-xl shadow overflow-hidden">
                 <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-orange-400/40 via-orange-600/70 to-orange-400/40" />
                 <div className="p-6">
-                  <h3 className="text-lg font-semibold text-slate-900 mb-4">Subscription Settings</h3>
+                  <h3 className="text-lg font-semibold text-slate-900 mb-4">Subscription Details</h3>
 
                   <div className="space-y-4">
                     <div className="flex items-center justify-between p-3 bg-gradient-to-r from-orange-50 to-orange-100 m-0">
@@ -424,6 +424,10 @@ export default function ProfilePage() {
                         <div className="text-right">
                           <p className="text-sm font-medium text-slate-900">
                             ${(latestSubscription.amount / 100).toFixed(2)}
+                            <br />
+                            <p className="text-xs text-slate-600">
+                              {latestSubscription.plan === "basic" ? "30 Minutes Talk Time" : "90 Minutes Talk Time"}
+                            </p>
                           </p>
                         </div>
                       </div>
