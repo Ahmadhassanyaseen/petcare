@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation';
+import { CreditCard } from 'lucide-react';
 
 const ChatMenu = () => {
     const router = useRouter();
@@ -76,6 +77,14 @@ const ChatMenu = () => {
               />
             </svg>
             Profile
+          </Link>
+          <Link
+            href="/transactions"
+            className="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-200"
+            onClick={() => setIsMenuOpen(false)}
+          >
+           <CreditCard className="w-4 h-4 mr-3"/>
+            Transactions
           </Link>
           <Link
             href="/chat"

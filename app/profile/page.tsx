@@ -4,6 +4,7 @@ import Link from "next/link";
 import { BsCreditCard, BsClock, BsCheckCircle } from "react-icons/bs";
 import { useRouter } from "next/navigation";
 import ChatMenu from "../components/chat/ChatMenu";
+import PaymentModal from "../components/home/PaymentModal";
 
 
 export default function ProfilePage() {
@@ -12,8 +13,12 @@ export default function ProfilePage() {
   const [loadingPaymentMethods, setLoadingPaymentMethods] = useState(false);
   const [updatingRenewal, setUpdatingRenewal] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
+  const [profileImage, setProfileImage] = useState(null);
   const [latestSubscription, setLatestSubscription] = useState<any>(null);
   const [loadingSubscription, setLoadingSubscription] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<"basic" | "premium" | "professional" | null>(null);
+
   const router = useRouter();
 
   const formatDate = (dateString: string) => {
@@ -47,7 +52,26 @@ export default function ProfilePage() {
     }else{
       router.push("/login");
     }
+
+    
   }, []);
+
+  const getProfileImage = async()=>{
+    try {
+      const response = await fetch(`/api/users/${parsedUserData.id}`);
+      const data = await response.json();
+      console.log(data);
+      if (response.ok && data.profileImage) {
+        setProfileImage(data.profileImage);
+      }
+    } catch (error) {
+      console.error('Error fetching profile image:', error);
+    }
+  }
+
+  useEffect(() => {
+    if(parsedUserData?.id) getProfileImage();
+  }, [parsedUserData]);
 
   const fetchLatestSubscription = async (userId: string) => {
     setLoadingSubscription(true);
@@ -164,6 +188,15 @@ export default function ProfilePage() {
     }
   };
 
+   const openModal = (plan: "basic" | "premium" | "professional") => {
+    setSelectedPlan(plan);
+    setIsModalOpen(true);
+  };
+  const onPaymentSuccess = () => {
+    setIsModalOpen(false);
+    router.refresh();
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-50">
       {/* Hero Section */}
@@ -192,9 +225,9 @@ export default function ProfilePage() {
             {/* Avatar */}
             <div className="relative inline-block mb-8">
               <div className="w-32 h-32 rounded-full bg-white/20 backdrop-blur-xl border-4 border-white/30 flex items-center justify-center text-6xl font-bold text-white shadow-2xl overflow-hidden">
-                {parsedUserData?.profileImage ? (
+                {profileImage ? (
                   <img
-                    src={parsedUserData.profileImage}
+                    src={profileImage}
                     alt={`${parsedUserData.name || "User"}'s profile`}
                     className="w-full h-full object-cover"
                   />
@@ -432,9 +465,27 @@ export default function ProfilePage() {
                         </div>
                       </div>
                     )}
+                    
                   </div>
                 </div>
               </div>
+              {
+              latestSubscription && latestSubscription.plan === "basic" && (
+                 <div className="relative rounded-2xl border border-white/30 bg-white/10 backdrop-blur-xl shadow overflow-hidden">
+                <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-orange-400/40 via-orange-600/70 to-orange-400/40" />
+                <div className="p-6">
+                  <h3 className="text-2xl font-semibold text-slate-900 mb-4">Upgrade Your Account</h3>
+                  <div>
+                    <p className="text-lg font-bold text-slate-900 mb-2">Primium Plan</p>
+                    <p className="text-md text-slate-600 ">$0.22 cents per minute</p>
+                    <p className="text-md text-slate-600">90 Minutes Talk Time</p>
+                    <button className="w-full mt-2 flex items-center justify-center px-4 py-3 text-lg font-medium text-white bg-gradient-to-r from-[#ff6a3d] to-[#ff8a1e] rounded-lg shadow hover:from-[#ff5a2b] hover:to-[#ff7a18] transition-all duration-200 transform hover:scale-105 cursor-pointer" onClick={() => openModal("premium")}>Upgrade Now</button>
+                  </div>
+                </div>
+              </div>
+               )
+              }
+             
 
               {/* Account Actions */}
               <div className="relative rounded-2xl border border-white/30 bg-white/10 backdrop-blur-xl shadow overflow-hidden">
@@ -480,6 +531,13 @@ export default function ProfilePage() {
           </div>
         </div>
       </section>
+      <PaymentModal
+              isOpen={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
+              plan={selectedPlan}
+              userId={parsedUserData?.id}
+              onPaymentSuccess={onPaymentSuccess}
+            />
     </div>
   );
 }
