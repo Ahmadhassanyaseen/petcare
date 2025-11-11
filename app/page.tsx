@@ -3,11 +3,16 @@
 // import Banner2 from "./components/home/Banner2";
 import Plans from "./components/home/Plans";
 import Footer2 from "./components/layout/Footer2";
-import Banner3 from "./components/home/Banner3";
+// import Banner3 from "./components/home/Banner3";
+import Banner4 from "./components/home/Banner4";
+
 // import Script from "next/script";
 // import Chat from "./components/chat/Chat";
-import Founder from "./components/home/Founder";
-import Support from "./components/home/Support";
+import Founder2 from "./components/home/Founder2";
+// import Support from "./components/home/Support";
+import PricingSection from "./components/home/PricingSection";
+
+import Mission from "./components/home/Mission";
 // import { Conversation } from "./components/chat/Conversation";
 
 export default function Home() {
@@ -20,23 +25,26 @@ export default function Home() {
         {/* ElevenLabs ConvAI Widget */}
     
         {/* Header */}
-        <Banner3/>
+        {/* <Banner3/> */}
+        <Banner4 />
 
         {/* Hero Banner2 */}
         {/* <Banner2/> */}
-        <Support />
+        {/* <Support /> */}
+        <Mission/>
        
 
         {/* Feature Section - Image left, text right */}
         {/* <About/> */}
 
         {/* Pricing Section */}
-        <Plans/>
+        {/* <Plans/> */}
+        <PricingSection />
 
         {/* Chat Component */}
         {/* <Chat/> */}
 
-        <Founder />
+        <Founder2 />
          {/* Footer */}
         <Footer2/>
 
