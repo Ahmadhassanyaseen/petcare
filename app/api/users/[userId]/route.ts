@@ -37,7 +37,8 @@ export async function GET(
       subscription_date: user.subscription_date,
       subscription_amount: user.subscription_amount,
       createdAt: user.createdAt,
-      updatedAt: user.updatedAt
+      updatedAt: user.updatedAt,
+      profileImage: user.profileImage
     });
 
   } catch (error: any) {

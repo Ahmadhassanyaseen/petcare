@@ -171,7 +171,11 @@ const CardForm = ({
   );
 };
 
-export default function PricingPlans() {
+interface PricingPlansProps {
+  onPaymentSuccess?: () => void;
+}
+
+export default function PricingPlans({ onPaymentSuccess }: PricingPlansProps = {}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<"basic" | "premium" | "professional" | null>(null);
 
@@ -478,6 +482,7 @@ export default function PricingPlans() {
         onClose={() => setIsModalOpen(false)}
         plan={selectedPlan}
         userId={userId}
+        onPaymentSuccess={onPaymentSuccess}
       />
       </div>
     </section>

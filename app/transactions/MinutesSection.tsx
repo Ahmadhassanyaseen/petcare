@@ -89,6 +89,15 @@ export default function MinutesSection({ userId, currentMinutes: initialMinutes,
   useEffect(() => {
     fetchCurrentMinutes();
     checkSubscription();
+    
+    // Set up interval to refresh data every 3 minutes (180000 ms)
+    const interval = setInterval(() => {
+      fetchCurrentMinutes();
+      checkSubscription();
+    }, 120000); // 3 minutes = 3 * 60 * 1000 ms
+    
+    // Cleanup interval on component unmount
+    return () => clearInterval(interval);
   }, [userId]);
 
   const handlePurchase = (minutes: "20" | "40" | "60") => {

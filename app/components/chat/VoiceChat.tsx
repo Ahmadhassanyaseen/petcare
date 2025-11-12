@@ -5,6 +5,7 @@ import { Role, useConversation } from "@elevenlabs/react";
 import { Mic, MicOff, Volume2, VolumeX } from "lucide-react";
 import { useRouter } from "next/navigation";
 import MinutesSection from "@/app/transactions/MinutesSection";
+import Plans from "@/app/components/home/Plans";
 
 interface VoiceChatProps {
   sessionId: string;
@@ -44,14 +45,38 @@ export default function VoiceChat({
   // const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
-    // initializeChatSession();
-    const user_data = localStorage.getItem("user_data");
-    if (user_data) {
-      const userData = JSON.parse(user_data);
-      setParsedUserData(userData);
-      setTotalTime(userData?.data?.total_time || 0);
-    }
-  }, [totalTime || xeno]);
+    const fetchUserData = async () => {
+      const user_data = localStorage.getItem("user_data");
+      if (user_data) {
+        try {
+          const parsed = JSON.parse(user_data);
+          console.log(parsed);
+          const userId = parsed?.id; // 👈 get user ID from stored data
+          
+          if (userId) {
+            // ✅ fetch from your backend
+            const res = await fetch(`/api/users/${userId}`);
+            const data = await res.json();
+            if (!res.ok) {
+              console.error("Failed to fetch user data:", data);
+              return;
+            }
+            
+            // Update localStorage with fresh data from API
+            localStorage.setItem("user_data", JSON.stringify(data));
+            
+            // Set state with fresh data
+            setParsedUserData(data);
+            setTotalTime(data?.total_time || 0);
+          }
+        } catch (e) {
+          console.error("Failed to parse user_data from localStorage", e);
+        }
+      }
+    };
+    
+    fetchUserData();
+  }, [xeno]);
 
   // console.log("Total time:", totalTime);
   const handleCallEnd = async () => {
@@ -209,7 +234,7 @@ export default function VoiceChat({
   };
 
   const [showMinutesModal, setShowMinutesModal] = useState(false);
-
+  const [showPlansModal, setShowPlansModal] = useState(false);
   const handleStartConversation = async () => {
     try {
       // Check if user has any subscription/transaction
@@ -219,7 +244,8 @@ export default function VoiceChat({
         
         if (!data.hasTransaction) {
           // No subscription found, navigate to plans
-          router.push('/#plans');
+          // router.push('/#plans');
+          setShowPlansModal(true);
           return;
         }
       }
@@ -473,6 +499,40 @@ export default function VoiceChat({
               onPaymentSuccess={() => {setShowMinutesModal(false); setXeno(!xeno);}}
             />
           </div>
+        </div>
+      )}
+
+
+      {/* Plans Modal */}
+       {showPlansModal && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black/80 z-50">
+          <div className="relative">
+            {/* Close button */}
+            <button
+              onClick={() => setShowPlansModal(false)}
+              className="absolute -top-2 -right-2 z-10 bg-red-500 hover:bg-red-600 rounded-full p-2 text-white transition-colors"
+              title="Close"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+            {/* <MinutesSection
+              userId={parsedUserData?.id}
+              onPaymentSuccess={() => {setShowMinutesModal(false); setXeno(!xeno);}}
+            /> */}
+            <Plans onPaymentSuccess={() => {setShowPlansModal(false); setXeno(!xeno)}}/>
+          </div> 
         </div>
       )}
     </div>
