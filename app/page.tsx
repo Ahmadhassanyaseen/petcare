@@ -3,6 +3,7 @@
 // import Banner2 from "./components/home/Banner2";
 import Plans from "./components/home/Plans";
 import Footer2 from "./components/layout/Footer2";
+import Footer3 from "./components/layout/Footer3";
 // import Banner3 from "./components/home/Banner3";
 import Banner4 from "./components/home/Banner4";
 
@@ -13,6 +14,7 @@ import Founder2 from "./components/home/Founder2";
 import PricingSection from "./components/home/PricingSection";
 
 import Mission from "./components/home/Mission";
+import Banner5 from "./components/home/Banner5";
 // import { Conversation } from "./components/chat/Conversation";
 
 export default function Home() {
@@ -26,7 +28,7 @@ export default function Home() {
     
         {/* Header */}
         {/* <Banner3/> */}
-        <Banner4 />
+        <Banner5 />
 
         {/* Hero Banner2 */}
         {/* <Banner2/> */}
@@ -46,7 +48,8 @@ export default function Home() {
 
         <Founder2 />
          {/* Footer */}
-        <Footer2/>
+        {/* <Footer2/> */}
+        <Footer3/>
 
       </div>
     </>
