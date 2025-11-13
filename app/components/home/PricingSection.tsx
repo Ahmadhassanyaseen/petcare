@@ -4,7 +4,7 @@ import React from "react";
 
 export default function PricingSection() {
   return (
-    <section className="min-h-screen bg-[#c5a4ff] flex flex-col justify-center px-6 md:px-16 py-16">
+    <section className="min-h-screen bg-[#B57DFF] flex flex-col justify-center px-6 md:px-16 py-16">
       {/* Heading */}
       <div className="mb-12 text-left max-w-7xl w-full mx-auto">
         <h1 className="text-[42px] md:text-[64px] font-extrabold leading-tight text-black">
@@ -12,8 +12,8 @@ export default function PricingSection() {
           for You &amp; Your Pet
         </h1>
       </div>
-      <div>
-        <MinutesSection />
+      <div className="max-w-7xl w-full mx-auto">
+        <MinutesSection userId="null"/>
       </div>
 
 

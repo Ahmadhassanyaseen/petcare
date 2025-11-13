@@ -5,16 +5,16 @@ import Image from "next/image";
 export default function Footer3() {
   return (
    
-    <footer className="bg-[#c5a4ff] text-black  px-10 md:px-20 py-10">
+    <footer className="bg-[#B57DFF] text-black  px-10">
       {/* Left Section */}
       <div className="w-full text-center">
          <Image
               src="/footer.avif"
               alt="footer"
-              width={200}
-              height={200}
+              width={80}
+              height={80}
               priority
-              className="object-contain"
+              className="object-contain mx-auto"
             />
       </div>
       <div className="flex flex-col md:flex-row justify-between items-stretch  border-b-1 border-black  text-black mt-4">

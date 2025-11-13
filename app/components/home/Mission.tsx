@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Mission() {
   return (
-    <main className="min-h-screen bg-[#c5a4ff] flex flex-col justify-center px-6 md:px-16 py-16">
+    <main className="min-h-screen bg-[#B57DFF] flex flex-col justify-center px-6 md:px-16 py-16">
       {/* Heading */}
       <div className="mb-10 text-left  max-w-7xl w-full mx-auto">
         <h1 className="text-[42px] md:text-[64px] font-extrabold leading-tight text-black">

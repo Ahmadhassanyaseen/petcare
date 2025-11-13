@@ -15,6 +15,7 @@ import PricingSection from "./components/home/PricingSection";
 
 import Mission from "./components/home/Mission";
 import Banner5 from "./components/home/Banner5";
+import NavbarBanner from "./components/home/Navbar";
 // import { Conversation } from "./components/chat/Conversation";
 
 export default function Home() {
@@ -28,6 +29,7 @@ export default function Home() {
     
         {/* Header */}
         {/* <Banner3/> */}
+        <NavbarBanner />
         <Banner5 />
 
         {/* Hero Banner2 */}

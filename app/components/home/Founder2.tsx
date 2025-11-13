@@ -1,11 +1,16 @@
 "use client";
 import Image from "next/image";
-
+import { Barlow } from "next/font/google";
+const barlow = Barlow({
+  weight: ["400", "500", "600", "700"], // choose what you need
+  subsets: ["latin"],
+  variable: "--font-barlow",
+});
 export default function Founder() {
   return (
-    <section className="bg-[#c5a4ff] min-h-screen w-full px-6 md:px-16 py-16 text-black flex flex-col items-center">
+    <section className={`${barlow.variable} font-barlow bg-[#B57DFF] min-h-screen w-full px-6 md:px-16 py-5 text-black flex flex-col items-center`}>
       {/* Heading */}
-      <div className="text-center max-w-4xl mb-10">
+      <div className="text-center max-w-4xl mb-5">
         <h1 className="font-extrabold text-[40px] md:text-[64px] leading-tight tracking-tight text-black">
           Meet the Heart Behind VET365.AI
         </h1>
@@ -15,7 +20,7 @@ export default function Founder() {
       </div>
 
       {/* Intro (above image) */}
-      <p className="text-center text-[16px] md:text-[15px] leading-relaxed max-w-2xl mb-8">
+      <p className="text-center text-[16px] md:text-[15px] leading-relaxed max-w-2xl mb-3">
         Hi, I’m <strong>Dr. Kole</strong> — veterinarian, lifelong animal lover, and the human
         heart behind Vet365-AI.
       </p>
@@ -29,15 +34,15 @@ export default function Founder() {
             alt="Dr. Alexis Kole with her dog"
             width={390}
             height={600}
-            className="rounded-lg object-cover h-auto max-w-md"
+            className="object-cover h-auto max-w-md"
             priority
           />
         </div>
 
         {/* Right - Text */}
-        <div className="text-[16px] md:text-[15px] leading-relaxed lg:pl-8">
+        <div className="text-[16px] md:text-[15px] leading-relaxed lg:pl-3">
           <p className="mb-4">
-            For nearly seven years, I’ve cared for pets in emergencies, urgent situations, and
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For nearly seven years, I’ve cared for pets in emergencies, urgent situations, and
             everyday life, always guided by one simple principle: understanding the why behind
             what’s happening. I don’t believe in quick fixes or one-size-fits-all answers. Even
             seemingly simple questions can have layers, and taking the time to explain them is
@@ -72,7 +77,7 @@ export default function Founder() {
       </div>
 
       {/* Closing Text */}
-      <p className="text-center text-[16px] md:text-[15px] leading-relaxed mt-10 max-w-3xl">
+      <p className="text-center text-[16px] md:text-[15px] leading-relaxed mt-4 max-w-3xl">
         Through my guidance and Kora’s carefully refined expertise, you get answers you can
         truly trust — empowering you to act with confidence, care, and peace of mind for your
         beloved pets every step of the way.

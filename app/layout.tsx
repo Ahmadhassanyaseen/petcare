@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Poppins } from "next/font/google";
+import { Barlow, Geist, Geist_Mono, Poppins, Syne } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -17,6 +17,14 @@ const poppins = Poppins({
   subsets: ["latin"],
   variable: "--font-poppins",
 });
+const barlow = Barlow({
+  weight: ["400", "500", "600", "700"], // choose what you need
+  subsets: ["latin"],
+  variable: "--font-barlow",
+});
+
+
+
 
 export const metadata: Metadata = {
   title: "Vet365.ai",
@@ -32,7 +40,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} ${barlow.variable} antialiased font-[var(--font-barlow)]`}
       >
         {children}
        

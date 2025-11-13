@@ -155,7 +155,7 @@ export default function MinutesSection({ userId, currentMinutes: initialMinutes,
     
  
         {/* Purchase Minutes Section */}
-        <div className="relative rounded-sm border border-white/30 bg-[#c5a4ff] backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] overflow-hidden ${
+        <div className="relative rounded-sm bg-[#B57DFF] backdrop-blur-xl  overflow-hidden ${
     !userSubscription.hasActiveSubscription ? 'hidden' : ''
   }`">
           <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-orange-400/40 via-orange-600/70 to-orange-400/40" />
@@ -169,15 +169,11 @@ export default function MinutesSection({ userId, currentMinutes: initialMinutes,
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-4">
+            <div className="grid md:grid-cols-3 gap-4 mt-10">
               {MINUTES_PACKAGES.map((pkg) => (
                 <div
                   key={pkg.minutes}
-                  className={`relative rounded-xl border-2 p-6 transition-all hover:scale-105 cursor-pointer ${
-                    pkg.popular
-                      ? " bg-[#c5a4ff]"
-                      : " bg-[#c5a4ff] hover:border-orange-300"
-                  }`}
+                  className={`relative rounded-xl shadow-xl p-6 transition-all  cursor-pointer`}
                   onClick={() => handlePurchase(pkg.minutes as "20" | "40" | "60")}
                 >
                   {pkg.popular && (
