@@ -17,10 +17,7 @@ export default function Banner3() {
   return (
     <div
       className="relative w-full flex flex-col items-start justify-start min-h-screen overflow-hidden text-left"
-      style={{
-        "--banner-bg": "#B57DFF",
-        backgroundColor: "var(--banner-bg)",
-      }}
+     
     >
       {/* Text Section */}
       <div className="flex flex-col items-center justify-center w-full z-10 mt-10 md:mt-16">
