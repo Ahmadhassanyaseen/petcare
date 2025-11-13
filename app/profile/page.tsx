@@ -198,9 +198,9 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-50">
+    <div className="min-h-screen bg-gradient-to-br from-[#B57DFF]/20 via-white to-[#B57DFF]/20">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-r from-[#ff4d2d] to-[#ff7a18]">
+      <section className="relative overflow-hidden bg-gradient-to-r from-[#B57DFF] to-[#B57DFF]">
         <div className="absolute inset-0 bg-[url('/lady.png')] bg-no-repeat bg-bottom-right bg-auto lg:bg-contain" />
         <div className="absolute inset-0 bg-black/20" />
         <ChatMenu/>
@@ -479,7 +479,7 @@ export default function ProfilePage() {
                     <p className="text-lg font-bold text-slate-900 mb-2">Primium Plan</p>
                     <p className="text-md text-slate-600 ">$0.22 cents per minute</p>
                     <p className="text-md text-slate-600">90 Minutes Talk Time</p>
-                    <button className="w-full mt-2 flex items-center justify-center px-4 py-3 text-lg font-medium text-white bg-gradient-to-r from-[#ff6a3d] to-[#ff8a1e] rounded-lg shadow hover:from-[#ff5a2b] hover:to-[#ff7a18] transition-all duration-200 transform hover:scale-105 cursor-pointer" onClick={() => openModal("premium")}>Upgrade Now</button>
+                    <button className="w-full mt-2 flex items-center justify-center px-4 py-3 text-lg font-medium text-white bg-gradient-to-r from-[#B57DFF] to-[#B57DFF] rounded-lg shadow hover:from-[#ff5a2b] hover:to-[#ff7a18] transition-all duration-200 transform hover:scale-105 cursor-pointer" onClick={() => openModal("premium")}>Upgrade Now</button>
                   </div>
                 </div>
               </div>
@@ -498,7 +498,7 @@ export default function ProfilePage() {
     // If latestSubscription is truthy (your original 'if' block)
     <Link
         href="/transactions"
-        className="w-full flex items-center justify-center px-4 py-3 text-sm font-medium text-white bg-gradient-to-r from-[#ff6a3d] to-[#ff8a1e] rounded-lg shadow hover:from-[#ff5a2b] hover:to-[#ff7a18] transition-all duration-200 transform hover:scale-105"
+        className="w-full flex items-center justify-center px-4 py-3 text-sm font-medium text-white bg-gradient-to-r from-[#B57DFF] to-[#B57DFF] rounded-lg shadow hover:from-[#ff5a2b] hover:to-[#ff7a18] transition-all duration-200 transform hover:scale-105"
     >
         <BsCreditCard className="w-4 h-4 mr-2" />
         View Transactions
@@ -507,7 +507,7 @@ export default function ProfilePage() {
     // If latestSubscription is falsy (your 'else' block)
     <Link
         href="/#plans"
-        className="w-full flex items-center justify-center px-4 py-3 text-sm font-medium text-white bg-gradient-to-r from-[#ff6a3d] to-[#ff8a1e] rounded-lg shadow hover:from-[#ff5a2b] hover:to-[#ff7a18] transition-all duration-200 transform hover:scale-105"
+        className="w-full flex items-center justify-center px-4 py-3 text-sm font-medium text-white bg-gradient-to-r from-[#B57DFF] to-[#B57DFF] rounded-lg shadow hover:from-[#ff5a2b] hover:to-[#ff7a18] transition-all duration-200 transform hover:scale-105"
     >
         <BsCreditCard className="w-4 h-4 mr-2" />
         Buy a Plan Now

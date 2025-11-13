@@ -173,7 +173,7 @@ export default function MinutesSection({ userId, currentMinutes: initialMinutes,
               {MINUTES_PACKAGES.map((pkg) => (
                 <div
                   key={pkg.minutes}
-                  className={`relative rounded-xl shadow-xl p-6 transition-all  cursor-pointer`}
+                  className={`relative rounded-xl shadow-xl px-6 pb-6 pt-8 mt-8 md:mt-4 transition-all  cursor-pointer`}
                   onClick={() => handlePurchase(pkg.minutes as "20" | "40" | "60")}
                 >
                   {pkg.popular && (
