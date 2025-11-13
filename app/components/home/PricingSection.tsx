@@ -1,4 +1,5 @@
 "use client";
+import MinutesSection from "@/app/transactions/MinutesSection";
 import React from "react";
 
 export default function PricingSection() {
@@ -11,6 +12,12 @@ export default function PricingSection() {
           for You &amp; Your Pet
         </h1>
       </div>
+      <div>
+        <MinutesSection />
+      </div>
+
+
+      
 
       {/* Pricing Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-7xl w-full mx-auto">
