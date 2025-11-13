@@ -296,7 +296,7 @@ const CardForm = ({
         </button>
         <button
           type="submit"
-          className="px-6 py-3 rounded-lg bg-gradient-to-r from-[#ff6a3d] to-[#ff8a1e] text-white font-semibold hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+          className="px-6 py-3 rounded-lg bg-gradient-to-r from-[#B57DFF] to-[#ff8a1e] text-white font-semibold hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           disabled={loading || (!useNewCard && !selectedPaymentMethod)}
         >
           {loading ? "Processing..." : `Pay ${PLAN_DETAILS[plan as keyof typeof PLAN_DETAILS]?.price}`}

@@ -92,7 +92,7 @@ export default function ProfileForm({ user }: ProfileFormProps) {
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 flex items-center justify-center px-6 py-3 text-sm font-medium text-white bg-gradient-to-r from-[#ff6a3d] to-[#ff8a1e] rounded-lg shadow hover:from-[#ff5a2d] hover:to-[#ff7a0e] transition-all duration-200 transform hover:scale-105 disabled:opacity-60 disabled:transform-none"
+              className="flex-1 flex items-center justify-center px-6 py-3 text-sm font-medium text-white bg-gradient-to-r from-[#B57DFF] to-[#ff8a1e] rounded-lg shadow hover:from-[#ff5a2d] hover:to-[#ff7a0e] transition-all duration-200 transform hover:scale-105 disabled:opacity-60 disabled:transform-none"
             >
               {loading ? (
                 <>

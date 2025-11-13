@@ -15,7 +15,7 @@ const ChatMenu = () => {
     <div className="relative">
       <button
         onClick={() => setIsMenuOpen(!isMenuOpen)}
-        className="group flex items-center space-x-3 bg-gradient-to-br from-[#ff4d2d] to-[#ff7a18] backdrop-blur-md border border-white/20 rounded-xl px-2 py-2 md:px-4 md:py-3 text-white hover:bg-white/20 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+        className="group flex items-center space-x-3 bg-gradient-to-br from-[#B57DFF] to-[#B57DFF] backdrop-blur-md border border-white/20 rounded-xl px-2 py-2 md:px-4 md:py-3 text-white hover:bg-white/20 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
       >
         <div className="p-2 m-0 lg:mr-2 rounded-lg bg-white/20 group-hover:bg-white/30 transition-all duration-300">
           <svg

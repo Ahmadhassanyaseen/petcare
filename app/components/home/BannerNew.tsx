@@ -5,7 +5,7 @@ import Reveal from '../common/Reveal'
 
 const BannerNew = () => {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-[#FBAA30] via-[#ff8a1e] to-[#ff6a3d]">
+    <section className="relative overflow-hidden bg-gradient-to-br from-[#FBAA30] via-[#ff8a1e] to-[#B57DFF]">
       {/* Background Pattern/Overlay */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0 bg-[url('/pg-2.png')] bg-cover bg-center bg-no-repeat" />

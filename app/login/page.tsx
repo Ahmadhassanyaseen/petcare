@@ -10,7 +10,7 @@ export default function LoginPage() {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[radial-gradient(1200px_600px_at_80%_-10%,#ffe7d6,transparent),radial-gradient(1000px_500px_at_-10%_10%,#fff0e5,transparent)]">
       {/* Decorative blurred orbs */}
       <div className="pointer-events-none absolute -top-10 -left-10 h-72 w-72 rounded-full bg-[#ff8a1e]/20 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-16 -right-10 h-80 w-80 rounded-full bg-[#ff6a3d]/20 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-16 -right-10 h-80 w-80 rounded-full bg-[#B57DFF]/20 blur-3xl" />
 
       <div className="relative w-full px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-xl">

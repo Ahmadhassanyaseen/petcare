@@ -36,7 +36,7 @@ export default function Pricing2() {
             <li>Includes 1,000 minutes of talk</li>
           </ul>
           <p className="text-4xl font-bold text-center mb-4">$9.99 month</p>
-          <button  className="inline-flex text-xl mt-4 items-center justify-center rounded-full px-7 py-3 text-white font-semibold shadow-lg bg-gradient-to-r from-[#ff6a3d] to-[#ff8a1e] hover:from-[#ff5a2b] hover:to-[#ff7a18] transition-all hover:scale-105 text-center cursor-pointer" onClick={() => openModal("basic")}>
+          <button  className="inline-flex text-xl mt-4 items-center justify-center rounded-full px-7 py-3 text-white font-semibold shadow-lg bg-gradient-to-r from-[#B57DFF] to-[#ff8a1e] hover:from-[#ff5a2b] hover:to-[#B57DFF] transition-all hover:scale-105 text-center cursor-pointer" onClick={() => openModal("basic")}>
             JOIN NOW
           </button>
         </div>
@@ -61,7 +61,7 @@ export default function Pricing2() {
             <li>Includes 3,000 minutes of talk</li>
           </ul>
           <p className="text-4xl font-bold text-center mb-4">$29.99 month</p>
-          <button  className="inline-flex text-xl mt-4 items-center justify-center rounded-full px-7 py-3 text-white font-semibold shadow-lg bg-gradient-to-r from-[#ff6a3d] to-[#ff8a1e] hover:from-[#ff5a2b] hover:to-[#ff7a18] transition-all hover:scale-105 text-center cursor-pointer" onClick={() => openModal("premium")}>
+          <button  className="inline-flex text-xl mt-4 items-center justify-center rounded-full px-7 py-3 text-white font-semibold shadow-lg bg-gradient-to-r from-[#B57DFF] to-[#ff8a1e] hover:from-[#ff5a2b] hover:to-[#B57DFF] transition-all hover:scale-105 text-center cursor-pointer" onClick={() => openModal("premium")}>
             JOIN NOW
           </button>
         </div>
@@ -88,7 +88,7 @@ export default function Pricing2() {
             <li>Includes 6,000 minutes of talk</li>
           </ul>
           <p className="text-4xl font-bold text-center mb-4">$49.99 month</p>
-          <button  className="inline-flex text-xl mt-4 items-center justify-center rounded-full px-7 py-3 text-white font-semibold shadow-lg bg-gradient-to-r from-[#ff6a3d] to-[#ff8a1e] hover:from-[#ff5a2b] hover:to-[#ff7a18] transition-all hover:scale-105 text-center cursor-pointer" onClick={() => openModal("professional")}>
+          <button  className="inline-flex text-xl mt-4 items-center justify-center rounded-full px-7 py-3 text-white font-semibold shadow-lg bg-gradient-to-r from-[#B57DFF] to-[#ff8a1e] hover:from-[#ff5a2b] hover:to-[#B57DFF] transition-all hover:scale-105 text-center cursor-pointer" onClick={() => openModal("professional")}>
             JOIN NOW
           </button>
         </div>
@@ -127,7 +127,7 @@ export default function Pricing2() {
           </p>
           <Link
                 href="/profile"
-                className="inline-flex text-xl mt-4 items-center justify-center rounded-full px-7 py-3 text-white font-semibold shadow-lg bg-gradient-to-r from-[#ff6a3d] to-[#ff8a1e] hover:from-[#ff5a2b] hover:to-[#ff7a18] transition-all hover:scale-105 text-center cursor-pointer"
+                className="inline-flex text-xl mt-4 items-center justify-center rounded-full px-7 py-3 text-white font-semibold shadow-lg bg-gradient-to-r from-[#B57DFF] to-[#ff8a1e] hover:from-[#ff5a2b] hover:to-[#B57DFF] transition-all hover:scale-105 text-center cursor-pointer"
               >
                 JOIN NOW
               </Link>

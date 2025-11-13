@@ -113,7 +113,7 @@ const Header = () => {
             <>
               <Link
                 href="/profile"
-                className="inline-flex items-center justify-center rounded-full px-7 py-3 text-white font-semibold shadow-lg bg-gradient-to-r from-[#ff6a3d] to-[#ff8a1e] hover:from-[#ff5a2b] hover:to-[#ff7a18] transition-all hover:scale-105 text-center"
+                className="inline-flex items-center justify-center rounded-full px-7 py-3 text-white font-semibold shadow-lg bg-gradient-to-r from-[#B57DFF] to-[#ff8a1e] hover:from-[#ff5a2b] hover:to-[#B57DFF] transition-all hover:scale-105 text-center"
                 onClick={() => setMobileOpen(false)}
               >
                 Profile

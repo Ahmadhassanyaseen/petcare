@@ -16,7 +16,7 @@ const Banner = () => {
             }}
           >
             {/* Gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#ff4d2d] to-[#ff7a18] opacity-95" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#B57DFF] to-[#B57DFF] opacity-95" />
 
             <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center py-16 lg:py-24">

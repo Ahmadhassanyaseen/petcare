@@ -15,8 +15,8 @@ const About = () => {
                 <svg viewBox="0 0 400 400" className="w-full h-full drop-shadow-2xl">
                   <defs>
                     <linearGradient id="blobGradient" x1="0" x2="1" y1="0" y2="1">
-                      <stop offset="0%" stopColor="#ff4d2d" />
-                      <stop offset="100%" stopColor="#ff7a18" />
+                      <stop offset="0%" stopColor="#B57DFF" />
+                      <stop offset="100%" stopColor="#B57DFF" />
                     </linearGradient>
                   </defs>
                   <path
@@ -55,7 +55,7 @@ const About = () => {
               <div className="mt-8">
                 <Link
                   href="#about"
-                  className="inline-flex items-center justify-center rounded-full px-7 py-3 text-white font-semibold shadow-lg bg-gradient-to-r from-[#ff6a3d] to-[#ff8a1e] hover:from-[#ff5a2b] hover:to-[#ff7a18] transition-colors"
+                  className="inline-flex items-center justify-center rounded-full px-7 py-3 text-white font-semibold shadow-lg bg-gradient-to-r from-[#B57DFF] to-[#ff8a1e] hover:from-[#ff5a2b] hover:to-[#B57DFF] transition-colors"
                 >
                   About Us
                 </Link>

@@ -50,7 +50,7 @@ export default function ChatPage() {
         {/* Header */}
         <header className="p-6 bg-white/80 backdrop-blur-lg border-b border-white/20 shadow-sm">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-[#ff4d2d] to-[#ff7a18] bg-clip-text text-transparent">
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-[#B57DFF] to-[#B57DFF] bg-clip-text text-transparent">
               Chat with AI
             </h1>
             <p className="text-sm text-gray-600 mt-1">Conversation history</p>

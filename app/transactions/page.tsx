@@ -106,7 +106,7 @@ export default function TransactionsPage() {
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-50">
       {/* Header */}
       <ChatMenu/>
-      <section className="relative overflow-hidden bg-gradient-to-r from-[#ff4d2d] to-[#ff7a18]">
+      <section className="relative overflow-hidden bg-gradient-to-r from-[#B57DFF] to-[#B57DFF]">
         <div className="absolute inset-0 bg-black/20" />
 
         {/* Back Button */}
@@ -167,7 +167,7 @@ export default function TransactionsPage() {
                 <p className="text-slate-600 mb-6">You haven't made any payments yet. Start by subscribing to one of our plans!</p>
                 <Link
                   href="/#plans"
-                  className="inline-flex items-center justify-center px-6 py-3 text-white font-semibold bg-gradient-to-r from-[#ff6a3d] to-[#ff8a1e] rounded-lg shadow hover:from-[#ff5a2b] hover:to-[#ff7a18] transition-all hover:scale-105"
+                  className="inline-flex items-center justify-center px-6 py-3 text-white font-semibold bg-gradient-to-r from-[#B57DFF] to-[#ff8a1e] rounded-lg shadow hover:from-[#ff5a2b] hover:to-[#B57DFF] transition-all hover:scale-105"
                 >
                   Browse Plans
                 </Link>

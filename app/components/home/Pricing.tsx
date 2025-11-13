@@ -26,13 +26,13 @@ const Pricing: React.FC = () => {
           {/* Billing toggle */}
           {/* <div className="mt-6 inline-flex items-center rounded-full border border-gray-200 p-1 bg-white shadow-sm">
             <button
-              className={`px-4 py-2 text-sm rounded-full transition-colors ${!isYearly ? 'bg-gradient-to-r from-[#ff6a3d] to-[#ff8a1e] text-white' : 'text-slate-700 hover:bg-gray-100'}`}
+              className={`px-4 py-2 text-sm rounded-full transition-colors ${!isYearly ? 'bg-gradient-to-r from-[#B57DFF] to-[#ff8a1e] text-white' : 'text-slate-700 hover:bg-gray-100'}`}
               onClick={() => setBilling('monthly')}
             >
               Monthly
             </button>
             <button
-              className={`px-4 py-2 text-sm rounded-full transition-colors ${isYearly ? 'bg-gradient-to-r from-[#ff6a3d] to-[#ff8a1e] text-white' : 'text-slate-700 hover:bg-gray-100'}`}
+              className={`px-4 py-2 text-sm rounded-full transition-colors ${isYearly ? 'bg-gradient-to-r from-[#B57DFF] to-[#ff8a1e] text-white' : 'text-slate-700 hover:bg-gray-100'}`}
               onClick={() => setBilling('yearly')}
             >
               Yearly

@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className="mt-10">
     {/* Minimal top area with logo and contact */}
-    <div className="bg-gradient-to-r from-[#ff6a3d] to-[#ff8a1e] text-white">
+    <div className="bg-gradient-to-r from-[#B57DFF] to-[#ff8a1e] text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 grid grid-cols-1 sm:grid-cols-3 items-center gap-6">
         {/* Left: Socials */}
         <div className="flex justify-center sm:justify-start gap-3">
