@@ -63,7 +63,7 @@ export default function PricingSection2() {
 
             <button
               className="mt-6 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-xl w-full"
-              onClick={() => openModal("premium")}
+              
             >
               Activate your Account Now!
             </button>
@@ -117,7 +117,7 @@ export default function PricingSection2() {
             <br /> <br />
             <button
               className="mt-6 bg-[#caeefb] hover:bg-[#85dfff] text-black font-semibold py-3 px-6 rounded-xl w-full"
-              onClick={() => openModal("premium")}
+             
             >
               Activate your Account Now!
             </button>
