@@ -23,7 +23,7 @@ const Footer = () => {
         {/* Center: Logo */}
         <div className="flex justify-center">
           <Link href="#" className="flex items-center gap-2">
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-orange-600 font-bold">V</span>
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-[#B57DFF] font-bold">V</span>
             <span className="text-2xl font-semibold">Vet365</span>
           </Link>
         </div>

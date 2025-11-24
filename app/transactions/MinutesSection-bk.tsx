@@ -128,8 +128,8 @@ export default function MinutesSection({ userId, currentMinutes: initialMinutes,
           <div className="p-6">
             <div className="flex items-center justify-between ">
               <div className="flex items-center space-x-4 ">
-                <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center">
-                  <BsClock className="w-6 h-6 text-orange-600" />
+                <div className="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center">
+                  <BsClock className="w-6 h-6 text-[#B57DFF]" />
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-slate-900">
@@ -175,14 +175,14 @@ export default function MinutesSection({ userId, currentMinutes: initialMinutes,
                   key={pkg.minutes}
                   className={`relative rounded-xl border-2 p-6 transition-all hover:scale-105 cursor-pointer ${
                     pkg.popular
-                      ? "border-orange-500 bg-orange-50"
+                      ? "border-orange-500 bg-purple-50"
                       : "border-gray-200 bg-white hover:border-orange-300"
                   }`}
                   onClick={() => handlePurchase(pkg.minutes as "20" | "40" | "60")}
                 >
                   {pkg.popular && (
                     <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-semibold flex items-center">
+                      <div className="bg-purple-500 text-white px-3 py-1 rounded-full text-xs font-semibold flex items-center">
                         <BsLightning className="w-3 h-3 mr-1" />
                         Most Popular
                       </div>
@@ -190,15 +190,15 @@ export default function MinutesSection({ userId, currentMinutes: initialMinutes,
                   )}
 
                   <div className="text-center">
-                    {/* <div className="w-12 h-12 mx-auto mb-4 bg-orange-100 rounded-full flex items-center justify-center">
-                      <BsClock className="w-6 h-6 text-orange-600" />
+                    {/* <div className="w-12 h-12 mx-auto mb-4 bg-purple-100 rounded-full flex items-center justify-center">
+                      <BsClock className="w-6 h-6 text-[#B57DFF]" />
                     </div> */}
                     
                     <h3 className="text-xl font-bold text-slate-900 mb-2">
                       {pkg.amount} Minutes
                     </h3>
                     
-                    <div className="text-3xl font-bold text-orange-600 mb-2">
+                    <div className="text-3xl font-bold text-[#B57DFF] mb-2">
                       {pkg.price}
                     </div>
                     
@@ -209,8 +209,8 @@ export default function MinutesSection({ userId, currentMinutes: initialMinutes,
                     <button
                       className={`w-full py-3 px-4 rounded-lg font-semibold transition-all ${
                         pkg.popular
-                          ? "bg-orange-500 text-white hover:bg-orange-600"
-                          : "bg-orange-100 text-orange-600 hover:bg-orange-200"
+                          ? "bg-purple-500 text-white hover:bg-purple-600"
+                          : "bg-purple-100 text-[#B57DFF] hover:bg-purple-200"
                       }`}
                     >
                       <BsPlus className="w-5 h-5 inline mr-2" />

@@ -98,16 +98,16 @@ const Header = () => {
     {mobileOpen && (
       <div className="md:hidden border-t border-gray-100 bg-white">
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 grid gap-3 text-sm">
-          <Link href="/" className="hover:text-orange-600 transition-colors text-lg text-center py-2" onClick={() => setMobileOpen(false)}>Home</Link>
-          <Link href="/#about" className="hover:text-orange-600 transition-colors text-lg text-center py-2" onClick={() => setMobileOpen(false)}>About</Link>
-          <Link href="/#services" className="hover:text-orange-600 transition-colors text-lg text-center py-2" onClick={() => setMobileOpen(false)}>Services</Link>
-          <Link href="/#contact" className="hover:text-orange-600 transition-colors text-lg text-center py-2" onClick={() => setMobileOpen(false)}>Contact</Link>
+          <Link href="/" className="hover:text-[#B57DFF] transition-colors text-lg text-center py-2" onClick={() => setMobileOpen(false)}>Home</Link>
+          <Link href="/#about" className="hover:text-[#B57DFF] transition-colors text-lg text-center py-2" onClick={() => setMobileOpen(false)}>About</Link>
+          <Link href="/#services" className="hover:text-[#B57DFF] transition-colors text-lg text-center py-2" onClick={() => setMobileOpen(false)}>Services</Link>
+          <Link href="/#contact" className="hover:text-[#B57DFF] transition-colors text-lg text-center py-2" onClick={() => setMobileOpen(false)}>Contact</Link>
 
           {/* Mobile auth links */}
           {!isAuthenticated ? (
             <>
-              <Link href="/login" className="hover:text-orange-600 transition-colors text-lg text-center py-2" onClick={() => setMobileOpen(false)}>Login</Link>
-              <Link href="/signup" className="hover:text-orange-600 transition-colors text-lg text-center py-2" onClick={() => setMobileOpen(false)}>Signup</Link>
+              <Link href="/login" className="hover:text-[#B57DFF] transition-colors text-lg text-center py-2" onClick={() => setMobileOpen(false)}>Login</Link>
+              <Link href="/signup" className="hover:text-[#B57DFF] transition-colors text-lg text-center py-2" onClick={() => setMobileOpen(false)}>Signup</Link>
             </>
           ) : (
             <>

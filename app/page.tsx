@@ -16,6 +16,7 @@ import PricingSection from "./components/home/PricingSection";
 import Mission from "./components/home/Mission";
 import Banner5 from "./components/home/Banner5";
 import NavbarBanner from "./components/home/Navbar";
+import PricingSection2 from "./components/home/PricingSection2";
 // import { Conversation } from "./components/chat/Conversation";
 
 export default function Home() {
@@ -42,9 +43,9 @@ export default function Home() {
         {/* <About/> */}
 
         {/* Pricing Section */}
-        {/* <Plans/> */}
-        <PricingSection />
-
+        <Plans/>
+        {/* <PricingSection /> */}
+        {/* <PricingSection2 /> */}
         {/* Chat Component */}
         {/* <Chat/> */}
 

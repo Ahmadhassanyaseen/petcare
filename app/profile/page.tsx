@@ -237,7 +237,7 @@ export default function ProfilePage() {
               </div>
               <div className="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-white border-4 border-white shadow-lg flex items-center justify-center">
                 <label className="cursor-pointer">
-                  <svg className="w-4 h-4 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
+                  <svg className="w-4 h-4 text-[#B57DFF]" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                   </svg>
                   <input
@@ -320,8 +320,8 @@ export default function ProfilePage() {
                       {paymentMethods.map((pm) => (
                         <div key={pm.id} className="flex items-center justify-between p-4 bg-slate-50 rounded-lg border border-slate-200">
                           <div className="flex items-center space-x-3">
-                            <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center">
-                              <BsCreditCard className="w-5 h-5 text-orange-600" />
+                            <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center">
+                              <BsCreditCard className="w-5 h-5 text-[#B57DFF]" />
                             </div>
                             <div>
                               <p className="font-medium text-slate-900 capitalize">
@@ -361,10 +361,10 @@ export default function ProfilePage() {
                   <h3 className="text-lg font-semibold text-slate-900 mb-4">Account Stats</h3>
 
                   <div className="space-y-4">
-                    <div className="flex items-center justify-between p-3 bg-gradient-to-r from-orange-50 to-orange-100 rounded-lg">
+                    <div className="flex items-center justify-between p-3 bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg">
                       <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center">
-                          <svg className="w-5 h-5 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
+                        <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center">
+                          <svg className="w-5 h-5 text-[#B57DFF]" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                           </svg>
                         </div>
@@ -375,10 +375,10 @@ export default function ProfilePage() {
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between p-3 bg-gradient-to-r from-orange-50 to-orange-100 rounded-lg">
+                    <div className="flex items-center justify-between p-3 bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg">
                       <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center">
-                          <svg className="w-5 h-5 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
+                        <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center">
+                          <svg className="w-5 h-5 text-[#B57DFF]" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
                           </svg>
                         </div>
@@ -399,10 +399,10 @@ export default function ProfilePage() {
                   <h3 className="text-lg font-semibold text-slate-900 mb-4">Subscription Details</h3>
 
                   <div className="space-y-4">
-                    <div className="flex items-center justify-between p-3 bg-gradient-to-r from-orange-50 to-orange-100 m-0">
+                    <div className="flex items-center justify-between p-3 bg-gradient-to-r from-purple-50 to-purple-100 m-0">
                       <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center">
-                          <svg className="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center">
+                          <svg className="w-5 h-5 text-[#B57DFF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                           </svg>
                         </div>
@@ -419,7 +419,7 @@ export default function ProfilePage() {
                           disabled={updatingRenewal}
                           className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 ${
                             parsedUserData?.data?.renew !== false
-                              ? "bg-orange-500"
+                              ? "bg-purple-500"
                               : "bg-gray-200"
                           } ${updatingRenewal ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
                         >
@@ -438,10 +438,10 @@ export default function ProfilePage() {
                     </div>
 
                     {latestSubscription && (
-                      <div className="flex items-center justify-between p-3 bg-gradient-to-r from-orange-50 to-orange-100">
+                      <div className="flex items-center justify-between p-3 bg-gradient-to-r from-purple-50 to-purple-100">
                         <div className="flex items-center space-x-3">
-                          <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center">
-                            <svg className="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center">
+                            <svg className="w-5 h-5 text-[#B57DFF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
                           </div>

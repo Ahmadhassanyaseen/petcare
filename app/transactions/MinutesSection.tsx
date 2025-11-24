@@ -128,8 +128,8 @@ export default function MinutesSection({ userId, currentMinutes: initialMinutes,
           <div className="p-6">
             <div className="flex items-center justify-between ">
               <div className="flex items-center space-x-4 ">
-                <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center">
-                  <BsClock className="w-6 h-6 text-orange-600" />
+                <div className="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center">
+                  <BsClock className="w-6 h-6 text-[#B57DFF]" />
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-slate-900">
@@ -161,8 +161,8 @@ export default function MinutesSection({ userId, currentMinutes: initialMinutes,
           <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-orange-400/40 via-orange-600/70 to-orange-400/40" />
           <div className="p-6">
             <div className="text-center mb-6">
-              <h2 className="text-2xl font-bold text-slate-900 mb-2">
-                Purchase Chat Minutes
+              <h2 className="text-2xl font-bold text-white mb-2">
+               Add Minutes To Your Account
               </h2>
               <p className="text-slate-600">
                 Add minutes to your account for AI-powered pet care consultations
@@ -186,8 +186,8 @@ export default function MinutesSection({ userId, currentMinutes: initialMinutes,
                   )}
 
                   <div className="text-center">
-                    {/* <div className="w-12 h-12 mx-auto mb-4 bg-orange-100 rounded-full flex items-center justify-center">
-                      <BsClock className="w-6 h-6 text-orange-600" />
+                    {/* <div className="w-12 h-12 mx-auto mb-4 bg-purple-100 rounded-full flex items-center justify-center">
+                      <BsClock className="w-6 h-6 text-[#B57DFF]" />
                     </div> */}
                     
                     <h3 className="text-xl font-bold text-slate-900 mb-2">
@@ -210,7 +210,7 @@ export default function MinutesSection({ userId, currentMinutes: initialMinutes,
                       }`}
                     >
                       <BsPlus className="w-5 h-5 inline mr-2" />
-                      Purchase Now
+                      Add Minutes
                     </button>
                   </div>
                 </div>

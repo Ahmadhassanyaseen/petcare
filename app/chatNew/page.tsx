@@ -719,7 +719,7 @@ const page = () => {
                     <span>Click again to stop</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                    <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
                     <span>Wait for AI response</span>
                   </div>
                 </div>

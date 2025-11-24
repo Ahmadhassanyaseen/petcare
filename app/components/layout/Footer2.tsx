@@ -29,7 +29,7 @@ export default function Footer() {
           <p className="mt-4 text-gray-600 text-sm leading-relaxed">
           Available anytime on your phone or computer, it checks if foods, chemicals, or plants are dangerous, guides you in emergencies, and finds the nearest emergency vet fast.
           </p>
-          {/* <button className="mt-6 bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-4xl text-sm font-semibold flex items-center gap-3 transition">
+          {/* <button className="mt-6 bg-purple-500 hover:bg-purple-600 text-white px-6 py-3 rounded-4xl text-sm font-semibold flex items-center gap-3 transition">
             Request a Demo
             <span className="relative w-6 h-6 flex items-center justify-center">
               
@@ -87,7 +87,7 @@ export default function Footer() {
         {/* Socials */}
         <div className=" items-start flex flex-col">
           <h4 className="font-semibold text-gray-900 mb-4">Follow us</h4>
-          <div className="flex gap-4 text-orange-500 text-xl">
+          <div className="flex gap-4 text-[#B57DFF] text-xl">
             <Link href="https://facebook.com" target="_blank">
               <FaFacebookF />
             </Link>

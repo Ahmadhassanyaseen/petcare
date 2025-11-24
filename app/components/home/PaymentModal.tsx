@@ -187,7 +187,7 @@ const CardForm = ({
               onClick={() => setUseNewCard(false)}
               className={`px-4 py-2 rounded-lg font-medium transition-colors ${
                 !useNewCard
-                  ? "bg-orange-500 text-white"
+                  ? "bg-purple-500 text-white"
                   : "bg-gray-200 text-gray-700 hover:bg-gray-300"
               }`}
             >
@@ -198,7 +198,7 @@ const CardForm = ({
               onClick={() => setUseNewCard(true)}
               className={`px-4 py-2 rounded-lg font-medium transition-colors ${
                 useNewCard
-                  ? "bg-orange-500 text-white"
+                  ? "bg-purple-500 text-white"
                   : "bg-gray-200 text-gray-700 hover:bg-gray-300"
               }`}
             >
@@ -217,7 +217,7 @@ const CardForm = ({
                     value={pm.id}
                     checked={selectedPaymentMethod === pm.id}
                     onChange={(e) => setSelectedPaymentMethod(e.target.value)}
-                    className="mr-3 text-orange-500 focus:ring-orange-500"
+                    className="mr-3 text-[#B57DFF] focus:ring-orange-500"
                   />
                   <div className="flex-1">
                     <div className="font-medium capitalize">

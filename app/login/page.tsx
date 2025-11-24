@@ -22,7 +22,7 @@ export default function LoginPage() {
               <AuthForm mode="login" />
               <p className="mt-6 text-center text-sm text-slate-600">
                 Don't have an account?{' '}
-                <Link href="/signup" className="font-semibold text-orange-600 hover:text-orange-700">
+                <Link href="/signup" className="font-semibold text-[#B57DFF] hover:text-[#B57DFF]">
                   Sign up
                 </Link>
               </p>

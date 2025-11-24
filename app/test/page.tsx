@@ -178,7 +178,7 @@ const ChatPage = () => {
               relative w-32 h-32 rounded-full border-4 transition-all duration-300 flex items-center justify-center
               ${isRecording
                 ? 'border-red-500 bg-red-50 animate-pulse'
-                : 'border-orange-400 bg-orange-50 hover:bg-orange-100'
+                : 'border-orange-400 bg-purple-50 hover:bg-purple-100'
               }
               cursor-pointer hover:scale-105
             `}
@@ -186,7 +186,7 @@ const ChatPage = () => {
             {/* Microphone Icon */}
             <svg
               className={`w-16 h-16 transition-colors duration-300 ${
-                isRecording ? 'text-red-500' : 'text-orange-500'
+                isRecording ? 'text-red-500' : 'text-[#B57DFF]'
               }`}
               fill="none"
               stroke="currentColor"
@@ -240,7 +240,7 @@ const ChatPage = () => {
               <h3 className="font-semibold text-slate-700">Conversation History</h3>
               <button
                 onClick={clearHistory}
-                className="text-xs text-orange-500 hover:text-orange-600 underline"
+                className="text-xs text-[#B57DFF] hover:text-[#B57DFF] underline"
               >
                 Clear History
               </button>
@@ -251,7 +251,7 @@ const ChatPage = () => {
                   key={index}
                   className={`p-2 rounded ${
                     msg.startsWith('You:')
-                      ? 'bg-orange-100 text-orange-800'
+                      ? 'bg-purple-100 text-[#B57DFF]'
                       : 'bg-blue-100 text-blue-800'
                   }`}
                 >

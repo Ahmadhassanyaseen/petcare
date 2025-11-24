@@ -56,7 +56,7 @@ export default function Banner3() {
           {/* Banner Button */}
          <Link
             href="/signup"
-            className="bg-orange-500 mx-auto md:mx-0 w-fit hover:bg-orange-600 text-white px-4 py-2 rounded-full text-xl font-semibold flex items-center gap-2 transition"
+            className="bg-purple-500 mx-auto md:mx-0 w-fit hover:bg-purple-600 text-white px-4 py-2 rounded-full text-xl font-semibold flex items-center gap-2 transition"
           >
             Get Started Now
             <span className="relative w-5 h-5 flex items-center justify-center">

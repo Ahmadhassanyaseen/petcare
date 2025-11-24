@@ -30,7 +30,7 @@ const Banner = () => {
                   <div className="mt-8">
                     <Link
                       href="#contact"
-                      className="inline-flex items-center rounded-full bg-white text-orange-600 font-medium px-6 py-3 shadow hover:bg-gray-50 transition-colors"
+                      className="inline-flex items-center rounded-full bg-white text-[#B57DFF] font-medium px-6 py-3 shadow hover:bg-gray-50 transition-colors"
                     >
                       Contact Us
                     </Link>

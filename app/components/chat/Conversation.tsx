@@ -77,14 +77,14 @@ export function Conversation() {
             className={`p-2 rounded-full transition-colors ${
               status === "connected"
                 ? isMuted
-                  ? "bg-orange-100 hover:bg-orange-200"
+                  ? "bg-purple-100 hover:bg-purple-200"
                   : "bg-blue-100 hover:bg-blue-200"
                 : "bg-gray-100 cursor-not-allowed"
             }`}
             title={isMuted ? "Unmute" : "Mute"}
           >
             {isMuted ? (
-              <VolumeX className="h-4 w-4 text-orange-600" />
+              <VolumeX className="h-4 w-4 text-[#B57DFF]" />
             ) : (
               <Volume2 className="h-4 w-4 text-blue-600" />
             )}
@@ -189,7 +189,7 @@ export function Conversation() {
       {/* Instructions */}
       <div className="mt-4 text-xs text-gray-600 text-center">
         {!hasPermission && (
-          <p className="text-orange-600">
+          <p className="text-[#B57DFF]">
             ⚠️ Microphone access is required for voice chat
           </p>
         )}

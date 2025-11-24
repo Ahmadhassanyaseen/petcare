@@ -5,7 +5,7 @@ import Image from "next/image";
 export default function Footer3() {
   return (
    
-    <footer className="bg-[#B57DFF] text-black  px-10">
+    <footer className="bg-[#B57DFF] text-black pb-6 px-10">
       {/* Left Section */}
       <div className="w-full text-center">
          <Image
