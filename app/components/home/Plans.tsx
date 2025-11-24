@@ -194,11 +194,11 @@ export default function PricingPlans({ onPaymentSuccess }: PricingPlansProps = {
         {/* Heading */}
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
           Choose the Right Plan for{" "}
-          <span className="bg-gradient-to-r from-orange-500 via-pink-500 to-pink-600 bg-clip-text text-transparent">
+          <span className="">
             You & Your Pet
           </span>
         </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-6xl w-full mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-6xl w-full mx-auto mt-6">
         <div className="border-2 bg-[#e97132] border-orange-300 rounded-[62px] p-3 md:p-6 shadow-md flex flex-col relative overflow-hidden">
           <div className="bg-white p-4 m-0 relative">
             <div className="w-full flex justify-between mt-6 align-center px-4">
