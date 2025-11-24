@@ -307,7 +307,7 @@ export default function PricingPlans({ onPaymentSuccess }: PricingPlansProps = {
                 Get expert advice when you need it!
               </li>
             </ul>{" "}
-            <br /> <br />
+            <br /> 
             <button
               className="mt-3 bg-[#caeefb] hover:bg-[#85dfff] text-black font-semibold py-3 px-6 rounded-xl w-full"
               onClick={() => openModal("premium")}
