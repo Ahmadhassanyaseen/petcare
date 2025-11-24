@@ -189,7 +189,7 @@ export default function PricingPlans({ onPaymentSuccess }: PricingPlansProps = {
   };
 
   return (
-    <section className="w-full bg-white py-16 px-6" id="plans">
+    <section className="w-full bg-[#B57DFF] py-16 px-6" id="plans">
       <div className="max-w-4xl mx-auto text-center">
         {/* Heading */}
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
