@@ -201,7 +201,7 @@ export default function PricingPlans({ onPaymentSuccess }: PricingPlansProps = {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-6xl w-full mx-auto mt-6">
         <div className="border-2 bg-[#e97132] border-orange-300 rounded-[62px] p-3 md:p-6 shadow-md flex flex-col relative overflow-hidden">
           <div className="bg-white p-4 m-0 relative">
-            <div className="w-full flex justify-between mt-6 align-center px-4">
+            <div className="w-full flex justify-between mt-0 align-center px-4">
               <div className="text-center">
                 <img
                   src="/trialplan.png"
@@ -219,14 +219,14 @@ export default function PricingPlans({ onPaymentSuccess }: PricingPlansProps = {
 
             <h3 className="text-lg font-semibold mb-2 italic">Trial Offer</h3>
 
-            <p className="text-gray-700 leading-relaxed mb-6 text-sm">
+            <p className="text-gray-700 leading-relaxed mb-3 text-sm">
               A little sniff before you commit! Perfect for first timers who
               want to meet Kora the AI Vet, ask a quick question, and see how
               the magic works. Your Welcome Wag is waiting — tail wags
               guaranteed, no strings attached.
             </p>
 
-            <ul className="space-y-4 text-gray-700 text-sm">
+            <ul className="space-y-2 text-gray-700 text-sm">
               <li>
                 🩺 <strong>10 minutes of talk-time guidance</strong>
                 <br />
@@ -249,13 +249,13 @@ export default function PricingPlans({ onPaymentSuccess }: PricingPlansProps = {
               </li>
             </ul>
 
-            <p className="mt-6 text-gray-700 text-sm">
+            <p className="mt-3 text-gray-700 text-sm">
               A taste of how fast and friendly AI vet support can feel,{" "}
               <strong>TRY IT NOW</strong>
             </p>
 
             <button
-              className="mt-6 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-xl w-full"
+              className="mt-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-xl w-full"
               onClick={() => openModal("basic")}
             >
               Activate your Account Now!
@@ -265,7 +265,7 @@ export default function PricingPlans({ onPaymentSuccess }: PricingPlansProps = {
 
         <div className=" border-2 bg-[#caeefb] border-blue-300 rounded-[62px] p-3 md:p-6 shadow-md flex flex-col relative overflow-hidden">
           <div className="bg-white p-4 m-0 relative">
-            <div className="w-full flex justify-between align-center px-4 mt-6">
+            <div className="w-full flex justify-between align-center px-4 mt-0">
               <div className="text-center">
                 <img
                   src="/pawblem_solver.png"
@@ -278,14 +278,14 @@ export default function PricingPlans({ onPaymentSuccess }: PricingPlansProps = {
             </div>
             <div className="text-center mb-4 mt-2"></div>
             <h3 className="text-lg font-semibold mb-2">Monthly Plan</h3>
-            <p className="text-gray-700 leading-relaxed mb-6 text-sm">
+            <p className="text-gray-700 leading-relaxed mb-3 text-sm">
               Protect your pet, by getting 24/7 access the most advanced expert
               pet health advice right from your phone or computer. Get emergency
               advice, nutrition and other questions answered when you need it.
               This plan gives you 22 minutes of talk time with the
               conversational AI veterinarian.
             </p>
-            <ul className="space-y-4 text-gray-700 text-sm">
+            <ul className="space-y-2 text-gray-700 text-sm">
               <li>
                 🩺 <strong>22 minutes of talk-time guidance</strong>
                 <br />
@@ -309,7 +309,7 @@ export default function PricingPlans({ onPaymentSuccess }: PricingPlansProps = {
             </ul>{" "}
             <br /> <br />
             <button
-              className="mt-6 bg-[#caeefb] hover:bg-[#85dfff] text-black font-semibold py-3 px-6 rounded-xl w-full"
+              className="mt-3 bg-[#caeefb] hover:bg-[#85dfff] text-black font-semibold py-3 px-6 rounded-xl w-full"
               onClick={() => openModal("premium")}
             >
               Activate your Account Now!
