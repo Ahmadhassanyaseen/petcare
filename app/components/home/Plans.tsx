@@ -192,7 +192,7 @@ export default function PricingPlans({ onPaymentSuccess }: PricingPlansProps = {
     <section className="w-full bg-[#B57DFF] py-16 px-6" id="plans">
       <div className="max-w-4xl mx-auto text-center">
         {/* Heading */}
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+        <h2 className="text-[42px] md:text-[64px] font-extrabold leading-tight text-black text-start">
           Choose the Right Plan for{" "}
           <span className="">
             You & Your Pet
