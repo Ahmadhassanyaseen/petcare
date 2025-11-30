@@ -41,7 +41,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} ${barlow.variable} antialiased font-[var(--font-barlow)]`}
+        className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} ${barlow.variable} ${syne.variable} antialiased font-[var(--font-barlow)]`}
       >
         {children}
        

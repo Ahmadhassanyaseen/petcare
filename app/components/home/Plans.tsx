@@ -198,125 +198,123 @@ export default function PricingPlans({ onPaymentSuccess }: PricingPlansProps = {
             You & Your Pet
           </span>
         </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-6xl w-full mx-auto mt-6">
-        <div className="border-2 bg-[#e97132] border-orange-300 rounded-[62px] p-3 md:p-6 shadow-md flex flex-col relative overflow-hidden">
-          <div className="bg-white p-4 m-0 relative">
-            <div className="w-full flex justify-between mt-0 align-center px-4">
-              <div className="text-center">
-                <img
-                  src="/trialplan.png"
-                  alt="Trial Offer"
-                  className="w-24 h-24 object-contain"
-                />
-                <p className="text-lg font-medium mt-1">Around</p>
-              </div>
-              <h2 className="text-2xl font-bold italic">Just Sniffing</h2>
-            </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-6xl w-full mx-auto mt-6">
+            <div className="bg-[#ffb930] rounded-3xl p-8 md:p-12 text-black shadow-lg flex flex-col justify-between">
+          <div>
+            <h2 className="text-[24px] md:text-[28px] font-extrabold mb-2 ">
+              Just Sniffing It Out?
+            </h2>
+            <div className="border-b border-black w-70 mb-6"></div>
 
-            <div className="text-center mb-4 mt-2">
-              <p className="text-xl font-semibold mt-1">$5.99</p>
-            </div>
-
-            <h3 className="text-lg font-semibold mb-2 italic">Trial Offer</h3>
-
-            <p className="text-gray-700 leading-relaxed mb-3 text-sm">
-              A little sniff before you commit! Perfect for first timers who
-              want to meet Kora the AI Vet, ask a quick question, and see how
-              the magic works. Your Welcome Wag is waiting — tail wags
-              guaranteed, no strings attached.
+            <p className="text-[16px] md:text-[18px] leading-relaxed mb-4">
+              Dip your paws in! <br />
+              <strong>No commitment,</strong> just minutes on demand — perfect for
+              checking out Vet365 AI and seeing the magic. <br />
+              🐾 <strong>Just Sniffing It Out</strong> – 10-minute intro, $5.99
             </p>
 
-            <ul className="space-y-2 text-gray-700 text-sm">
+            <p className="text-[16px] md:text-[18px] leading-relaxed mb-4">
+              A little sniff before you commit! Perfect for first-timers who want
+              to meet Kora, ask a quick question, and see how the magic works.
+              Your Welcome Wag is waiting — tail wags guaranteed, no strings
+              attached.
+            </p>
+            <div className="border-b border-black w-70 mb-6"></div>
+
+
+            <ul className="space-y-2 text-[16px] md:text-[18px] leading-relaxed mt-4">
+              <li>🦴 <strong>10 minutes of real-time guidance</strong></li>
+              <li>for curious cats & doggone curious parents</li>
+              <li>🚫 <strong>No subscription needed</strong></li>
+              <li>💬 Pay-as-you-go pet advice</li>
               <li>
-                🩺 <strong>10 minutes of talk-time guidance</strong>
-                <br />
-                for curious cats & doggone pet parents
+                🐾 <strong>Real vet-trained answers, 24/7</strong> <br />
+                (no waiting rooms or cat-naps required)
               </li>
               <li>
-                🚫 <strong>No Monthly subscription needed</strong>
-                <br />
-                Ask the conversational AI with no commitment
+                🎉 First-time intro offer included — you’ll be feline fine in no
+                time
               </li>
               <li>
-                💬 <strong>Pay-as-you-go pet advice</strong>
-                <br />
-                Add talk time minutes as you need them
+                🩺 A taste of how fast and friendly AI vet support can feel
               </li>
               <li>
-                🐾 <strong>Real vet-trained answers, 24/7</strong>
-                <br />
-                Get expert advice when you need it!
+                🦴 <em>Try it once, fall in ruff.</em> <br /> One time, new
+                account only
               </li>
             </ul>
+          </div>
 
-            <p className="mt-3 text-gray-700 text-sm">
-              A taste of how fast and friendly AI vet support can feel,{" "}
-              <strong>TRY IT NOW</strong>
+          <div className="mt-8">
+            <p className="text-[20px] md:text-[22px] font-bold mb-4">
+              $5.99 intro offer
             </p>
-
-            <button
-              className="mt-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-xl w-full"
-              onClick={() => openModal("basic")}
-            >
-              Activate your Account Now!
+            <button  onClick={() => openModal("basic")} className="bg-black text-white px-6 py-3 rounded-full font-semibold text-[16px] hover:bg-gray-900 transition">
+              Sniff It Out
             </button>
           </div>
         </div>
 
-        <div className=" border-2 bg-[#caeefb] border-blue-300 rounded-[62px] p-3 md:p-6 shadow-md flex flex-col relative overflow-hidden">
-          <div className="bg-white p-4 m-0 relative">
-            <div className="w-full flex justify-between align-center px-4 mt-0">
-              <div className="text-center">
-                <img
-                  src="/pawblem_solver.png"
-                  alt="Pawblem Solver"
-                  className="w-24 h-24 object-contain"
-                />
-                <p className="text-lg font-medium mt-1">Solver</p>
-              </div>
-              <h2 className="text-2xl font-bold italic">Pawblem</h2>
+        {/* Right Card */}
+        <div className="bg-[#47e5d2] rounded-3xl p-8 md:p-12 text-black shadow-lg flex flex-col justify-between">
+          <div>
+              <h2 className="text-[24px] md:text-[28px] font-extrabold mb-1">
+                Pawblem Solver
+              </h2>
+              <p className="text-[18px] md:text-[20px] font-bold mb-2">
+                Monthly Plan
+              </p>
+              <div className="border-b border-black w-24 mb-6"></div>
+
+              <p className="text-[16px] md:text-[18px] leading-relaxed mb-4 italic">
+                Go all in! 20 minutes included every month, <br />
+                rollover + add-ons, unlimited peace of mind.
+              </p>
+              <div className="border-b border-black w-70 mb-6"></div>
+
+
+
+              <ul className="space-y-2 text-[16px] md:text-[18px] leading-relaxed">
+                <li>
+                  ⏱  <strong>20 vet-trained minutes each month</strong>
+                  <br />
+                  fetch or purr-use as you please
+                </li>
+                <li> 
+                  🔁<strong>Rollover unused minutes!</strong> <br />
+                  (no bones or hairballs about it)
+                </li>
+                <li>
+                  ➕  <strong>Add extra minutes anytime</strong> <br />
+                  with exclusive member discounts
+                </li>
+                <li>
+                  💬 <strong>Real-time answers, day or night</strong> <br />
+                  — no waiting, no whining
+                </li>
+                <li>
+                  🩺 <strong>Step-by-step guidance</strong> <br />
+                  from trusted, vet-approved sources
+                </li>
+                <li>
+                  🎁 <strong>Member perks that keep on giving</strong> <br />
+                  — from extra minutes to early treats
+                </li>
+                <li>
+                  🐾 <strong>Monthly plan = worry-free peace of mind</strong> <br />
+                  for every good boy and clever cat
+                </li>
+              </ul>
             </div>
-            <div className="text-center mb-4 mt-2"></div>
-            <h3 className="text-lg font-semibold mb-2">Monthly Plan</h3>
-            <p className="text-gray-700 leading-relaxed mb-3 text-sm">
-              Protect your pet, by getting 24/7 access the most advanced expert
-              pet health advice right from your phone or computer. Get emergency
-              advice, nutrition and other questions answered when you need it.
-              This plan gives you 22 minutes of talk time with the
-              conversational AI veterinarian.
-            </p>
-            <ul className="space-y-2 text-gray-700 text-sm">
-              <li>
-                🩺 <strong>22 minutes of talk-time guidance</strong>
-                <br />
-                for curious cats & doggone pet parents
-              </li>
-              <li>
-                🔄 <strong>Roll-Over Minutes</strong>
-                <br />
-                Unused minutes roll over each month to give you the best value.
-              </li>
-              <li>
-                💬 <strong>Pet protected 365 days a year</strong>
-                <br />
-                This monthly plan gives you expert advice every day
-              </li>
-              <li>
-                🐾 <strong>Real vet-trained answers, 24/7</strong>
-                <br />
-                Get expert advice when you need it!
-              </li>
-            </ul>{" "}
-            <br /> 
-            <button
-              className="mt-3 bg-[#caeefb] hover:bg-[#85dfff] text-black font-semibold py-3 px-6 rounded-xl w-full"
-              onClick={() => openModal("premium")}
-            >
-              Activate your Account Now!
-            </button>
+
+            <div className="mt-8">
+              <button  onClick={() => openModal("premium")} className="bg-black text-white px-6 py-3 rounded-full font-semibold text-[16px] hover:bg-gray-900 transition mb-4">
+                Join the Pack
+              </button>
+              <p className="text-[20px] md:text-[22px] font-bold">$14.99/month</p>
+            </div>
           </div>
         </div>
-      </div>
 
         {/* Pricing Cards */}
         {/* <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">

@@ -1,12 +1,7 @@
 "use client";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Syne } from "next/font/google";
-const syne = Syne({
-  weight: ["400", "500", "600", "700", '800'],
-  subsets: ["latin"],
-  variable: "--font-syne",
-});
+import { syne } from "../../fonts";
 export default function Banner5() {
   return (
     <section className="w-full font-[Poppins]">

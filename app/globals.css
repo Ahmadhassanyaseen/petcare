@@ -38,7 +38,12 @@ body {
 .animation-delay-300 {
   animation-delay: 300ms;
 }
-
+.font-syne{
+      font-family: syne;
+}
+h1, h2{
+  font-family: syne;
+}
 .animation-delay-600 {
   animation-delay: 600ms;
 }
