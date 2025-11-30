@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { BsCreditCard, BsClock, BsCheckCircle } from "react-icons/bs";
+import { BsCreditCard, BsClock, BsCheckCircle, BsPlus, BsChat } from "react-icons/bs";
 import { useRouter } from "next/navigation";
 import ChatMenu from "../components/chat/ChatMenu";
 import PaymentModal from "../components/home/PaymentModal";
@@ -262,6 +262,15 @@ export default function ProfilePage() {
             <p className="text-xl text-white/90 max-w-2xl mx-auto">
               Manage your account and discover personalized pet care experiences
             </p>
+            <div className="text-center flex items-center justify-center mt-6">
+              <Link
+                    href="/chat"
+                    className="w-[300px] flex items-center justify-center px-5 py-5  font-large text-xl text-white bg-gradient-to-r from-[#B57DFF] to-[#B57DFF] rounded-lg shadow hover:from-[#ff5a2b] hover:to-[#B57DFF] transition-all duration-200 transform hover:scale-105"
+                >
+                    <BsChat className="w-6 h-6 mr-2" />
+                    Chat with Your AI Vet
+                </Link>
+            </div>
           </div>
         </div>
 
@@ -361,7 +370,7 @@ export default function ProfilePage() {
                   <h3 className="text-lg font-semibold text-slate-900 mb-4">Account Stats</h3>
 
                   <div className="space-y-4">
-                    <div className="flex items-center justify-between p-3 bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg">
+                    {/* <div className="flex items-center justify-between p-3 bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg">
                       <div className="flex items-center space-x-3">
                         <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center">
                           <svg className="w-5 h-5 text-[#B57DFF]" fill="currentColor" viewBox="0 0 20 20">
@@ -387,7 +396,27 @@ export default function ProfilePage() {
                           <p className="text-xs text-slate-600">{formatDate(parsedUserData?.createdAt) || "Unknown"}</p>
                         </div>
                       </div>
+                    </div> */}
+                     <div className="flex items-center justify-between p-3 bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center">
+                          <svg className="w-5 h-5 text-[#B57DFF]" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="text-sm font-medium text-slate-900">Remaining Minutes</p>
+                          <p className="text-xs text-slate-600">{parsedUserData?.total_time || "0"} minutes</p>
+                        </div>
+                      </div>
                     </div>
+                     <Link
+                          href="/transections"
+                          className="w-full flex items-center justify-center px-4 py-3 text-sm font-medium text-white bg-gradient-to-r from-[#B57DFF] to-[#B57DFF] rounded-lg shadow hover:from-[#ff5a2b] hover:to-[#B57DFF] transition-all duration-200 transform hover:scale-105"
+                      >
+                          <BsPlus className="w-4 h-4 mr-2" />
+                          Add More Minutes
+                      </Link>
                   </div>
                 </div>
               </div>
@@ -476,7 +505,7 @@ export default function ProfilePage() {
                 <div className="p-6">
                   <h3 className="text-2xl font-semibold text-slate-900 mb-4">Upgrade Your Account</h3>
                   <div>
-                    <p className="text-lg font-bold text-slate-900 mb-2">Primium Plan</p>
+                    <p className="text-lg font-bold text-slate-900 mb-2">Premium Plan</p>
                     <p className="text-md text-slate-600 ">$0.22 cents per minute</p>
                     <p className="text-md text-slate-600">90 Minutes Talk Time</p>
                     <button className="w-full mt-2 flex items-center justify-center px-4 py-3 text-lg font-medium text-white bg-gradient-to-r from-[#B57DFF] to-[#B57DFF] rounded-lg shadow hover:from-[#ff5a2b] hover:to-[#B57DFF] transition-all duration-200 transform hover:scale-105 cursor-pointer" onClick={() => openModal("premium")}>Upgrade Now</button>

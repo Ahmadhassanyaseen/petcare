@@ -27,8 +27,16 @@ export default function NavbarBanner() {
      <header className="bg-[#FFB536] flex justify-between items-center px-4 sm:px-8 lg:px-16 py-3 md:py-4">
         {/* Logo */}
         <div className="flex items-center space-x-2">
-          <span className="text-xl md:text-2xl">🖤</span>
-          <span className="font-bold text-base md:text-lg tracking-wide">VET365-AI</span>
+          {/* <span className="text-xl md:text-2xl">🖤</span>
+           */}
+            <Image
+                src="/footer.avif" // replace with your logo
+                alt="Vet365 Logo"
+                width={30}
+                height={30}
+                className="rounded-md"
+              />
+          <span className="font-bold text-base md:text-lg tracking-wide">VET365.AI</span>
         </div>
 
         {/* Right Actions */}

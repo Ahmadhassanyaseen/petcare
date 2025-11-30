@@ -22,7 +22,7 @@ export default function Founder() {
       {/* Intro (above image) */}
       <p className="text-center text-[16px] md:text-[15px] leading-relaxed max-w-2xl mb-3">
         Hi, I’m <strong>Dr. Kole</strong> — veterinarian, lifelong animal lover, and the human
-        heart behind Vet365-AI.
+        heart behind Vet365.AI.
       </p>
 
       {/* Image + Paragraphs */}
@@ -67,7 +67,7 @@ export default function Founder() {
           </p>
 
           <p>
-            That same philosophy guides Vet365-AI. I wish I could be everywhere at once to
+            That same philosophy guides Vet365.AI. I wish I could be everywhere at once to
             answer every question, so I built Kora. To deliver the same thoughtful, articulate,
             and accurate guidance that I would provide in person. Every response is inspired,
             refined, and shaped by real-world veterinary experience, so you know it’s thorough,

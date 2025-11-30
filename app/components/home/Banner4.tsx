@@ -23,7 +23,7 @@ export default function Banner3() {
       <div className="flex flex-col items-center justify-center w-full z-10 mt-10 md:mt-16">
         {/* Title */}
         <h1 className="text-[3.5rem] md:text-[7rem] font-extrabold text-black tracking-tight leading-none mb-6 text-center">
-          VET365-AI
+          VET365.AI
         </h1>
 
         {/* Staggered Text Lines */}

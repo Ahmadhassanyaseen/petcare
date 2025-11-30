@@ -165,7 +165,7 @@ export default function MinutesSection({ userId, currentMinutes: initialMinutes,
                Add Minutes To Your Account
               </h2>
               <p className="text-slate-600">
-                Add minutes to your account for AI-powered pet care consultations
+                Add minutes to your account for AI-powered pet care consultations you currently have {currentMinutes || 0} Minutes
               </p>
             </div>
 
@@ -173,7 +173,7 @@ export default function MinutesSection({ userId, currentMinutes: initialMinutes,
               {MINUTES_PACKAGES.map((pkg) => (
                 <div
                   key={pkg.minutes}
-                  className={`relative rounded-xl shadow-xl px-6 pb-6 pt-8 mt-8 md:mt-4 transition-all  cursor-pointer`}
+                  className={`relative rounded-xl shadow-xl px-6 pb-6 pt-8 mt-8 md:mt-4 transition-all  cursor-pointer bg-gradient-to-r from-purple-50 to-purple-100 `}
                   onClick={() => handlePurchase(pkg.minutes as "20" | "40" | "60")}
                 >
                   {pkg.popular && (

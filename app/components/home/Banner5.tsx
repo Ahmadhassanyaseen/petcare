@@ -15,7 +15,7 @@ export default function Banner5() {
         className="min-h-[auto] md:min-h-[630px] bg-[#B57DFF] flex flex-col items-center text-center px-4 sm:px-6 md:px-10 relative overflow-hidden"
       >
         <h1 className={`${syne.variable} font-syne text-[35px] md:text-[80px]  lg:text-[110px] font-extrabold leading-none tracking-tight text-black`} style={{ lineHeight: '0.9em',marginTop: '20px',letterSpacing: '0.7rem'}}>
-          VET365-AI
+          VET365.AI
         </h1>
         <div className="ml-[0x]  md:ml-[120px]  lg:ml-[260px] text-start text-[9.5px] sm:text-base md:text-[16px] lg:text-lg text-black/90 font-medium">
           <p className="italic ml-[60px] md:ml-[40px] lg:ml-[60px]">
@@ -70,7 +70,7 @@ export default function Banner5() {
         >
           {Array(2)
             .fill(
-              "🐾 ✋ Always on call. Always pawsitive. 🐾 ✋ Always on call. Always pawsitive."
+              "🐾 Always on call. Always pawsitive. 🐾 Always on call. Always pawsitive."
             )
             .map((text, i) => (
               <span key={i} className="mx-6 tracking-tight">

@@ -425,7 +425,7 @@ export default function VoiceChat({
                     ${
                       status === "connected"
                         ? "border-red-500 bg-gradient-to-br from-red-50 to-red-100 shadow-lg shadow-red-200/50 animate-pulse"
-                        : "border-blue-400 bg-gradient-to-br from-blue-50 to-purple-50 hover:from-blue-100 hover:to-purple-100 shadow-lg hover:shadow-xl hover:scale-105"
+                        : "border-[#B57DFF] bg-gradient-to-br from-purple-50 to-purple-100 hover:from-50 hover:to-purple-100 shadow-lg hover:shadow-xl hover:scale-105"
                     }
                     ${status === "connected" ? "opacity-50" : "cursor-pointer"}
                   `}
@@ -433,7 +433,7 @@ export default function VoiceChat({
           {/* Microphone Icon */}
           <svg
             className={`w-18 h-18 md:w-20 md:h-20 transition-colors duration-300 ${
-              status === "connected" ? "text-red-500" : "text-blue-500"
+              status === "connected" ? "text-red-500" : "text-[#B57DFF]"
             }`}
             fill="none"
             stroke="currentColor"

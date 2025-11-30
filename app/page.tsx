@@ -17,6 +17,7 @@ import Mission from "./components/home/Mission";
 import Banner5 from "./components/home/Banner5";
 import NavbarBanner from "./components/home/Navbar";
 import PricingSection2 from "./components/home/PricingSection2";
+import Footer from "./components/layout/Footer2";
 // import { Conversation } from "./components/chat/Conversation";
 
 export default function Home() {
@@ -52,7 +53,7 @@ export default function Home() {
         <Founder2 />
          {/* Footer */}
         {/* <Footer2/> */}
-        <Footer3/>
+        <Footer/>
 
       </div>
     </>

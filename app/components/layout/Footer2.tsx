@@ -12,16 +12,16 @@ import {
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-[#f6f6fc]  pt-12 pb-6 px-6 md:px-12 lg:px-20">
+    <footer className="w-full bg-[#B57DFF] pt-12 pb-6 px-6 md:px-12 lg:px-20">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* Logo + Info */}
         <div className="items-start flex flex-col">
           <div className="flex items-center gap-2 text-2xl font-bold text-gray-900">
             <Image
-              src="/paw.png" // replace with your logo
+              src="/footer.avif" // replace with your logo
               alt="Vet365 Logo"
-              width={40}
-              height={40}
+              width={30}
+              height={30}
               className="rounded-md"
             />
             VET365.ai
@@ -87,7 +87,7 @@ export default function Footer() {
         {/* Socials */}
         <div className=" items-start flex flex-col">
           <h4 className="font-semibold text-gray-900 mb-4">Follow us</h4>
-          <div className="flex gap-4 text-[#B57DFF] text-xl">
+          <div className="flex gap-4 text-dark text-xl">
             <Link href="https://facebook.com" target="_blank">
               <FaFacebookF />
             </Link>
@@ -108,7 +108,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom Line */}
-      <div className="max-w-7xl mx-auto mt-12 border-t border-gray-200 pt-4 text-center text-gray-600 text-sm">
+      <div className="max-w-7xl mx-auto mt-12 border-t border-black-200 pt-4 text-center text-gray-600 text-sm">
         Vet365.ai © 2025. All rights reserved.
       </div>
     </footer>

@@ -48,7 +48,7 @@ export default function Mission() {
           </p>
 
           <p className="text-[16px] md:text-[18px] leading-relaxed mb-4">
-            Vet365-AI is <strong>built and trained by a real veterinarian</strong>{" "}
+            Vet365.AI is <strong>built and trained by a real veterinarian</strong>{" "}
             using trusted, vet-approved resources.
           </p>
 
@@ -69,13 +69,13 @@ export default function Mission() {
         </div>
 
         {/* Right - Image */}
-        <div className="rounded-3xl overflow-hidden shadow-lg">
+        <div className="rounded-3xl overflow-hidden ">
           <Image
-            src="/mission.avif" // Place your image in /public/dogs.jpg
-            alt="Dogs sitting in sunlight"
+            src="/Bannerimage.png" // Place your image in /public/dogs.jpg
+            alt="Dogs sitting in sunlight" 
             width={800}
             height={600}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain"
             priority
           />
         </div>
