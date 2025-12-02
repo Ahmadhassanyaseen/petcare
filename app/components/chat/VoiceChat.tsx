@@ -478,6 +478,7 @@ export default function VoiceChat({
             </button>
             <MinutesSection
               userId={session?.user?.id || ""}
+              currentMinutes={totalTime}
               onPaymentSuccess={() => {
                 setShowMinutesModal(false);
                 setXeno(!xeno);
