@@ -10,7 +10,7 @@ export default function NavbarBanner() {
 
   return (
     <div className="w-full  ">
-      <header className="bg-[#FFB536] flex justify-between items-center px-4 sm:px-8 lg:px-16 py-3 md:py-4">
+      <header className="bg-[#FFB536] flex justify-between items-center px-4 sm:px-8 lg:px-16 header_nav">
         {/* Logo */}
         <div className="flex items-center space-x-2">
           {/* <span className="text-xl md:text-2xl">🖤</span>

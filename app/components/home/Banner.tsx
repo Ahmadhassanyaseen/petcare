@@ -6,19 +6,18 @@ export default function Banner5() {
   return (
     <section className="w-full font-[Poppins]">
       {/* 🟪 Main Banner */}
-      <main className="min-h-[auto] md:min-h-[630px] bg-[#B57DFF] flex flex-col items-center text-center px-4 sm:px-6 md:px-10 relative overflow-hidden">
+      <main className="main_banner bg-[#B57DFF] flex flex-col items-center text-center px-4 sm:px-6 md:px-10 relative overflow-hidden">
         <h1
-          className={`${syne.variable} font-syne text-[35px] md:text-[80px]  lg:text-[110px] font-extrabold leading-none tracking-tight text-black`}
+          className={`${syne.variable} font-syne banner_heading font-extrabold leading-none tracking-tight text-black mt-2 md:mt-4 `}
           style={{
             lineHeight: "0.9em",
-            marginTop: "20px",
             letterSpacing: "0.7rem",
           }}
         >
           VET365.AI
         </h1>
         <div className="ml-[0x]  md:ml-[120px]  lg:ml-[260px] text-start text-[9.5px] sm:text-base md:text-[16px] lg:text-lg text-black/90 font-medium">
-          <p className="italic ml-[60px] md:ml-[40px] lg:ml-[60px]">
+          <p className="italic ml-[60px] md:ml-[40px] lg:ml-[60px] mt-3 md:mt-6">
             “Is this normal... or a problem?”{" "}
             <span className="not-italic font-semibold">Vet365 AI gets it.</span>
           </p>
@@ -41,17 +40,17 @@ export default function Banner5() {
         </button>
 
         {/* 🐶 Dog Image Section */}
-        <div className="min-h-[210px] md:min-h-[230px] mt-0 w-[80%] sm:w-[70%] md:w-[60%] lg:w-[45%] flex justify-center">
+        <div className="image_container mt-0 w-[80%] sm:w-[70%] md:w-[60%] lg:w-[60%] flex justify-center">
           <Image
             src="/Dog.avif"
             alt="Dog"
             width={720}
             height={518}
             priority
-            className="w-full max-w-[720px] h-full md:h-auto object-contain"
+            className="w-full banner_image  h-full md:h-auto object-contain"
             style={{
               position: "absolute",
-              top: "18%",
+              bottom: "0",
               color: "transparent",
             }}
           />

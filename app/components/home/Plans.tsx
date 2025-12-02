@@ -222,12 +222,12 @@ export default function PricingPlans({
 
   return (
     <section className="w-full bg-[#B57DFF] py-16 px-6" id="plans">
-      <div className="max-w-4xl mx-auto text-center">
+      <div className="max-w-7xl mx-auto text-center">
         {/* Heading */}
         <h2 className="text-[42px] md:text-[64px] font-extrabold leading-tight text-black text-start">
           Choose the Right Plan for <span className="">You & Your Pet</span>
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-6xl w-full mx-auto mt-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full mx-auto mt-6">
           {plans.map((plan) => (
             <div
               key={plan._id}
@@ -235,21 +235,21 @@ export default function PricingPlans({
                 plan.name.toLowerCase().includes("sniff")
                   ? "bg-[#ffb930]"
                   : "bg-[#47e5d2]"
-              } rounded-3xl p-8 md:p-12 text-black shadow-lg flex flex-col justify-between`}
+              } rounded-3xl p-8 md:p-8 text-black shadow-lg flex flex-col justify-between`}
             >
               <div>
                 <h2 className="text-[24px] md:text-[28px] font-extrabold mb-2 ">
                   {plan.name}
                 </h2>
-                <div className="border-b border-black w-70 mb-6"></div>
+                <div className="border-b border-black w-80 mb-3 mx-auto"></div>
 
                 <div
-                  className="text-[16px] md:text-[18px] leading-relaxed mb-4"
+                  className="text-[16px] md:text-[18px] leading-relaxed mb-3 px-5"
                   dangerouslySetInnerHTML={{ __html: plan.description }}
                 />
-                <div className="border-b border-black w-70 mb-6"></div>
+                <div className="border-b border-black w-80 mb-3 mx-auto"></div>
 
-                <ul className="space-y-2 text-[16px] md:text-[18px] leading-relaxed mt-4">
+                <ul className="space-y-2 text-[16px] md:text-[18px] leading-relaxed mt-4 px-5">
                   {plan.features.map((feature: string, index: number) => (
                     <li
                       key={index}

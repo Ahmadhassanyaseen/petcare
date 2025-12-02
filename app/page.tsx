@@ -15,9 +15,10 @@ export default function Home() {
         className="font-sans text-gray-800 min-h-screen bg-white"
         style={{ overflowX: "hidden" }}
       >
+       <div className="relative min-h-screen max-h-screen bg-[#B57DFF]">
         <NavbarBanner />
         <Banner />
-
+       </div> 
         <Mission />
 
         <Plans />

@@ -8,6 +8,7 @@
 body,
 html {
   scroll-behavior: smooth;
+  background-color: #B57DFF;
 }
 
 @theme inline {
@@ -29,6 +30,7 @@ body {
   /* background: var(--background); */
   /* color: var(--foreground); */
   font-family: Arial, Helvetica, sans-serif;
+   background-color: #B57DFF;
 }
 
 /* Animation delay classes for recording rings */
@@ -57,3 +59,161 @@ h2 {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.main_banner{
+  min-height: auto;
+}
+
+.image_container{
+  min-height: 300px;
+}
+.banner_image{
+  max-width: 900px;
+}
+.banner_heading{
+  font-size: 35px;
+}
+.header_nav{
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+}
+
+@media (min-width: 576px)  {
+.main_banner{
+  min-height: auto;
+}
+
+.image_container{
+  min-height: 300px;
+}
+.banner_image{
+  max-width: 900px;
+}
+}
+@media (min-width: 768px)  { 
+.main_banner{
+  height: auto;
+}
+
+.image_container{
+  min-height: 300px;
+}
+.banner_image{
+  max-width: 900px;
+}
+.banner_heading{
+  font-size: 80px;
+}
+
+}
+@media (min-width: 1024px) { 
+  .main_banner{
+    height: 500px;
+  }
+
+  .image_container{
+    min-height: 200px;
+  }
+  .banner_image{
+    max-width: 400px;
+  }
+  .banner_heading{
+    font-size: 80px;
+  }
+
+}
+
+@media (min-width: 1366px) {
+.main_banner{
+  height: 500px;
+}
+
+.image_container{
+  min-height: 230px;
+}
+.banner_image{
+  max-width: 500px;
+}
+.banner_heading{
+  font-size: 90px;
+}
+
+}
+@media (min-width: 1400px) {
+.main_banner{
+    height: 520px;
+}
+
+.image_container{
+  min-height: 230px;
+}
+.banner_image{
+  max-width: 500px;
+}
+.banner_heading{
+  font-size: 95px;
+}
+.header_nav{
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+}
+}
+@media (min-width: 1500px) {
+.main_banner{
+    height: 580px;
+}
+
+.image_container{
+  min-height: 230px;
+}
+.banner_image{
+  max-width: 600px;
+}
+.banner_heading{
+  font-size: 110px;
+}
+.header_nav{
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+}
+@media (min-width: 1600px) {
+.main_banner{
+    height: 605px;
+}
+
+.image_container{
+  min-height: 250px;
+}
+.banner_image{
+  max-width: 660px;
+}
+.header_nav{
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
+}
+}
+@media (min-width: 1700px) {
+.main_banner{
+    height: 642px;
+}
+
+.image_container{
+  min-height: 270px;
+}
+.banner_image{
+  max-width: 730px;
+}
+}
+@media (min-width: 1920px) { 
+.main_banner{
+  min-height: 735px;
+}
+
+.image_container{
+  min-height: 300px;
+}
+.banner_image{
+  max-width: 900px;
+}
+ }

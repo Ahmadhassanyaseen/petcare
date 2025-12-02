@@ -12,7 +12,7 @@ export default function Founder() {
       className={`${barlow.variable} font-barlow bg-[#B57DFF] min-h-screen w-full px-6 md:px-16 py-5 text-black flex flex-col items-center`}
     >
       {/* Heading */}
-      <div className="text-center max-w-4xl mb-5">
+      <div className="text-center max-w-5xl mb-5">
         <h1 className="font-extrabold text-[40px] md:text-[64px] leading-tight tracking-tight text-black">
           Meet the Heart Behind VET365.AI
         </h1>
