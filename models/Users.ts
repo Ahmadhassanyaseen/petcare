@@ -12,6 +12,7 @@ export interface IUser extends Document {
   renew?: boolean; // True if subscription will renew
   subscription_date?: Date; // Subscription plan
   subscription_amount?: number; // Subscription plan
+  role?: "user" | "admin";
   createdAt: Date;
   updatedAt: Date;
 }
@@ -28,6 +29,7 @@ const UserSchema = new Schema<IUser>(
     renew: { type: Boolean, default: true },
     subscription_date: { type: Date },
     subscription_amount: { type: Number},
+    role: { type: String, enum: ["user", "admin"], default: "user" },
   },
   { timestamps: true }
 );

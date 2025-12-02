@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongoose";
 import User from "@/models/Users";
+import { auth } from "@/lib/auth";
 
 export async function GET(
   req: NextRequest,
@@ -13,6 +14,14 @@ export async function GET(
       return NextResponse.json(
         { error: "User ID is required" },
         { status: 400 }
+      );
+    }
+
+    const session = await auth();
+    if (!session || session.user?.id !== userId) {
+      return NextResponse.json(
+        { error: "Unauthorized" },
+        { status: 401 }
       );
     }
 

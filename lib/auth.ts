@@ -19,6 +19,8 @@ export const authConfig: NextAuthConfig = {
 
         try {
           await connectToDatabase();
+          console.log("AUTH MODEL PATHS:", Object.keys(User.schema.paths));
+
           
           const user = await User.findOne({ 
             email: (credentials.email as string).toLowerCase() 
@@ -37,10 +39,14 @@ export const authConfig: NextAuthConfig = {
             throw new Error("Invalid password");
           }
 
+          console.log("Authorize returned role:", user.role);
+
+// console.log(user);
           return {
             id: user._id.toString(),
             email: user.email,
             name: user.name,
+            role: user.role,
             total_time: user.total_time,
             profileImage: user.profileImage,
             stripeCustomerId: user.stripeCustomerId,
@@ -57,16 +63,34 @@ export const authConfig: NextAuthConfig = {
   ],
   callbacks: {
     async jwt({ token, user }) {
+
+     console.log("JWT callback — role:", token.role, "user:", user);
+
       if (user && user.id) {
-        token.id = user.id;
-        token.email = user.email;
-        token.name = user.name;
-        token.total_time = user.total_time;
-        token.profileImage = user.profileImage;
-        token.stripeCustomerId = user.stripeCustomerId;
-        token.renew = user.renew;
-        token.subscription_date = user.subscription_date;
-        token.subscription_amount = user.subscription_amount;
+        // token.id = user.id;
+        // token.email = user.email;
+        // token.name = user.name;
+        // token.role = user.role;
+        // token.total_time = user.total_time;
+        // token.profileImage = user.profileImage;
+        // token.stripeCustomerId = user.stripeCustomerId;
+        // token.renew = user.renew;
+        // token.subscription_date = user.subscription_date;
+        // token.subscription_amount = user.subscription_amount;
+
+              return {
+            ...token,
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            role: user.role ?? token.role,
+            total_time: user.total_time,
+            profileImage: user.profileImage,
+            stripeCustomerId: user.stripeCustomerId,
+            renew: user.renew,
+            subscription_date: user.subscription_date,
+            subscription_amount: user.subscription_amount,
+          };
       }
       return token;
     },
@@ -75,6 +99,7 @@ export const authConfig: NextAuthConfig = {
         session.user.id = token.id;
         session.user.email = token.email as string;
         session.user.name = token.name as string;
+        session.user.role = token.role as "user" | "admin";
         session.user.total_time = token.total_time;
         session.user.profileImage = token.profileImage;
         session.user.stripeCustomerId = token.stripeCustomerId;

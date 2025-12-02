@@ -17,16 +17,10 @@ const stripePromise = loadStripe(
 interface PaymentModalProps {
   isOpen: boolean;
   onClose: () => void;
-  plan: "basic" | "premium" | "professional" | null;
+  plan: any;
   userId: string;
   onPaymentSuccess?: () => void;
 }
-
-const PLAN_DETAILS = {
-  basic: { name: "Basic", price: "$9.99/month" },
-  premium: { name: "Premium", price: "$19.99/month" },
-  professional: { name: "Professional", price: "$29.99/month" },
-};
 
 const CardForm = ({
   plan,
@@ -40,7 +34,7 @@ const CardForm = ({
   setSelectedPaymentMethod,
   onPaymentSuccess,
 }: {
-  plan: string;
+  plan: any;
   userId: string;
   onClose: () => void;
   clientSecret: string;
@@ -132,13 +126,6 @@ const CardForm = ({
       }
 
       if (paymentIntent && paymentIntent.status === "succeeded") {
-        let total_time = "";
-        if (plan === "basic") {
-          total_time = "30";
-        } else if (plan === "premium") {
-          total_time = "90";
-        }
-
         // Process the successful payment
         const response = await fetch("/api/payments/checkout", {
           method: "POST",
@@ -146,7 +133,7 @@ const CardForm = ({
           body: JSON.stringify({
             paymentIntentId: paymentIntent.id,
             userId,
-            total_time,
+            planId: plan._id, // Send plan ID for reference
           }),
         });
 
@@ -313,9 +300,7 @@ const CardForm = ({
           className="px-6 py-3 rounded-lg bg-gradient-to-r from-[#B57DFF] to-[#ff8a1e] text-white font-semibold hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           disabled={loading || (!useNewCard && !selectedPaymentMethod)}
         >
-          {loading
-            ? "Processing..."
-            : `Pay ${PLAN_DETAILS[plan as keyof typeof PLAN_DETAILS]?.price}`}
+          {loading ? "Processing..." : `Pay $${(plan.price / 100).toFixed(2)}`}
         </button>
       </div>
     </form>
@@ -336,21 +321,11 @@ export default function PaymentModal({
   const [selectedPaymentMethod, setSelectedPaymentMethod] =
     useState<string>("");
   const [loadingPaymentMethods, setLoadingPaymentMethods] = useState(false);
-  const [currentPlan, setCurrentPlan] = useState<string>("");
+  const [currentPlan, setCurrentPlan] = useState<any>(null);
 
   // Redirect to login if userId is empty
   useEffect(() => {
     if (isOpen && (!userId || userId.trim() === "")) {
-      // alert("Please log in to make a payment");
-      // Swal.fire({
-      //   icon: "info",
-      //   title: "Welcome to PetCare!",
-      //   text: "Create an account to make a payment",
-      //   timer: 2000,
-      //   showConfirmButton: false,
-      //   showCloseButton: false,
-
-      // });
       router.push("/signup");
       onClose();
       return;
@@ -364,7 +339,7 @@ export default function PaymentModal({
       fetch("/api/payments/create-payment-intent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ plan, userId }),
+        body: JSON.stringify({ plan: plan._id, userId }), // Send plan ID
       })
         .then((res) => res.json())
         .then((data) => {
@@ -419,11 +394,10 @@ export default function PaymentModal({
     <div className="fixed inset-0 bg-black/50 z-50 p-4 flex justify-center items-center w-full h-full">
       <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full">
         <div className="text-center mb-6">
-          <h2 className="text-2xl font-bold mb-2">
-            Subscribe to {PLAN_DETAILS[plan as keyof typeof PLAN_DETAILS]?.name}
-          </h2>
+          <h2 className="text-2xl font-bold mb-2">Subscribe to {plan.name}</h2>
           <p className="text-gray-600">
-            {PLAN_DETAILS[plan as keyof typeof PLAN_DETAILS]?.price} per month
+            ${(plan.price / 100).toFixed(2)}/
+            {plan.interval === "month" ? "month" : "year"}
           </p>
         </div>
 

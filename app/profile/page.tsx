@@ -476,7 +476,7 @@ export default function ProfilePage() {
                       </div>
                     </div>
                     <Link
-                      href="/transections"
+                      href="/transactions"
                       className="w-full flex items-center justify-center px-4 py-3 text-sm font-medium text-white bg-gradient-to-r from-[#B57DFF] to-[#B57DFF] rounded-lg shadow hover:from-[#ff5a2b] hover:to-[#B57DFF] transition-all duration-200 transform hover:scale-105"
                     >
                       <BsPlus className="w-4 h-4 mr-2" />

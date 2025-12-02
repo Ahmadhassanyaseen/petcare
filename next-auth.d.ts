@@ -13,6 +13,7 @@ declare module "next-auth" {
       renew?: boolean;
       subscription_date?: Date;
       subscription_amount?: number;
+      role?: "user" | "admin";
     } & DefaultSession["user"];
   }
 
@@ -23,6 +24,7 @@ declare module "next-auth" {
     renew?: boolean;
     subscription_date?: Date;
     subscription_amount?: number;
+    role?: "user" | "admin";
   }
 }
 
@@ -35,5 +37,6 @@ declare module "next-auth/jwt" {
     renew?: boolean;
     subscription_date?: Date;
     subscription_amount?: number;
+    role?: "user" | "admin";
   }
 }

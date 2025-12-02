@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import Chat from "@/models/Chat";
 import { connectToDatabase } from "@/lib/mongoose";
+import { auth } from "@/lib/auth";
 // import { IMessage } from "@/types";
 
 export async function POST(request: Request) {
@@ -23,6 +24,14 @@ export async function POST(request: Request) {
       return NextResponse.json(
         { error: "Role must be either 'user' or 'assistant'" },
         { status: 400 }
+      );
+    }
+
+    const session = await auth();
+    if (!session || session.user?.id !== userId) {
+      return NextResponse.json(
+        { error: "Unauthorized" },
+        { status: 401 }
       );
     }
 

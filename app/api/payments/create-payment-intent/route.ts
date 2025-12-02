@@ -2,22 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { connectToDatabase } from "@/lib/mongoose";
 import User from "@/models/Users";
+import Plan from "@/models/Plan";
+import MinutePackage from "@/models/MinutePackage";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2025-11-17.clover",
 });
-
-const MINUTES_PRICES = {
-  "20": 499, // $4.99 for 20 minutes
-  "40": 999, // $9.99 for 40 minutes
-  "60": 1499, // $14.99 for 60 minutes
-};
-
-const PLAN_PRICES = {
-  basic: 999, // $9.99
-  premium: 1999, // $19.99
-  professional: 2999, // $29.99
-};
 
 export async function POST(req: NextRequest) {
   try {
@@ -26,26 +16,48 @@ export async function POST(req: NextRequest) {
     let amount = 0;
     let metadata: any = { userId };
 
+    await connectToDatabase();
+
     if (minutes) {
-      if (!MINUTES_PRICES[minutes as keyof typeof MINUTES_PRICES]) {
+      const pkg = await MinutePackage.findOne({ minutes: parseInt(minutes), isActive: true });
+      if (!pkg) {
         return NextResponse.json(
           { error: "Invalid minutes package selected" },
           { status: 400 }
         );
       }
-      amount = MINUTES_PRICES[minutes as keyof typeof MINUTES_PRICES];
+      amount = pkg.price;
       metadata.type = "minutes";
       metadata.minutes = minutes.toString();
     } else if (plan) {
-      if (!PLAN_PRICES[plan as keyof typeof PLAN_PRICES]) {
+      // plan can be the plan ID or plan name, let's assume it's the plan object or ID passed from frontend
+      // The frontend passes the plan object, but let's check what it sends.
+      // Plans.tsx sends `plan` which is the whole object. But PaymentModal receives `plan` which is the object.
+      // PaymentModal calls this API. Let's check PaymentModal.
+      // Assuming PaymentModal sends `plan` as the plan ID or we need to adjust PaymentModal.
+      // Actually, looking at Plans.tsx, it passes `plan` object to PaymentModal.
+      // PaymentModal.tsx likely sends `plan.name` or `plan._id`.
+      // Let's assume for now we look up by ID if it's an ID, or name.
+      
+      // If plan is an object (which it shouldn't be in JSON body unless stringified), it's likely the ID or Name.
+      // Let's assume it's the ID for robustness, but we need to verify PaymentModal.
+      
+      // For now, let's try to find by ID first, then Name.
+      let planDoc = await Plan.findOne({ _id: plan, isActive: true });
+      if (!planDoc) {
+         planDoc = await Plan.findOne({ name: plan, isActive: true });
+      }
+
+      if (!planDoc) {
         return NextResponse.json(
           { error: "Invalid plan selected" },
           { status: 400 }
         );
       }
-      amount = PLAN_PRICES[plan as keyof typeof PLAN_PRICES];
+      amount = planDoc.price;
       metadata.type = "subscription";
-      metadata.plan = plan;
+      metadata.plan = planDoc.name;
+      metadata.planId = planDoc._id.toString();
     } else {
       return NextResponse.json(
         { error: "Either minutes or plan must be selected" },
@@ -59,8 +71,6 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
-
-    await connectToDatabase();
 
     // Get user and check if they already have a Stripe customer ID
     const user = await User.findById(userId);

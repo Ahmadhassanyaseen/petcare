@@ -39,10 +39,12 @@ export async function POST(req: NextRequest) {
     }
 
     const plan = paymentIntent.metadata?.plan;
+    const minutes = paymentIntent.metadata?.minutes;
     const amount = paymentIntent.amount;
     const customerId = paymentIntent.customer as string;
 
-    if (!plan || !amount) {
+    // Validate that we have either plan or minutes
+    if (!amount || (!plan && !minutes)) {
       return NextResponse.json(
         { error: "Invalid payment intent" },
         { status: 400 }
@@ -61,7 +63,7 @@ export async function POST(req: NextRequest) {
     // Create transaction record
     const transaction = await Transaction.create({
       userId,
-      plan,
+      plan: plan || "minute_package",
       amount,
       currency: "usd",
       stripePaymentIntentId: paymentIntent.id,
@@ -75,7 +77,24 @@ export async function POST(req: NextRequest) {
         { status: 404 }
       );
     }
-    user.total_time = (user.total_time || 0) + parseInt(total_time);
+
+    let minutesToAdd = 0;
+    if (total_time) {
+      // Direct minutes from request (for minute packages)
+      minutesToAdd = parseInt(total_time);
+    } else if (minutes) {
+      // Minutes from payment intent metadata
+      minutesToAdd = parseInt(minutes);
+    } else if (plan) {
+      // If no total_time or minutes provided but plan exists, fetch plan minutes
+      const Plan = (await import("@/models/Plan")).default;
+      const planDoc = await Plan.findOne({ name: plan });
+      if (planDoc) {
+        minutesToAdd = planDoc.minutes || 0;
+      }
+    }
+
+    user.total_time = (user.total_time || 0) + minutesToAdd;
     await user.save();
 
     if (paymentIntent.status === "succeeded") {
@@ -160,6 +179,7 @@ export async function POST(req: NextRequest) {
       paymentIntentId: paymentIntent.id,
       status: paymentIntent.status,
       transactionId: transaction._id,
+      minutesAdded: minutesToAdd,
     });
 
   } catch (error: any) {

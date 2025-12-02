@@ -16,34 +16,16 @@ const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 );
 
-interface MinutesPaymentModalProps {
+interface PackagesPaymentModalProps {
   isOpen: boolean;
   onClose: () => void;
-  minutes: "20" | "40" | "60" | null;
+  pkg: any;
   userId: string;
   onPaymentSuccess?: () => void;
 }
 
-const MINUTES_PACKAGES = {
-  "20": {
-    minutes: 20,
-    price: "$4.99",
-    description: "Perfect for quick consultations",
-  },
-  "40": {
-    minutes: 40,
-    price: "$9.99",
-    description: "Great for detailed discussions",
-  },
-  "60": {
-    minutes: 60,
-    price: "$14.99",
-    description: "Best value for comprehensive care",
-  },
-};
-
 const CardForm = ({
-  minutes,
+  pkg,
   userId,
   onClose,
   clientSecret,
@@ -54,7 +36,7 @@ const CardForm = ({
   selectedPaymentMethod,
   setSelectedPaymentMethod,
 }: {
-  minutes: string;
+  pkg: any;
   userId: string;
   onClose: () => void;
   clientSecret: string;
@@ -130,12 +112,6 @@ const CardForm = ({
           return;
         }
 
-        console.log("Payment confirmation successful:", {
-          paymentIntentId: pi?.id,
-          status: pi?.status,
-          paymentMethod: pi?.payment_method,
-        });
-
         paymentIntent = pi;
       } else {
         // Confirm the payment intent with saved payment method
@@ -154,12 +130,13 @@ const CardForm = ({
 
       if (paymentIntent && paymentIntent.status === "succeeded") {
         // Process the successful payment
-        const response = await fetch("/api/minutes/purchased", {
+        const response = await fetch("/api/payments/checkout", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             paymentIntentId: paymentIntent.id,
             userId,
+            total_time: pkg.minutes.toString(), // Pass minutes to add
           }),
         });
 
@@ -198,9 +175,6 @@ const CardForm = ({
       setLoading(false);
     }
   };
-
-  const packageInfo =
-    MINUTES_PACKAGES[minutes as keyof typeof MINUTES_PACKAGES];
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -341,7 +315,7 @@ const CardForm = ({
           className="px-6 py-3 rounded-lg bg-gradient-to-r from-[#B57DFF] to-[#ff8a1e] text-white font-semibold hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           disabled={loading || (!useNewCard && !selectedPaymentMethod)}
         >
-          {loading ? "Processing..." : `Pay ${packageInfo?.price}`}
+          {loading ? "Processing..." : `Pay $${(pkg.price / 100).toFixed(2)}`}
         </button>
       </div>
     </form>
@@ -351,10 +325,10 @@ const CardForm = ({
 export default function PackagesPaymentModal({
   isOpen,
   onClose,
-  minutes,
+  pkg,
   userId,
   onPaymentSuccess,
-}: MinutesPaymentModalProps) {
+}: PackagesPaymentModalProps) {
   const router = useRouter();
   const [clientSecret, setClientSecret] = useState("");
   const [paymentMethods, setPaymentMethods] = useState<any[]>([]);
@@ -375,11 +349,11 @@ export default function PackagesPaymentModal({
 
   useEffect(() => {
     // Create PaymentIntent as soon as the modal opens
-    if (isOpen && minutes && userId && userId.trim() !== "") {
+    if (isOpen && pkg && userId && userId.trim() !== "") {
       fetch("/api/payments/create-payment-intent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ minutes, userId }),
+        body: JSON.stringify({ minutes: pkg.minutes.toString(), userId }), // Pass minutes as string
       })
         .then((res) => res.json())
         .then((data) => {
@@ -389,31 +363,19 @@ export default function PackagesPaymentModal({
         })
         .catch((err) => console.error("Failed to create payment intent:", err));
     }
-  }, [isOpen, minutes, userId]);
+  }, [isOpen, pkg, userId]);
 
   // Fetch payment methods when modal opens
   useEffect(() => {
     if (isOpen && userId && userId.trim() !== "") {
       setLoadingPaymentMethods(true);
-      console.log("Fetching payment methods for userId:", userId);
       fetch("/api/payments/get-payment-methods", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId }),
       })
-        .then((res) => {
-          console.log("Response status:", res.status);
-          console.log(
-            "Response headers:",
-            Object.fromEntries(res.headers.entries())
-          );
-          return res.json();
-        })
+        .then((res) => res.json())
         .then((data) => {
-          console.log(
-            "Full payment methods response:",
-            JSON.stringify(data, null, 2)
-          );
           if (data.paymentMethods) {
             setPaymentMethods(data.paymentMethods);
             if (data.paymentMethods.length > 0) {
@@ -422,18 +384,13 @@ export default function PackagesPaymentModal({
             } else {
               setUseNewCard(true);
             }
-          } else {
-            console.log("No paymentMethods property in response");
           }
         })
-        .catch((err) => {
-          console.error("Failed to fetch payment methods:", err);
-        })
+        .catch((err) => console.error("Failed to fetch payment methods:", err))
         .finally(() => setLoadingPaymentMethods(false));
     }
   }, [isOpen, userId]);
 
-  // Memoize options to prevent unnecessary re-renders - must be before early return
   const options: StripeElementsOptions = {
     clientSecret,
     appearance: {
@@ -444,10 +401,7 @@ export default function PackagesPaymentModal({
 
   const memoizedOptions = useMemo(() => options, [clientSecret]);
 
-  if (!isOpen || !minutes) return null;
-
-  const packageInfo =
-    MINUTES_PACKAGES[minutes as keyof typeof MINUTES_PACKAGES];
+  if (!isOpen || !pkg) return null;
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
@@ -464,17 +418,15 @@ export default function PackagesPaymentModal({
           <div className="w-16 h-16 mx-auto mb-4 bg-purple-100 rounded-full flex items-center justify-center">
             <BsClock className="w-8 h-8 text-[#B57DFF]" />
           </div>
-          <h2 className="text-2xl font-bold mb-2">
-            Add {packageInfo?.minutes} Minutes
-          </h2>
-          <p className="text-gray-600 mb-2">{packageInfo?.price}</p>
-          <p className="text-sm text-gray-500">{packageInfo?.description}</p>
+          <h2 className="text-2xl font-bold mb-2">Add {pkg.minutes} Minutes</h2>
+          <p className="text-gray-600 mb-2">${(pkg.price / 100).toFixed(2)}</p>
+          <p className="text-sm text-gray-500">{pkg.description}</p>
         </div>
 
         {clientSecret ? (
           <Elements options={memoizedOptions} stripe={stripePromise}>
             <CardForm
-              minutes={minutes}
+              pkg={pkg}
               userId={userId}
               onClose={onClose}
               clientSecret={clientSecret}
