@@ -1,0 +1,120 @@
+// app/components/Footer.tsx
+"use client";
+import Link from "next/link";
+import Image from "next/image";
+import {
+  FaFacebookF,
+  FaXTwitter,
+  FaLinkedinIn,
+  FaYoutube,
+  FaInstagram,
+} from "react-icons/fa6";
+
+export default function Footer() {
+  return (
+    <footer className="w-full bg-[#B57DFF] pt-12 pb-6 px-6 md:px-12 lg:px-20">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+        {/* Logo + Info */}
+        <div className="items-start flex flex-col">
+          <div className="flex items-center gap-2 text-2xl font-bold text-gray-900">
+            <Image
+              src="/footer.avif" // replace with your logo
+              alt="Vet365 Logo"
+              width={30}
+              height={30}
+              className="rounded-md"
+            />
+            VET365.ai
+          </div>
+          <p className="mt-4 text-gray-600 text-sm leading-relaxed">
+            Available anytime on your phone or computer, it checks if foods,
+            chemicals, or plants are dangerous, guides you in emergencies, and
+            finds the nearest emergency vet fast.
+          </p>
+          {/* <button className="mt-6 bg-purple-500 hover:bg-purple-600 text-white px-6 py-3 rounded-4xl text-sm font-semibold flex items-center gap-3 transition">
+            Request a Demo
+            <span className="relative w-6 h-6 flex items-center justify-center">
+              
+              <Image
+                src="/Ellipse.png" // replace with your circle image
+                alt="Circle"
+                width={24}
+                height={24}
+                className="absolute"
+              />
+             
+              <Image
+                src="/Arrow.png" // replace with your arrow image
+                alt="Arrow"
+                width={12}
+                height={12}
+                className="relative"
+              />
+            </span>
+          </button> */}
+        </div>
+
+        {/* General Links */}
+        <div className="pl-0 md:pl-16 items-start flex flex-col">
+          <h4 className="font-semibold text-gray-900 mb-4">General Links</h4>
+          <ul className="space-y-2 text-sm text-gray-700 w-[104px]">
+            <li>
+              <Link href="#home">Home</Link>
+            </li>
+            <li>
+              <Link href="#work">How it works</Link>
+            </li>
+            <li>
+              <Link href="#about">About Us</Link>
+            </li>
+            {/* <li>
+              <Link href="/contact">Contact Us</Link>
+            </li> */}
+          </ul>
+        </div>
+
+        {/* Legal */}
+        <div className=" items-start flex flex-col">
+          <h4 className="font-semibold text-gray-900 mb-4 w-[104px]">Legal</h4>
+          <ul className="space-y-2 text-sm text-gray-700 w-[104px]">
+            <li>
+              <Link href="/privacy-policy.docx" target="_blank">
+                Privacy Policy
+              </Link>
+            </li>
+            <li>
+              <Link href="#terms">Terms & Conditions</Link>
+            </li>
+          </ul>
+        </div>
+
+        {/* Socials */}
+        <div className=" items-start flex flex-col">
+          <h4 className="font-semibold text-gray-900 mb-4">Follow us</h4>
+          <div className="flex gap-4 text-dark text-xl">
+            <Link href="https://facebook.com" target="_blank">
+              <FaFacebookF />
+            </Link>
+            <Link href="https://twitter.com" target="_blank">
+              <FaXTwitter />
+            </Link>
+            <Link href="https://linkedin.com" target="_blank">
+              <FaLinkedinIn />
+            </Link>
+            <Link href="https://youtube.com" target="_blank">
+              <FaYoutube />
+            </Link>
+            <Link href="https://instagram.com" target="_blank">
+              <FaInstagram />
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom Line */}
+      <div className="max-w-7xl mx-auto mt-12 border-t border-black-200 pt-4 text-center text-gray-600 text-sm">
+        Vet365.ai © 2025. All rights reserved.
+      </div>
+    </footer>
+  );
+}
