@@ -12,6 +12,8 @@ import { useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import ChatMenu from "../components/chat/ChatMenu";
 import PaymentModal from "../components/payment/PaymentModal";
+import PackagesModal from "../components/payment/Packages";
+import Packages from "../components/payment/Packages";
 
 export default function ProfilePage() {
   const { data: session, status } = useSession();
@@ -23,6 +25,8 @@ export default function ProfilePage() {
   const [latestSubscription, setLatestSubscription] = useState<any>(null);
   const [loadingSubscription, setLoadingSubscription] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showMinutesModal, setShowMinutesModal] = useState(false);
+  const [xeno, setXeno] = useState<any>(false);
   const [remainingMinutes, setRemainingMinutes] = useState(0);
   const [selectedPlan, setSelectedPlan] = useState<
     "basic" | "premium" | "professional" | null
@@ -57,7 +61,7 @@ export default function ProfilePage() {
       fetchRemainingMinutes(session.user.id);
       fetchProfileImage(session.user.id);
     }
-  }, [status, session]);
+  }, [status, session, xeno]);
 
   const fetchLatestSubscription = async (userId: string) => {
     setLoadingSubscription(true);
@@ -475,13 +479,14 @@ export default function ProfilePage() {
                         </div>
                       </div>
                     </div>
-                    <Link
-                      href="/transactions"
+                    <button
+                      // href="/transactions"
+                      onClick={() => setShowMinutesModal(true)}
                       className="w-full flex items-center justify-center px-4 py-3 text-sm font-medium text-white bg-gradient-to-r from-[#B57DFF] to-[#B57DFF] rounded-lg shadow hover:from-[#ff5a2b] hover:to-[#B57DFF] transition-all duration-200 transform hover:scale-105"
                     >
                       <BsPlus className="w-4 h-4 mr-2" />
                       Add More Minutes
-                    </Link>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -573,9 +578,8 @@ export default function ProfilePage() {
                           </div>
                           <div>
                             <p className="text-sm font-medium text-slate-900">
-                              {latestSubscription.plan === "basic"
-                                ? "Basic Plan"
-                                : "Premium Plan"}
+                              {latestSubscription.planDetails?.name ||
+                                latestSubscription.plan}
                             </p>
                             <p className="text-xs text-slate-600">
                               {formatDate(latestSubscription.createdAt)}
@@ -587,9 +591,9 @@ export default function ProfilePage() {
                             ${(latestSubscription.amount / 100).toFixed(2)}
                             <br />
                             <p className="text-xs text-slate-600">
-                              {latestSubscription.plan === "basic"
-                                ? "30 Minutes Talk Time"
-                                : "90 Minutes Talk Time"}
+                              {latestSubscription.planDetails?.minutes
+                                ? `${latestSubscription.planDetails.minutes} Minutes Talk Time`
+                                : "Talk Time Included"}
                             </p>
                           </p>
                         </div>
@@ -598,33 +602,6 @@ export default function ProfilePage() {
                   </div>
                 </div>
               </div>
-              {latestSubscription && latestSubscription.plan === "basic" && (
-                <div className="relative rounded-2xl border border-white/30 bg-white/10 backdrop-blur-xl shadow overflow-hidden">
-                  <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-orange-400/40 via-orange-600/70 to-orange-400/40" />
-                  <div className="p-6">
-                    <h3 className="text-2xl font-semibold text-slate-900 mb-4">
-                      Upgrade Your Account
-                    </h3>
-                    <div>
-                      <p className="text-lg font-bold text-slate-900 mb-2">
-                        Premium Plan
-                      </p>
-                      <p className="text-md text-slate-600 ">
-                        $0.22 cents per minute
-                      </p>
-                      <p className="text-md text-slate-600">
-                        90 Minutes Talk Time
-                      </p>
-                      <button
-                        className="w-full mt-2 flex items-center justify-center px-4 py-3 text-lg font-medium text-white bg-gradient-to-r from-[#B57DFF] to-[#B57DFF] rounded-lg shadow hover:from-[#ff5a2b] hover:to-[#B57DFF] transition-all duration-200 transform hover:scale-105 cursor-pointer"
-                        onClick={() => openModal("premium")}
-                      >
-                        Upgrade Now
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              )}
 
               {/* Account Actions */}
               <div className="relative rounded-2xl border border-white/30 bg-white/10 backdrop-blur-xl shadow overflow-hidden">
@@ -689,6 +666,41 @@ export default function ProfilePage() {
         userId={session?.user?.id || ""}
         onPaymentSuccess={onPaymentSuccess}
       />
+
+      {showMinutesModal && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black/80 z-50">
+          <div className="relative">
+            {/* Close button */}
+            <button
+              onClick={() => setShowMinutesModal(false)}
+              className="absolute -top-2 -right-2 z-10 bg-red-500 hover:bg-red-600 rounded-full p-2 text-white transition-colors"
+              title="Close"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+            <Packages
+              userId={session?.user?.id || ""}
+              currentMinutes={remainingMinutes}
+              onPaymentSuccess={() => {
+                setShowMinutesModal(false);
+                setXeno(!xeno);
+              }}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

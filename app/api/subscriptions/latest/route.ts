@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongoose";
 import Transaction, { ITransaction } from "@/models/Transaction";
+import Plan from "@/models/Plan";
 
 export async function GET(req: NextRequest) {
   try {
@@ -16,10 +17,14 @@ export async function GET(req: NextRequest) {
 
     await connectToDatabase();
 
-    // Find the latest transaction with plan = "basic" or "premium"
+    // Fetch all active plan names from the database
+    const activePlans = await Plan.find({ isActive: true }).select('name');
+    const planNames = activePlans.map(plan => plan.name);
+
+    // Find the latest transaction with any active plan
     const latestSubscription = await Transaction.findOne({
       userId: userId,
-      plan: { $in: ["basic", "premium"] },
+      plan: { $in: planNames },
       status: "completed"
     }).sort({ createdAt: -1 }) as ITransaction | null; // Sort by createdAt descending to get the latest
 
@@ -30,6 +35,9 @@ export async function GET(req: NextRequest) {
       });
     }
 
+    // Fetch the plan details for the subscription
+    const planDetails = await Plan.findOne({ name: latestSubscription.plan });
+
     return NextResponse.json({
       subscription: {
         id: (latestSubscription as any)._id.toString(),
@@ -39,7 +47,15 @@ export async function GET(req: NextRequest) {
         currency: latestSubscription.currency,
         status: latestSubscription.status,
         createdAt: latestSubscription.createdAt,
-        updatedAt: latestSubscription.updatedAt
+        updatedAt: latestSubscription.updatedAt,
+        planDetails: planDetails ? {
+          name: planDetails.name,
+          minutes: planDetails.minutes,
+          price: planDetails.price,
+          interval: planDetails.interval,
+          description: planDetails.description,
+          features: planDetails.features
+        } : null
       }
     });
 
