@@ -3,19 +3,19 @@ import Image from "next/image";
 
 export default function Mission() {
   return (
-    <main className="min-h-screen bg-[#B57DFF] flex flex-col justify-center px-6 md:px-16 py-16">
+    <main className="min-h-screen bg-[#B57DFF] flex flex-col justify-center px-6 py-6 md:px-16 lg:py-16">
       {/* Heading */}
       <div className="mb-10 text-left  max-w-7xl w-full mx-auto">
-        <h1 className="text-[42px] md:text-[64px] font-extrabold leading-tight text-black">
+        <h1 className="text-[30px] md:text-[60px] font-extrabold leading-tight text-black">
           Built by a Vet, <br className="hidden md:block" />
           Designed for You.
         </h1>
       </div>
 
       {/* Mission Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 max-w-7xl w-full mx-auto">
+      <div className="flex flex-col-reverse xl:flex-row gap-3 max-w-7xl w-full mx-auto">
         {/* Left - Mission Text */}
-        <div className="bg-[#ffb930] rounded-3xl p-8 md:p-12 text-black flex flex-col justify-center shadow-lg">
+        <div className="bg-[#ffb930] rounded-3xl p-8 md:p-12 text-black flex flex-col justify-center shadow-lg xl:w-1/2">
           <h2 className="text-[22px] md:text-[26px] font-extrabold mb-4 border-b border-black inline-block">
             Our Mission
           </h2>
@@ -72,7 +72,7 @@ export default function Mission() {
         </div>
 
         {/* Right - Image */}
-        <div className="rounded-3xl overflow-hidden ">
+        <div className="rounded-3xl overflow-hidden xl:w-1/2 ">
           <Image
             src="/Bannerimage.png" // Place your image in /public/dogs.jpg
             alt="Dogs sitting in sunlight"

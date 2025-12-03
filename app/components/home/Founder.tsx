@@ -13,7 +13,7 @@ export default function Founder() {
     >
       {/* Heading */}
       <div className="text-center max-w-5xl mb-5">
-        <h1 className="font-extrabold text-[40px] md:text-[64px] leading-tight tracking-tight text-black">
+        <h1 className="font-extrabold text-[30px] md:text-[60px] leading-tight tracking-tight text-black">
           Meet the Heart Behind VET365.AI
         </h1>
         <p className="text-[20px] md:text-[22px] font-semibold italic mt-2">
@@ -28,7 +28,7 @@ export default function Founder() {
       </p>
 
       {/* Image + Paragraphs */}
-      <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 items-start lg:gap-0">
+      <div className="max-w-6xl w-full flex flex-col lg:flex-row items-center justify-center lg:gap-0">
         {/* Left - Image */}
         <div className="flex justify-center lg:justify-end">
           <Image
@@ -36,7 +36,7 @@ export default function Founder() {
             alt="Dr. Alexis Kole with her dog"
             width={390}
             height={600}
-            className="object-cover h-auto max-w-md"
+            className="object-contain rounded-xl h-auto max-w-md my-4"
             priority
           />
         </div>

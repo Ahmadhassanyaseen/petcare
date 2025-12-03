@@ -221,10 +221,10 @@ export default function PricingPlans({
   if (loading) return <div className="text-center py-20">Loading plans...</div>;
 
   return (
-    <section className="w-full bg-[#B57DFF] py-16 px-6" id="plans">
+    <section className="w-full bg-[#B57DFF] py-6 md:py-16 px-6" id="plans">
       <div className="max-w-7xl mx-auto text-center">
         {/* Heading */}
-        <h2 className="text-[42px] md:text-[64px] font-extrabold leading-tight text-black text-start">
+        <h2 className="text-[30px] md:text-[60px] font-extrabold leading-tight text-black text-start">
           Choose the Right Plan for <span className="">You & Your Pet</span>
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full mx-auto mt-6">
