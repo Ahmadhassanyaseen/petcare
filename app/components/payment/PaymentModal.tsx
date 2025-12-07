@@ -326,7 +326,7 @@ export default function PaymentModal({
   // Redirect to login if userId is empty
   useEffect(() => {
     if (isOpen && (!userId || userId.trim() === "")) {
-      router.push("/signup");
+      router.push("/register");
       onClose();
       return;
     }

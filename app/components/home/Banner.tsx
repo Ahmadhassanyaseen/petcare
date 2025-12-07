@@ -61,7 +61,9 @@ export default function Banner5() {
           />
         </div>
         {/* 🟦 Scrolling Text Section */}
-        <div className="bg-[rgb(31,237,222)] py-2 overflow-hidden border-t border-black/10 w-full">
+       
+      </main>
+       <div className="bg-[rgb(31,237,222)] py-2 overflow-hidden border-t border-black/10 w-full">
           <motion.div
             className="whitespace-nowrap font-extrabold text-[1.4rem] sm:text-[1.7rem] md:text-[1.3rem] lg:text-[1.5rem] flex items-center gap-8"
             animate={{ x: ["0%", "-50%"] }}
@@ -82,7 +84,6 @@ export default function Banner5() {
               ))}
           </motion.div>
         </div>
-      </main>
     </section>
   );
 }

@@ -12,7 +12,7 @@ export default function Founder() {
       className={`${barlow.variable} font-barlow bg-[#B57DFF] min-h-screen w-full px-6 md:px-16 py-5 text-black flex flex-col items-center`}
     >
       {/* Heading */}
-      <div className="text-center max-w-5xl mb-5">
+      <div className="text-center max-w-5xl mb-2">
         <h1 className="font-extrabold text-[30px] md:text-[60px] leading-tight tracking-tight text-black">
           Meet the Heart Behind VET365.AI
         </h1>
@@ -22,7 +22,7 @@ export default function Founder() {
       </div>
 
       {/* Intro (above image) */}
-      <p className="text-center text-[16px] md:text-[15px] leading-relaxed max-w-2xl mb-3">
+      <p className="text-center text-[16px] md:text-[15px] leading-relaxed max-w-2xl mb-0">
         Hi, I’m <strong>Dr. Kole</strong> — veterinarian, lifelong animal lover,
         and the human heart behind Vet365.AI.
       </p>
@@ -30,13 +30,13 @@ export default function Founder() {
       {/* Image + Paragraphs */}
       <div className="max-w-6xl w-full flex flex-col lg:flex-row items-center justify-center lg:gap-0">
         {/* Left - Image */}
-        <div className="flex justify-center lg:justify-end">
+        <div className="w-full lg:w-1/2 flex justify-center lg:justify-end">
           <Image
             src="/founder.avif"
-            alt="Dr. Alexis Kole with her dog"
+            alt="Dr. Alexis Kole with her dog "
             width={390}
             height={600}
-            className="object-contain rounded-xl h-auto max-w-md my-4"
+            className="object-contain rounded-xl h-auto max-w-md my-4 max-h-[500px]"
             priority
           />
         </div>
@@ -85,7 +85,7 @@ export default function Founder() {
       </div>
 
       {/* Closing Text */}
-      <p className="text-center text-[16px] md:text-[15px] leading-relaxed mt-4 max-w-3xl">
+      <p className="text-center text-[16px] md:text-[15px] leading-relaxed mt-0 max-w-3xl">
         Through my guidance and Kora’s carefully refined expertise, you get
         answers you can truly trust — empowering you to act with confidence,
         care, and peace of mind for your beloved pets every step of the way.
