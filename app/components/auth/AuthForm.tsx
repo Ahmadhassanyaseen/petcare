@@ -74,11 +74,18 @@ export default function AuthForm({ mode = "login" }: { mode?: Mode }) {
       className="max-w-md mx-auto bg-white shadow rounded-lg p-6 space-y-4 border border-gray-100"
     >
       <h1 className="text-2xl font-bold text-slate-900">
-        {mode === "signup" ? "Create account" : "Welcome back"}
+       {mode === "signup" ? "Create account" : "Welcome back"}
       </h1>
+
+      {mode !== "signup" && (
+      <p className="text-md text-slate-900 mb-0">
+       Kora's been sitting.. and staying... just for you
+      </p>
+    )}
+      
       <p className="text-sm text-slate-600">
         {mode === "signup"
-          ? "Sign up with your email and a password."
+          ? "Sign up with your email and a password." 
           : "Log in to your account."}
       </p>
       {mode === "signup" && (
