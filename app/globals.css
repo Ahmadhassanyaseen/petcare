@@ -80,7 +80,7 @@ h2 {
   height: 122%;
 }
 .banner_heading {
-  font-size: clamp(30px, 6vw, 120px);
+  font-size: clamp(30px, 7vw, 120px);
 }
 .header_nav {
   padding-top: 0.5rem;
@@ -124,40 +124,37 @@ h2 {
   } */
 }
 @media (min-width: 1400px) {
-   .banner_image {
+  .banner_image {
     height: 160%;
-   }
-   .main_banner {
+  }
+  .main_banner {
     max-height: 93vh;
-   }
+  }
 }
 @media (min-width: 1500px) {
-   .banner_image {
+  .banner_image {
     height: 180%;
-   }
+  }
 }
 @media (min-width: 1800px) {
   .banner_image {
-        height: 226%;
-        
+    height: 226%;
   }
   .main_banner {
     max-height: 94vh;
-   }
+  }
 }
 @media (min-width: 2200px) {
-   .banner_image {
-        height: 300%;
-        
+  .banner_image {
+    height: 300%;
   }
   .main_banner {
     max-height: 96vh;
-   }
+  }
 }
 @media (min-width: 3000px) {
   .banner_image {
     height: 500%;
-        
   }
   .main_banner {
     max-height: 97vh;
@@ -176,7 +173,6 @@ h2 {
     min-height: clamp(250px, 50vh, 400px);
   } */
 }
-
 
 .clip-star {
   clip-path: polygon(

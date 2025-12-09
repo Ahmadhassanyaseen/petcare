@@ -9,7 +9,8 @@ const barlow = Barlow({
 export default function Founder() {
   return (
     <section
-      className={`${barlow.variable} font-barlow bg-[#B57DFF] min-h-screen w-full px-6 md:px-16 py-5 text-black flex flex-col items-center`}>
+      className={`${barlow.variable} font-barlow bg-[#B57DFF] min-h-screen w-full px-6 md:px-16 py-5 text-black flex flex-col items-center`}
+    >
       {/* Heading */}
       <div className="text-center max-w-5xl mb-2">
         <h1 className="font-extrabold text-[30px] md:text-[60px] leading-tight tracking-tight text-black">
@@ -27,7 +28,7 @@ export default function Founder() {
       </p>
 
       {/* Image + Paragraphs */}
-      <div className="max-w-6xl w-full flex flex-col lg:flex-row items-center justify-center lg:gap-0">
+      <div className="max-w-6xl w-full flex flex-col lg:flex-row items-center justify-center lg:gap-2">
         {/* Left - Image */}
         <div className="w-full lg:w-1/2 flex justify-center lg:justify-end">
           <Image
@@ -35,13 +36,13 @@ export default function Founder() {
             alt="Dr. Alexis Kole with her dog "
             width={390}
             height={600}
-            className="object-contain rounded-xl h-auto max-w-md my-4 max-h-[500px]"
+            className="object-cover object-top  h-auto max-w-md my-4 max-h-[500px]"
             priority
           />
         </div>
 
         {/* Right - Text */}
-        <div className="text-[16px] md:text-[15px] leading-relaxed lg:pl-3">
+        <div className="text-[16px] md:text-[15px] leading-relaxed lg:pl-1">
           <p className="mb-4">
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For nearly seven years, I’ve cared for
             pets in emergencies, urgent situations, and everyday life, always
