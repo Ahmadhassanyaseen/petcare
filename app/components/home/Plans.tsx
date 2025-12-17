@@ -227,34 +227,34 @@ export default function PricingPlans({
         <h2 className="text-[30px] md:text-[60px] font-extrabold leading-tight text-black text-start">
           Choose the Right Plan for <span className="">You & Your Pet</span>
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full mx-auto mt-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 w-full mx-auto mt-6">
           {plans.map((plan) => (
             <div
               key={plan._id}
-              className={`${plan.name.toLowerCase().includes("sniff")
+              className={`${
+                plan.name.toLowerCase().includes("sniff")
                   ? "bg-[#ffb930]"
                   : "bg-[#47e5d2]"
-                } rounded-3xl p-8 md:p-8 text-black shadow-lg flex flex-col justify-between relative`}
+              } rounded-3xl p-8 md:p-8 text-black shadow-lg flex flex-col justify-between relative`}
             >
-             {plan?.name?.toLowerCase().includes("solver") && (
-  <div
-    style={{
-      clipPath:
-        "polygon(50% 0%, 61% 25%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 25%)",
-    }}
-    className="absolute left-[1%] bottom-[1%] w-40 h-40 bg-yellow-400 text-center text-black font-bold rotate-[20deg] clip-star flex items-center justify-center p-2"
-  >
-    <div className="-rotate-[20deg] leading-tight">
-      Welcome
-      <br />
-      Wag
-      <br />
-      $4.99
-    </div>
-  </div>
-)}
+              {plan?.name?.toLowerCase().includes("solver") && (
+                <div
+                  style={{
+                    clipPath:
+                      "polygon(50% 0%, 61% 25%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 25%)",
+                  }}
+                  className="absolute left-[1%] bottom-[1%] w-40 h-40 bg-yellow-400 text-center text-black font-bold rotate-[20deg] clip-star flex items-center justify-center p-2"
+                >
+                  <div className="-rotate-[20deg] leading-tight">
+                    Welcome
+                    <br />
+                    Wag
+                    <br />
+                    $4.99
+                  </div>
+                </div>
+              )}
 
-              
               <div>
                 <h2 className="text-[24px] md:text-[28px] font-extrabold mb-2 ">
                   {plan.name}

@@ -14,9 +14,11 @@ import ChatMenu from "../components/chat/ChatMenu";
 import PaymentModal from "../components/payment/PaymentModal";
 import PackagesModal from "../components/payment/Packages";
 import Packages from "../components/payment/Packages";
+import Plans from "@/app/components/home/Plans";
 
 export default function ProfilePage() {
   const { data: session, status } = useSession();
+  const [showPlansModal, setShowPlansModal] = useState(false);
   const [paymentMethods, setPaymentMethods] = useState<any[]>([]);
   const [loadingPaymentMethods, setLoadingPaymentMethods] = useState(false);
   const [updatingRenewal, setUpdatingRenewal] = useState(false);
@@ -623,13 +625,13 @@ export default function ProfilePage() {
                       </Link>
                     ) : (
                       // If latestSubscription is falsy (your 'else' block)
-                      <Link
-                        href="/#plans"
+                      <button
+                        onClick={() => setShowPlansModal(true)}
                         className="w-full flex items-center justify-center px-4 py-3 text-sm font-medium text-white bg-gradient-to-r from-[#B57DFF] to-[#B57DFF] rounded-lg shadow hover:from-[#ff5a2b] hover:to-[#B57DFF] transition-all duration-200 transform hover:scale-105"
                       >
                         <BsCreditCard className="w-4 h-4 mr-2" />
                         Buy a Plan Now
-                      </Link>
+                      </button>
                     )}
                     {/* <form action="/api/auth/logout" method="post" className="w-full"> */}
                     <button
@@ -695,6 +697,43 @@ export default function ProfilePage() {
               currentMinutes={remainingMinutes}
               onPaymentSuccess={() => {
                 setShowMinutesModal(false);
+                setXeno(!xeno);
+              }}
+            />
+          </div>
+        </div>
+      )}
+
+      {showPlansModal && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black/80 z-50">
+          <div className="relative">
+            {/* Close button */}
+            <button
+              onClick={() => setShowPlansModal(false)}
+              className="absolute -top-2 -right-2 z-10 bg-red-500 hover:bg-red-600 rounded-full p-2 text-white transition-colors"
+              title="Close"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+            {/* <MinutesSection
+                    userId={parsedUserData?.id}
+                    onPaymentSuccess={() => {setShowMinutesModal(false); setXeno(!xeno);}}
+                  /> */}
+            <Plans
+              onPaymentSuccess={() => {
+                setShowPlansModal(false);
                 setXeno(!xeno);
               }}
             />

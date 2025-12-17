@@ -66,9 +66,12 @@ export default function Mission() {
             It’s like having your vet’s brain on call, 24/7 💙
           </p>
 
-          <button className="bg-black text-white px-6 py-3 rounded-full font-semibold text-[16px] w-fit hover:bg-gray-900 transition">
+          <a
+            href="#plans"
+            className="bg-black text-white px-6 py-3 rounded-full font-semibold text-[16px] w-fit hover:bg-gray-900 transition"
+          >
             Unleash Answers
-          </button>
+          </a>
         </div>
 
         {/* Right - Image */}
