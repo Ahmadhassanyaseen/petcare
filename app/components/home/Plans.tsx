@@ -185,11 +185,14 @@ const CardForm = ({
 
 interface PricingPlansProps {
   onPaymentSuccess?: () => void;
+  showDescription?: boolean | undefined;
 }
 
-export default function PricingPlans({
-  onPaymentSuccess,
-}: PricingPlansProps = {}) {
+export default function PricingPlans(
+  { onPaymentSuccess, showDescription }: PricingPlansProps = {
+    showDescription: true,
+  }
+) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<any>(null);
   const { data: session } = useSession();
@@ -262,19 +265,20 @@ export default function PricingPlans({
                 <div className="border-b border-black w-80 mb-3 mx-auto"></div>
 
                 <div
-                  className="text-[16px] md:text-[18px] leading-relaxed mb-3 px-5"
+                  className="text-[16px]  leading-relaxed mb-3 px-5"
                   dangerouslySetInnerHTML={{ __html: plan.description }}
                 />
                 <div className="border-b border-black w-80 mb-3 mx-auto"></div>
-
-                <ul className="space-y-2 text-[16px] md:text-[18px] leading-relaxed mt-4 px-5">
-                  {plan.features.map((feature: string, index: number) => (
-                    <li
-                      key={index}
-                      dangerouslySetInnerHTML={{ __html: feature }}
-                    />
-                  ))}
-                </ul>
+                {showDescription != false && (
+                  <ul className="space-y-2 text-[16px]  leading-relaxed mt-4 px-5">
+                    {plan.features.map((feature: string, index: number) => (
+                      <li
+                        key={index}
+                        dangerouslySetInnerHTML={{ __html: feature }}
+                      />
+                    ))}
+                  </ul>
+                )}
               </div>
 
               <div className="mt-8">

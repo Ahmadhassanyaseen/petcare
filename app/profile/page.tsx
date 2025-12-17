@@ -732,6 +732,7 @@ export default function ProfilePage() {
                     onPaymentSuccess={() => {setShowMinutesModal(false); setXeno(!xeno);}}
                   /> */}
             <Plans
+              showDescription={false}
               onPaymentSuccess={() => {
                 setShowPlansModal(false);
                 setXeno(!xeno);
